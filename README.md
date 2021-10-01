@@ -1,5 +1,5 @@
-# MERN Boilerplate
-Simple boilerplate for MERN stack application.
+# Vaccation
+Flight booking database system for ICT2103.
 
 # Tech Stack (MERN)
 **Frontend:** ReactJS  
