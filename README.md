@@ -4,7 +4,7 @@ Flight booking database system for ICT2103.
 # Tech Stack
 **Client:** ReactJS  
 **Server:** NodeJS, ExpressJS  
-**Database:** MySQL / MongoDB  
+**Database:** MySQL, MongoDB  
 
 ## Project Setup
 Create .env file and enter necessary configurations (follow keys in .env.example)
