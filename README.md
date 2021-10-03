@@ -1,5 +1,5 @@
 # Vaccation
-Flight booking database system for ICT2103.
+Flight booking database system for ICT2103. This web application allows users to view and book a flight in times of Covid. It also serves as a portal to view Covid-19 related information of each country such as vaccination rates, Covid restrictions as well as PCR testing clinics available.
 
 # Tech Stack (MERN + MySQL)
 **Frontend:** ReactJS  
