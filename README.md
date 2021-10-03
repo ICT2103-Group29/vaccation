@@ -1,10 +1,10 @@
 # Vaccation
 Flight booking database system for ICT2103.
 
-# Tech Stack (MERN)
+# Tech Stack (MERN + MySQL)
 **Frontend:** ReactJS  
 **Backend:** NodeJS, ExpressJS  
-**Database:** MongoDB  
+**Database:** MongoDB, MySQL  
 
 ## Project Setup
 Create .env file and enter necessary configurations (follow keys in .env.example)
