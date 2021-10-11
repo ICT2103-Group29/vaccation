@@ -53,6 +53,31 @@ routes - routing for each request call
 
 utils - useful code to use throughout the application
 
+## GIT Workflow
+### Setup branch
+1. Create local branch ```git checkout -b <branchname>```
+2. Push new local branch to github ```git push -u origin <branchname>```
+
+### Normal flow
+(Make sure you are in your own branch)  
+Do the following when you finish coding:
+1. Stage your codes ```git add .```
+2. Double check if the files are the ones that you modified ```git status```
+3. Commit the files and add a message ```git commit -m 'Some message'```
+4. Push changes to your branch ```git push```
+
+
+### Merging to main
+1. Make sure your branch has the updated codes from main ```git pull origin main```
+2. Push all updates to your own branch ```git push```
+3. Create a pull request in Github
+4. Make sure there is no conflicts (merge button is green)
+5. Click merge
+
+### Notes
+- Commit regularly and keep your commits small
+- Make sure your code is working before merging to main branch
+- You can tag a commit to a Github issue by typing #issueNo into your commit message (e.g. '#15 Setup connection')
 ## Naming Conventions
 variables/function names: camelCase  
 component/model names: PascalCase
