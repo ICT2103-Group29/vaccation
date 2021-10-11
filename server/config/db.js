@@ -1,13 +1,28 @@
-const mongoose = require("mongoose");
+const { MongoClient } = require("mongodb");
+const mysql = require("mysql");
 
-const connectDB = async () => {
+const connectMySQLDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
+    db = mysql.createConnection({
+      host: process.env.MYSQL_HOST,
+      user: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE,
     });
+    console.log("MySQL Connected...");
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+};
+
+const connectMongoDB = async () => {
+  try {
+    const client = new MongoClient(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    await client.connect();
 
     console.log("MongoDB Connected...");
   } catch (err) {
@@ -16,4 +31,7 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+module.exports = {
+  connectMySQLDB,
+  connectMongoDB,
+};

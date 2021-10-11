@@ -9,13 +9,14 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const path = require("path");
 
-const connectDB = require("./config/db");
+const db = require("./config/db");
 
 const app = express();
 dotenv.config({ path: "../.env" });
 
 // DB Connection
-connectDB();
+db.connectMySQLDB();
+// db.connectMongoDB();
 
 // Log api requests to file
 const accessLogStream = fs.createWriteStream(
