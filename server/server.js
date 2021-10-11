@@ -14,8 +14,6 @@ const db = require("./config/db");
 const app = express();
 dotenv.config({ path: "../.env" });
 
-// My code here
-
 // DB Connection
 db.connectMySQLDB();
 // db.connectMongoDB();
