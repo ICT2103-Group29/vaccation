@@ -10,16 +10,23 @@ const insertCountries = async (connection) => {
     .on("end", () => {
       csvData.shift(); // Remove header row
 
-      let query = "INSERT INTO Country (countryName, isoCode) VALUES ?";
-      connection.query(query, [csvData], (err, result) => {
-        if (err) {
-          console.log(
-            `Error inserting data into Country table: ${err?.sqlMessage}`
-          );
-        } else {
-          console.log(
-            `Successfully inserted ${result?.affectedRows} rows into Country table...`
-          );
+      // Check if there are any records in Table
+      connection.query("SELECT * FROM Country LIMIT 1", (err, result) => {
+        // Insert records if table is empty
+        if (result.length === 0) {
+          // Bulk insert into table
+          let query = "INSERT INTO Country (countryName, isoCode) VALUES ?";
+          connection.query(query, [csvData], (err, result) => {
+            if (err) {
+              console.log(
+                `Error inserting data into Country table: ${err?.sqlMessage}`
+              );
+            } else {
+              console.log(
+                `Successfully inserted ${result?.affectedRows} rows into Country table...`
+              );
+            }
+          });
         }
       });
     });

@@ -17,7 +17,14 @@ dotenv.config({ path: "../.env" });
 
 seedData();
 // DB Connection
-// db.connectMySQLDB();
+db.connectMySQLDB().getConnection((err, connection) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log("MySQL connected...");
+  }
+  connection.release();
+});
 // db.connectMongoDB();
 
 // Log api requests to file
