@@ -10,12 +10,14 @@ const swaggerUi = require("swagger-ui-express");
 const path = require("path");
 
 const db = require("./config/db");
+const seedData = require("./dataseeder");
 
 const app = express();
 dotenv.config({ path: "../.env" });
 
+seedData();
 // DB Connection
-db.connectMySQLDB();
+// db.connectMySQLDB();
 // db.connectMongoDB();
 
 // Log api requests to file
