@@ -6,9 +6,10 @@ const getCSVData = (path) => {
   return new Promise((resolve, reject) => {
     const csvData = [];
     fs.createReadStream(path)
-      .pipe(fastcsv.parse({ headers: true }))
+      .pipe(fastcsv.parse())
       .on("data", (data) => csvData.push(data))
       .on("end", () => {
+        csvData.shift();
         resolve(csvData);
       });
   });
@@ -20,6 +21,7 @@ const insertCountries = (connection) => {
     // Insert records if table is empty
     if (result.length === 0) {
       const data = await getCSVData("./datasets/countries.csv");
+
       const query = "INSERT INTO Country (countryName, isoCode) VALUES ?";
       // Execute query to insert data into db
       connection.query(query, [data], (err, result) => {
@@ -42,6 +44,7 @@ const insertCountryVaccinations = (connection) => {
       // Insert records if table is empty
       if (result.length === 0) {
         const data = await getCSVData("./datasets/country_vaccinations.csv");
+        console.log(data);
         const query =
           "INSERT INTO CountryVaccinated (isoCode, totalFullyVaccinated, totalVaccinated, vaccinatedPercent) VALUES ?";
         // Execute query to insert data into db

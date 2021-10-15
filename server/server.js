@@ -15,7 +15,6 @@ const seedData = require("./dataseeder");
 const app = express();
 dotenv.config({ path: "../.env" });
 
-seedData();
 // DB Connection
 db.connectMySQLDB().getConnection((err, connection) => {
   if (err) {
@@ -25,6 +24,7 @@ db.connectMySQLDB().getConnection((err, connection) => {
   }
   connection.release();
 });
+seedData();
 // db.connectMongoDB();
 
 // Log api requests to file
@@ -42,7 +42,7 @@ app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 app.use(helmet());
 app.use(morgan("combined", { stream: accessLogStream }));
 
-// Swagger UI
+// TODO Swagger UI
 
 // Default route
 app.get("/", (req, res) => res.send("API Running..."));
