@@ -1,29 +1,23 @@
+require("dotenv").config({ path: "../.env" });
+
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const sql = require("./config/mysql");
 const express = require("express");
-const dotenv = require("dotenv");
 const fs = require("fs");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const path = require("path");
-
-const db = require("./config/db");
 const seedData = require("./dataseeder");
+const path = require("path");
+const { CLIENT_URL, PORT } = require("./config");
+
+const countryRoute = require("./routes/country");
 
 const app = express();
-dotenv.config({ path: "../.env" });
 
 // DB Connection
-db.connectMySQLDB().getConnection((err, connection) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log("MySQL connected...");
-  }
-  connection.release();
-});
 seedData();
 // db.connectMongoDB();
 
@@ -38,18 +32,33 @@ app.set("trust proxy", 1);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
+app.use(cors({ credentials: true, origin: CLIENT_URL }));
 app.use(helmet());
 app.use(morgan("combined", { stream: accessLogStream }));
 
-// TODO Swagger UI
+// Swagger config
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Vaccation API",
+      description: "Vaccation API Information",
+    },
+    servers: [
+      {
+        url: "http://localhost:5000",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+const specs = swaggerJSDoc(options);
 
 // Default route
 app.get("/", (req, res) => res.send("API Running..."));
 
 // Custom routes
-
-// Port config
-const PORT = process.env.PORT || 5000;
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/api/countries", countryRoute);
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
