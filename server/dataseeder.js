@@ -17,19 +17,19 @@ const getCSVData = (path) => {
 
 const insertCountries = (connection) => {
   // Check if there are any records in Table
-  connection.query("SELECT * FROM Country LIMIT 1", async (err, result) => {
+  connection.query("SELECT * FROM country LIMIT 1", async (err, result) => {
     // Insert records if table is empty
     if (result.length === 0) {
       const data = await getCSVData("./datasets/countries.csv");
 
-      const query = "INSERT INTO Country (countryName, isoCode) VALUES ?";
+      const query = "INSERT INTO country (country_name, iso) VALUES ?";
       // Execute query to insert data into db
       connection.query(query, [data], (err, result) => {
         if (err) {
           console.error(`Error: ${err?.sqlMessage}`);
         } else {
           console.log(
-            `Successfully inserted ${result?.affectedRows} rows into Country table...`
+            `Successfully inserted ${result?.affectedRows} rows into country table...`
           );
         }
       });
@@ -66,8 +66,9 @@ const seedData = () => {
   const db = sql();
   db.getConnection(async (err, connection) => {
     try {
-      insertCountries(connection);
-      insertCountryVaccinations(connection);
+      // console.log(await getCSVData("./datasets/travel_restrictions.csv"));
+      // insertCountries(connection);
+      // insertCountryVaccinations(connection);
     } catch (err) {
       console.error(err);
     } finally {
