@@ -51,8 +51,6 @@ middleware - middleware such as api authorization and rate limiter modules
 
 models - models for each class
 
-queries - sql query commands
-
 routes - routing for each request call
 
 utils - useful code to use throughout the application
