@@ -1,14 +1,4 @@
 const { MongoClient } = require("mongodb");
-const mysql = require("mysql");
-
-const connectMySQLDB = () =>
-  mysql.createPool({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-    port: 3306,
-  });
 
 const connectMongoDB = async () => {
   try {
@@ -25,7 +15,4 @@ const connectMongoDB = async () => {
   }
 };
 
-module.exports = {
-  connectMySQLDB,
-  connectMongoDB,
-};
+module.exports = connectMongoDB;
