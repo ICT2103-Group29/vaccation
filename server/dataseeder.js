@@ -98,7 +98,11 @@ const insertTravelRestrictions = () => {
           ) {
             return;
           }
-          cleaned_data.push([item[1], item[2].trim(), item[3].trim()]);
+          cleaned_data.push([
+            item[1],
+            item[2].replace(/\s+/g, " ").trim(),
+            item[3].replace(/\s+/g, " ").trim(),
+          ]);
         });
 
         sql.query(query.INSERT_COUNTRYRES, [cleaned_data], (err, result) => {
