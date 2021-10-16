@@ -80,23 +80,38 @@ const insertTravelRestrictions = (connection) => {
     // Insert records if table is empty
     if (result.length === 0) {
       const data = await getCSVData("./datasets/travel_restrictions.csv");
+      const cleaned_data = [];
+      data.forEach((item) => {
+        if (
+          item[1].length === 0 ||
+          item[2].length === 0 ||
+          item[3].length === 0
+        ) {
+          return;
+        }
+        cleaned_data.push([item[1], item[2], item[3]]);
+      });
       // Execute query to insert data into db
-      // connection.query(query.INSERT_PCRCLINIC, [data], (err, result) => {
-      //   if (err) {
-      //     console.error(`Error: ${err?.sqlMessage}`);
-      //   } else {
-      //     console.log(
-      //       `Successfully inserted ${result?.affectedRows} rows into pcr_clinic table...`
-      //     );
-      //   }
-      // });
+      connection.query(
+        query.INSERT_COUNTRYRES,
+        [cleaned_data],
+        (err, result) => {
+          if (err) {
+            console.error(`Error: ${err?.sqlMessage}`);
+          } else {
+            console.log(
+              `Successfully inserted ${result?.affectedRows} rows into country_restriction table...`
+            );
+          }
+        }
+      );
     }
   });
 };
 
 const seedData = () => {
   const db = sql();
-  db.getConnection(async (err, connection) => {
+  db.getConnection((err, connection) => {
     try {
       insertCountries(connection);
       insertCountryVaccinations(connection);
