@@ -1,5 +1,6 @@
 const fs = require("fs");
 const fastcsv = require("fast-csv");
+const query = require("./queries/dataseeder");
 const { connectMySQLDB: sql } = require("./config/db");
 
 const getCSVData = (path) => {
@@ -17,14 +18,13 @@ const getCSVData = (path) => {
 
 const insertCountries = (connection) => {
   // Check if there are any records in Table
-  connection.query("SELECT * FROM country LIMIT 1", async (err, result) => {
+  connection.query(query.SELECT_COUNTRY_TOP1, async (err, result) => {
     // Insert records if table is empty
     if (result.length === 0) {
       const data = await getCSVData("./datasets/countries.csv");
 
-      const query = "INSERT INTO country (country_name, iso) VALUES ?";
       // Execute query to insert data into db
-      connection.query(query, [data], (err, result) => {
+      connection.query(query.INSERT_COUNTRY, [data], (err, result) => {
         if (err) {
           console.error(`Error: ${err?.sqlMessage}`);
         } else {
@@ -38,28 +38,41 @@ const insertCountries = (connection) => {
 };
 
 const insertCountryVaccinations = (connection) => {
-  connection.query(
-    "SELECT * FROM CountryVaccinated LIMIT 1",
-    async (err, result) => {
-      // Insert records if table is empty
-      if (result.length === 0) {
-        const data = await getCSVData("./datasets/country_vaccinations.csv");
-        console.log(data);
-        const query =
-          "INSERT INTO CountryVaccinated (isoCode, totalFullyVaccinated, totalVaccinated, vaccinatedPercent) VALUES ?";
-        // Execute query to insert data into db
-        connection.query(query, [data], (err, result) => {
-          if (err) {
-            console.error(`Error: ${err?.sqlMessage}`);
-          } else {
-            console.log(
-              `Successfully inserted ${result?.affectedRows} rows into CountryVaccinated table...`
-            );
-          }
-        });
-      }
+  connection.query(query.SELECT_COUNTRYVACC_TOP1, async (err, result) => {
+    // Insert records if table is empty
+    if (result.length === 0) {
+      const data = await getCSVData("./datasets/country_vaccinations.csv");
+      // Execute query to insert data into db
+      connection.query(query.INSERT_COUNTRYVACC, [data], (err, result) => {
+        if (err) {
+          console.error(`Error: ${err?.sqlMessage}`);
+        } else {
+          console.log(
+            `Successfully inserted ${result?.affectedRows} rows into country_vaccinated table...`
+          );
+        }
+      });
     }
-  );
+  });
+};
+
+const insertPCRClinics = (connection) => {
+  connection.query(query.SELECT_PCRCLINIC_TOP1, async (err, result) => {
+    // Insert records if table is empty
+    if (result.length === 0) {
+      const data = await getCSVData("./datasets/pcr_clinics.csv");
+      // Execute query to insert data into db
+      connection.query(query.INSERT_PCRCLINIC, [data], (err, result) => {
+        if (err) {
+          console.error(`Error: ${err?.sqlMessage}`);
+        } else {
+          console.log(
+            `Successfully inserted ${result?.affectedRows} rows into pcr_clinic table...`
+          );
+        }
+      });
+    }
+  });
 };
 
 const seedData = () => {
@@ -67,8 +80,9 @@ const seedData = () => {
   db.getConnection(async (err, connection) => {
     try {
       // console.log(await getCSVData("./datasets/travel_restrictions.csv"));
-      // insertCountries(connection);
-      // insertCountryVaccinations(connection);
+      insertCountries(connection);
+      insertCountryVaccinations(connection);
+      insertPCRClinics(connection);
     } catch (err) {
       console.error(err);
     } finally {
