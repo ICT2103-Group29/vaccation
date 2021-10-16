@@ -6,7 +6,17 @@ exports.findAll = (req, res) => {
       console.error(err);
       res.status(500).send("Server error");
     } else {
-      console.log(data);
+      res.json(data);
+    }
+  });
+};
+
+exports.findOne = (req, res) => {
+  Country.findByISO(req.params.iso, (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    } else {
       res.json(data);
     }
   });

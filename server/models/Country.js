@@ -17,4 +17,15 @@ Country.getAll = (result) => {
   });
 };
 
+Country.findByISO = (iso, result) => {
+  sql.query(query.FIND_A_COUNTRY, iso, (err, res) => {
+    if (err) {
+      console.error("error:", err);
+      result(null, err);
+      return;
+    }
+    result(null, res);
+  });
+};
+
 module.exports = Country;
