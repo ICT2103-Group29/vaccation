@@ -45,9 +45,13 @@ constants - store constant variables to be used througout the app
 
 controllers - functions to handle each request  
 
+datasets - contains all dataset csv files
+
 middleware - middleware such as api authorization and rate limiter modules
 
 models - models for each class
+
+queries - sql query commands
 
 routes - routing for each request call
 
