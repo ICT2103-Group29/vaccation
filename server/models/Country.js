@@ -28,4 +28,19 @@ Country.findByISO = (iso, result) => {
   });
 };
 
+Country.search = (search, result) => {
+  sql.query(
+    query.SEARCH_COUNTRY,
+    [`%${search}%`, `%${search}%`],
+    (err, res) => {
+      if (err) {
+        console.error("error:", err);
+        result(null, err);
+        return;
+      }
+      result(null, res);
+    }
+  );
+};
+
 module.exports = Country;

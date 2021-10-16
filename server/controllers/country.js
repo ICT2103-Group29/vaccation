@@ -21,3 +21,14 @@ exports.findOne = (req, res) => {
     }
   });
 };
+
+exports.search = (req, res) => {
+  Country.search(req.body.search, (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    } else {
+      res.json(data);
+    }
+  });
+};

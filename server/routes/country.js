@@ -40,4 +40,29 @@ router.get("/", country.findAll);
  */
 router.get("/:iso", country.findOne);
 
+/**
+ * @swagger
+ * /api/countries/search:
+ *  post:
+ *    summary: Search countries
+ *    tags: [Country]
+ *    requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *              schema:
+ *                type: object
+ *              properties:
+ *                  search:
+ *                      type: string
+ *              example:
+ *                  search: Singapore
+ *    responses:
+ *      '200':
+ *        description: JSON country(s) object
+ *      '500':
+ *        description: Server error
+ */
+router.post("/search", country.search);
+
 module.exports = router;
