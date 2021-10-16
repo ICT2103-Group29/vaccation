@@ -1,6 +1,7 @@
 /* SELECT statements */
 const SELECT_COUNTRY_TOP1 = "SELECT * FROM country LIMIT 1";
 const SELECT_COUNTRYVACC_TOP1 = "SELECT * FROM country_vaccinated LIMIT 1";
+const SELECT_COUNTRYRES_TOP1 = "SELECT * FROM country_restriction LIMIT 1";
 const SELECT_PCRCLINIC_TOP1 = "SELECT * FROM pcr_clinic LIMIT 1";
 
 /* INSERT statements */
@@ -13,6 +14,7 @@ const INSERT_PCRCLINIC =
 module.exports = Object.freeze({
   SELECT_COUNTRY_TOP1,
   SELECT_COUNTRYVACC_TOP1,
+  SELECT_COUNTRYRES_TOP1,
   SELECT_PCRCLINIC_TOP1,
   INSERT_COUNTRY,
   INSERT_COUNTRYVACC,

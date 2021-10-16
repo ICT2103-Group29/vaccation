@@ -1,6 +1,6 @@
 const fs = require("fs");
 const fastcsv = require("fast-csv");
-const query = require("./queries/dataseeder");
+const query = require("./constants/queries/dataseeder");
 const { connectMySQLDB: sql } = require("./config/db");
 
 const getCSVData = (path) => {
@@ -75,14 +75,33 @@ const insertPCRClinics = (connection) => {
   });
 };
 
+const insertTravelRestrictions = (connection) => {
+  connection.query(query.SELECT_COUNTRYRES_TOP1, async (err, result) => {
+    // Insert records if table is empty
+    if (result.length === 0) {
+      const data = await getCSVData("./datasets/travel_restrictions.csv");
+      // Execute query to insert data into db
+      // connection.query(query.INSERT_PCRCLINIC, [data], (err, result) => {
+      //   if (err) {
+      //     console.error(`Error: ${err?.sqlMessage}`);
+      //   } else {
+      //     console.log(
+      //       `Successfully inserted ${result?.affectedRows} rows into pcr_clinic table...`
+      //     );
+      //   }
+      // });
+    }
+  });
+};
+
 const seedData = () => {
   const db = sql();
   db.getConnection(async (err, connection) => {
     try {
-      // console.log(await getCSVData("./datasets/travel_restrictions.csv"));
       insertCountries(connection);
       insertCountryVaccinations(connection);
       insertPCRClinics(connection);
+      insertTravelRestrictions(connection);
     } catch (err) {
       console.error(err);
     } finally {
