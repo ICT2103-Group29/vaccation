@@ -17,7 +17,7 @@ const countryRoute = require("./routes/country");
 
 const app = express();
 
-// DB Connectio
+// DB Connection
 seedData();
 // db.connectMongoDB();
 
@@ -36,12 +36,29 @@ app.use(cors({ credentials: true, origin: CLIENT_URL }));
 app.use(helmet());
 app.use(morgan("combined", { stream: accessLogStream }));
 
-// TODO Swagger UI
+// Swagger config
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Vaccation API",
+      description: "Vaccation API Information",
+    },
+    servers: [
+      {
+        url: "http://localhost:5000",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+const specs = swaggerJSDoc(options);
 
 // Default route
 app.get("/", (req, res) => res.send("API Running..."));
 
 // Custom routes
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/countries", countryRoute);
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
