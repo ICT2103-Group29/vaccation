@@ -43,4 +43,15 @@ Country.search = (search, result) => {
   );
 };
 
+Country.getRestrictions = (iso, result) => {
+  sql.query(query.SELECT_COUNTRY_RESTRICTIONS, iso, (err, res) => {
+    if (err) {
+      console.error("error:", err);
+      result(null, err);
+      return;
+    }
+    result(null, res);
+  });
+};
+
 module.exports = Country;

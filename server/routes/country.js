@@ -42,6 +42,24 @@ router.get("/:iso", country.findOne);
 
 /**
  * @swagger
+ * /api/countries/restrictions/{iso}:
+ *  get:
+ *    summary: Get a country's restrictions based on ISO
+ *    tags: [Country]
+ *    parameters:
+ *      - in: path
+ *        name: iso
+ *        required: true
+ *    responses:
+ *      '200':
+ *        description: JSON country object
+ *      '500':
+ *        description: Server error
+ */
+router.get("/restrictions/:iso", country.getRestrictions);
+
+/**
+ * @swagger
  * /api/countries/search:
  *  post:
  *    summary: Search countries
