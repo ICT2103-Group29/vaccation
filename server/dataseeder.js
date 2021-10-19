@@ -101,7 +101,6 @@ const insertTravelRestrictions = () => {
     // Insert records if table is empty
     if (result.length === 0) {
       const data = await getCSVData("./datasets/travel_restrictions.csv");
-
       // Check for empty values
       const cleaned_data = [];
       data.forEach((item) => {
@@ -138,5 +137,4 @@ const seedData = () => {
     console.error(err);
   }
 };
-
 module.exports = seedData;
