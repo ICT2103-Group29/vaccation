@@ -109,7 +109,11 @@ const getCleanedResData = async () => {
           }
         }
       }
-      tempArr.push(iso, quarantine, covidTest);
+      tempArr.push(
+        iso,
+        quarantine.replace(/\s+/g, " ").trim(),
+        covidTest.replace(/\s+/g, " ").trim()
+      );
       cleanedData.push(tempArr);
     });
     return cleanedData;
