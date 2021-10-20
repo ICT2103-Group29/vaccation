@@ -9,11 +9,11 @@ const sql = require("./config/mysql");
  * @param {string} path to csv file.
  * @returns {Array} csv data
  */
-const getCSVData = (path) => {
+const getCSVData = (path, header) => {
   return new Promise((resolve, reject) => {
     const csvData = [];
     fs.createReadStream(path)
-      .pipe(fastcsv.parse())
+      .pipe(fastcsv.parse({ headers: header }))
       .on("data", (data) => csvData.push(data))
       .on("end", () => {
         csvData.shift();
@@ -32,7 +32,7 @@ const insertCountries = () => {
     sql.query(query.SELECT_COUNTRY_TOP1, async (err, result) => {
       // Insert records if table is empty
       if (result.length === 0) {
-        const data = await getCSVData("./datasets/countries.csv");
+        const data = await getCSVData("./datasets/countries.csv", false);
         sql.query(query.INSERT_COUNTRY, [data], (err, result) => {
           if (err) {
             console.error(`Error: ${err?.sqlMessage}`);
@@ -59,7 +59,10 @@ const insertCountryVaccinations = () => {
     sql.query(query.SELECT_COUNTRYVACC_TOP1, async (err, result) => {
       // Insert records if table is empty
       if (result.length === 0) {
-        const data = await getCSVData("./datasets/country_vaccinations.csv");
+        const data = await getCSVData(
+          "./datasets/country_vaccinations.csv",
+          false
+        );
         sql.query(query.INSERT_COUNTRYVACC, [data], (err, result) => {
           if (err) {
             console.error(`Error: ${err?.sqlMessage}`);
@@ -77,6 +80,45 @@ const insertCountryVaccinations = () => {
 };
 
 /**
+ * Helper function to clean country restriction data
+ *
+ * @returns {Array} cleaned data
+ */
+const getCleanedResData = async () => {
+  try {
+    const data = await getCSVData("./datasets/travel_restrictions.csv", true);
+    let cleanedData = [];
+    let iso, quarantine, covidTest;
+    data.forEach((item) => {
+      iso = "";
+      quarantine = "";
+      covidTest = "";
+      let tempArr = [];
+      for (const key in item) {
+        if (item.hasOwnProperty(key)) {
+          if (key === "ISO") {
+            iso = item[key];
+          }
+
+          if (key.includes("quarantine") && item[key] !== "") {
+            quarantine += `${item[key]}\n`;
+          }
+
+          if (key.includes("covidTest") && item[key] !== "") {
+            covidTest += `${item[key]}\n`;
+          }
+        }
+      }
+      tempArr.push(iso, quarantine, covidTest);
+      cleanedData.push(tempArr);
+    });
+    return cleanedData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
  * Insert travel restriction data from csv into database.
  *
  * Checks if there are any data in the table before insertion.
@@ -86,26 +128,9 @@ const insertTravelRestrictions = () => {
     sql.query(query.SELECT_COUNTRYRES_TOP1, async (err, result) => {
       // Insert records if table is empty
       if (result.length === 0) {
-        const data = await getCSVData("./datasets/travel_restrictions.csv");
+        const data = await getCleanedResData();
 
-        // Check for empty values
-        const cleaned_data = [];
-        data.forEach((item) => {
-          if (
-            item[1].length === 0 ||
-            item[2].length === 0 ||
-            item[3].length === 0
-          ) {
-            return;
-          }
-          cleaned_data.push([
-            item[1],
-            item[2].replace(/\s+/g, " ").trim(),
-            item[3].replace(/\s+/g, " ").trim(),
-          ]);
-        });
-
-        sql.query(query.INSERT_COUNTRYRES, [cleaned_data], (err, result) => {
+        sql.query(query.INSERT_COUNTRYRES, [data], (err, result) => {
           if (err) {
             console.error(`Error: ${err?.sqlMessage}`);
             reject();
