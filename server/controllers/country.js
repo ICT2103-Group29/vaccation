@@ -32,3 +32,14 @@ exports.search = (req, res) => {
     }
   });
 };
+
+exports.getRestrictions = (req, res) => {
+  Country.getRestrictions(req.params.iso, (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Server error");
+    } else {
+      res.json(data);
+    }
+  });
+};

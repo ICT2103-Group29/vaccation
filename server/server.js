@@ -18,6 +18,12 @@ const countryRoute = require("./routes/country");
 const app = express();
 
 // DB Connection
+sql.getConnection((error, connection) => {
+  if (!error) {
+    console.log("MySQL connected...");
+  }
+  connection.release();
+});
 seedData();
 // db.connectMongoDB();
 
