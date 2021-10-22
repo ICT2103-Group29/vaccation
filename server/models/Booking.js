@@ -17,7 +17,7 @@ Booking.createFlightAndBooking = (newFlight, result) => {
   sql.query(query.CREATE_FLIGHT_BOOKING, [param], (err, res) => {
     if (err) {
       console.error("error:", err);
-      result(null, err);
+      result(err, null);
       return;
     }
     result(null, res);
@@ -36,7 +36,7 @@ Booking.createCustomer = (bookingId, newCust, result) => {
   sql.query(query.CREATE_CUSTOMER, [param], (err, res) => {
     if (err) {
       console.error("error:", err);
-      result(null, err);
+      result(err, null);
       return;
     }
     result(null, res);
