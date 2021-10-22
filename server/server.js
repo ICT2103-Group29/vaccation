@@ -14,6 +14,7 @@ const path = require("path");
 const { CLIENT_URL, PORT } = require("./config");
 
 const countryRoute = require("./routes/country");
+const bookingRoute = require("./routes/booking");
 
 const app = express();
 
@@ -66,5 +67,6 @@ app.get("/", (req, res) => res.send("API Running..."));
 // Custom routes
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/countries", countryRoute);
+app.use("/api/bookings", bookingRoute);
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
