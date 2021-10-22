@@ -10,4 +10,6 @@ const router = express.Router();
 
 router.post("/", booking.create);
 
+router.get("/:bookingId", booking.getBookingDetails);
+
 module.exports = router;

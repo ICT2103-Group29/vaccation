@@ -42,4 +42,16 @@ Booking.createCustomer = (bookingId, newCust, result) => {
     result(null, res);
   });
 };
+
+Booking.getDetails = (bookingId, result) => {
+  sql.query(query.SELECT_BOOKING_DETAILS, bookingId, (err, res) => {
+    if (err) {
+      console.error("error:", err);
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  });
+};
+
 module.exports = Booking;

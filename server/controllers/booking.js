@@ -48,3 +48,13 @@ exports.create = (req, res) => {
       .json({ message: `Booking successful. Booking ID is ${bookingId}.` });
   });
 };
+
+exports.getBookingDetails = (req, res) => {
+  Booking.getDetails(req.params.bookingId, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Server error");
+    }
+    res.json(data);
+  });
+};
