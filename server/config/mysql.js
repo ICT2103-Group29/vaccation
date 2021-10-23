@@ -11,6 +11,7 @@ const connection = mysql.createPool({
   user: MYSQL_USER,
   password: MYSQL_PASSWORD,
   database: MYSQL_DATABASE,
+  multipleStatements: true,
 });
 
 module.exports = connection;
