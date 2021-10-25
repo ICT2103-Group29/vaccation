@@ -15,6 +15,8 @@ const { CLIENT_URL, PORT } = require("./config");
 
 const countryRoute = require("./routes/country");
 const bookingRoute = require("./routes/booking");
+const countryVaccRoute = require("./routes/country_vaccinated");
+const pcrClinicRoute = require("./routes/pcr_clinic");
 
 const app = express();
 
@@ -68,5 +70,7 @@ app.get("/", (req, res) => res.send("API Running..."));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/countries", countryRoute);
 app.use("/api/bookings", bookingRoute);
+app.use("/api/countries_vaccinated", countryVaccRoute);
+app.use("/api/pcr_clinics", pcrClinicRoute);
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
