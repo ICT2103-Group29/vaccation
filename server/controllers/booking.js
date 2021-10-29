@@ -55,6 +55,46 @@ exports.getBookingDetails = (req, res) => {
       console.error(err);
       return res.status(500).send("Server error");
     }
-    res.json(data);
+    let cleanedData = {
+      booking: {},
+      flight: {},
+      customers: [],
+    };
+
+    data.map((item) => {
+      if (Object.keys(cleanedData.booking).length === 0) {
+        cleanedData.booking = {
+          bookingId: item.booking_id,
+          bookingDate: item.booking_date,
+        };
+      }
+      if (Object.keys(cleanedData.flight).length === 0) {
+        cleanedData.flight = {
+          airline: item.airline,
+          arrivalTime: item.arrival_time,
+          departureTime: item.departure_time,
+          departureAirport: item.departure_airport,
+          destinationAirport: item.destination_airport,
+          flightDuration: item.flight_duration,
+          flightNumber: item.flight_number,
+          origin: item.origin,
+          destination: item.destination,
+        };
+      }
+      cleanedData.customers.push({
+        userId: item.user_id,
+        firstName: item.first_name,
+        lastName: item.last_name,
+        email: item.email,
+        mobileNumber: item.mobile_number,
+        passportNumber: item.passport,
+        nationality: item.nationality,
+        placeOfIssue: item.place_of_issue,
+        expiryDate: item.expiry_date,
+        dob: item.dob,
+      });
+    });
+
+    res.json(cleanedData);
   });
 };
