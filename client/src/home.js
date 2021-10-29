@@ -3,7 +3,7 @@ import Card from "./components/card";
 import CardGradient from "./components/cardGradient";
 import TableData from "./components/table";
 import Banner from "./components/banner";
-import Footer from "./components/footer";
+import "./assets/font.css";
 
 const cardDetails = [
   { id: 1, name: "Open with Restrictions", data: "200" },
@@ -58,8 +58,6 @@ function Home() {
           ))}
         </div>
       </div>
-
-      <Footer></Footer>
     </div>
   );
 }
