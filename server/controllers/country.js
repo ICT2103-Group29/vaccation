@@ -60,9 +60,10 @@ exports.getWorldwideVaccPercent = (req, res) => {
       console.error(err);
       return res.status(500).send("Server error");
     }
-    console.log(data[0].cnt, data[1].cnt);
+    const vacc = data[1].cnt;
+    const total = data[0].cnt;
     res.json({
-      vaccPercent: ((data[1].cnt / data[0].cnt) * 100).toFixed(2) + "%",
+      vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
     });
   });
 };
