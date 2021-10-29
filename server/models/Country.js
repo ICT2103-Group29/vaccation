@@ -54,4 +54,37 @@ Country.getRestrictions = (iso, result) => {
   });
 };
 
+Country.getNumberOfCountries = (result) => {
+  sql.query(query.COUNT_COUNTRIES, (err, res) => {
+    if (err) {
+      console.error("error:", err);
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  });
+};
+
+Country.getOpenWithRestrictions = (result) => {
+  sql.query(query.COUNT_COUNTRIES_WITH_RESTRICTIONS, (err, res) => {
+    if (err) {
+      console.error("error:", err);
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  });
+};
+
+Country.getWorldVacc = (result) => {
+  sql.query(query.COUNT_COUNTRIES_AND_VACC, (err, res) => {
+    if (err) {
+      console.error("error:", err);
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  });
+};
+
 module.exports = Country;
