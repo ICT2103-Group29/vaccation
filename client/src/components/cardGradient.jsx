@@ -1,7 +1,7 @@
 import React from "react";
 import "../assets/font.css";
 
-const Card = (props) => {
+const GradientCard = (props) => {
   return (
     <div class=" rounded-lg shadow-md  w-1/5 h-72 bg-gradient-to-r from-blue-800 via-blue-700 to-blue-200 m-auto relative">
       <a href="#">
@@ -12,4 +12,4 @@ const Card = (props) => {
     </div>
   );
 };
-export default Card;
+export default GradientCard;

@@ -63,7 +63,7 @@ function onChange(pagination, filters, sorter, extra) {
 
 const TableData = (props) => {
   return (
-    <div class="w-3/4 m-auto ">
+    <div class="m-auto ">
       <Table columns={columns} dataSource={data} onChange={onChange} />
     </div>
   );

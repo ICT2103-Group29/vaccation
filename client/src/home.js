@@ -38,7 +38,12 @@ function Home() {
             </Card>
           ))}
         </div>
-        <TableData></TableData>
+        <Card>
+          <h2 class="text-2xl font-bold text-left ">
+            Global COVID-19 Vaccination Rate
+          </h2>
+          <TableData></TableData>
+        </Card>
       </div>
       <div class="pb-48">
         <Banner>
