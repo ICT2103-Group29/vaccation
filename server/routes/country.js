@@ -24,6 +24,34 @@ router.get("/", country.findAll);
 
 /**
  * @swagger
+ * /api/countries/open:
+ *  get:
+ *    summary: Retrieve percentage of countries that are open with restrictions
+ *    tags: [Country]
+ *    responses:
+ *      '200':
+ *        description: JSON objects
+ *      '500':
+ *        description: Server error
+ */
+router.get("/open", country.getOpenWithRestrictions);
+
+/**
+ * @swagger
+ * /api/countries/worldwide/vacc:
+ *  get:
+ *    summary: Retrieve percentage of countries that are vaccinated world wide
+ *    tags: [Country]
+ *    responses:
+ *      '200':
+ *        description: JSON object
+ *      '500':
+ *        description: Server error
+ */
+router.get("/worldwide/vacc", country.getWorldwideVaccPercent);
+
+/**
+ * @swagger
  * /api/countries/{iso}:
  *  get:
  *    summary: Find a country by ISO

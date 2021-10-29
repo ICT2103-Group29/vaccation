@@ -43,3 +43,27 @@ exports.getRestrictions = (req, res) => {
     }
   });
 };
+
+exports.getOpenWithRestrictions = (req, res) => {
+  Country.getOpenWithRestrictions((err, open) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Server error");
+    }
+    res.json(open[0]);
+  });
+};
+
+exports.getWorldwideVaccPercent = (req, res) => {
+  Country.getWorldVacc((err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Server error");
+    }
+    const vacc = data[1].cnt;
+    const total = data[0].cnt;
+    res.json({
+      vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
+    });
+  });
+};
