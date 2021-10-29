@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./components/navbar";
 import Card from "./components/card";
 import CardGradient from "./components/cardGradient";
 import TableData from "./components/table";
@@ -19,8 +18,7 @@ const cardTypes = [
 
 function Home() {
   return (
-    <div class="h-full bg-gray-100">
-      <Navbar></Navbar>
+    <div id="home">
       <div class="m-24 ">
         <h2 class="font-bold text-5xl text-center">Numbers at a Glance</h2>
         <div class="flex justify-center items-center m-6 ">

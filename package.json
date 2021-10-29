@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "antd": "^4.16.13",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "react-router-dom": "^5.3.0"
   }
 }
