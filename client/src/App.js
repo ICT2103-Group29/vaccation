@@ -3,6 +3,7 @@ import React from "react";
 import Navbar from "./components/navbar";
 import Home from "./home";
 import searchFlights from "./searchFlights";
+import Payment from "./payment";
 import Results from "./results";
 import Footer from "./components/footer";
 import "./assets/font.css";
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/searchFlights" component={searchFlights} />
           <Route exact path="/results" component={Results} />
+          <Route exact path="/payment" component={Payment} />
         </Switch>
       </Router>
 
