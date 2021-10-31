@@ -44,12 +44,6 @@ function Home() {
         </Card>
       </div>
       <div class="pb-48">
-        <Banner>
-          <div>
-            <p>What Vaccation Provides</p>
-            <p>Here are the following steps you can follow:</p>
-          </div>
-        </Banner>
         <div class="flex  items-center m-6  ">
           {cardTypes.map((item) => (
             <CardGradient>

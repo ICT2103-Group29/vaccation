@@ -1,12 +1,12 @@
 import "./App.css";
+import React from "react";
 import Navbar from "./components/navbar";
 import Home from "./home";
 import searchFlights from "./searchFlights";
+import Results from "./results";
 import Footer from "./components/footer";
-
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import React from "react";
 import "./assets/font.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
@@ -14,15 +14,12 @@ function App() {
       <Navbar> </Navbar>
       <Router>
         <Switch>
-          <Route exact path="" component={Home} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/searchFlights" component={searchFlights} />
+          <Route exact path="/results" component={Results} />
         </Switch>
       </Router>
 
-      <Router>
-        <Switch>
-          <Route exact path="/searchFlights" component={searchFlights} />
-        </Switch>
-      </Router>
       <Footer></Footer>
     </div>
   );

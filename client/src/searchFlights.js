@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./assets/font.css";
 import "./assets/searchFlights.css";
-
 import LargeCard from "./components/large_card";
 import CardGradient from "./components/cardGradient";
-import Banner from "./components/banner";
 import Button from "./components/button";
 
 import { Form, Select, DatePicker } from "antd";
@@ -13,9 +11,9 @@ function onChange(date, dateString) {
 }
 
 const cardTypes = [
-  { id: 1, name: "Travel Restrictions" },
-  { id: 2, name: "Pre-Departure COVID Test" },
-  { id: 1, name: "Travel Restrictions" },
+  { id: 1, name: "Booking" },
+  { id: 2, name: "Travel Restrictions" },
+  { id: 3, name: "Pre-Departure COVID Test" },
 ];
 
 const SearchFlights = () => {
@@ -56,10 +54,6 @@ const SearchFlights = () => {
           </div>
         </Form>
       </LargeCard>
-      {/* <Banner>
-        <p class="text-3xl">Checklist before you book your flight</p>
-        <p class="text-xl">Here are the following steps you can follow:</p>
-      </Banner> */}
       <div class="flex justify-around  mt-32 m-auto w-11/12">
         {cardTypes.map((item) => (
           <CardGradient>

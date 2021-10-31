@@ -1,20 +1,7 @@
 import React from "react";
-
 import "../assets/font.css";
 import { BrowserRouter as Router } from "react-router-dom";
-
 import { Link } from "react-router-dom";
-
-// const navigation = [
-//   { name: "Home", href: "./home", current: true },
-//   { name: "Travel Restrictions", href: "#", current: false },
-//   { name: "PCR Clinics", href: "#", current: false },
-//   { name: "Booking", href: "#searchFlights", current: false },
-// ];
-
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(" ");
-// }
 
 const Navbar = (props) => {
   return (
