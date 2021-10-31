@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./assets/font.css";
 import "./assets/button.css";
+import { Button } from "antd";
 
-import Button from "./components/button";
 import Card from "./components/card";
 
 const bookingDetails = [
@@ -60,7 +60,7 @@ const Results = (props) => {
               </div>
               <div class="flex">
                 <p class="text-4xl font-extrabold mr-12">{item.price}</p>
-                <Button type="submit">Book</Button>
+                <Button type="primary">Book</Button>
               </div>
             </div>
           </Card>
