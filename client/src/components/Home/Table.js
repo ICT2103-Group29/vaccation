@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/font.css";
+import "../../assets/css/font.css";
 import "antd/dist/antd.css";
 
 import { Table } from "antd";
@@ -57,11 +57,10 @@ const data = [
   },
 ];
 
-function onChange(pagination, filters, sorter, extra) {
-  console.log("params", pagination, filters, sorter, extra);
-}
-
 const TableData = (props) => {
+  function onChange(pagination, filters, sorter, extra) {
+    console.log("params", pagination, filters, sorter, extra);
+  }
   return (
     <div class="m-auto ">
       <Table columns={columns} dataSource={data} onChange={onChange} />

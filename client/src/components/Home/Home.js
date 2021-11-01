@@ -1,9 +1,9 @@
 import React from "react";
-import Card from "./components/card";
-import CardGradient from "./components/cardGradient";
-import TableData from "./components/table";
-import Banner from "./components/banner";
-import "./assets/font.css";
+import Card from "../Shared/Card";
+import CardGradient from "../Shared/CardGradient";
+import TableData from "./Table";
+import Banner from "./Banner";
+import "../../assets/css/font.css";
 
 const cardDetails = [
   { id: 1, name: "Open with Restrictions", data: "200" },
@@ -19,16 +19,16 @@ const cardTypes = [
 function Home() {
   return (
     <div id="home">
-      <div class="m-24 ">
-        <h2 class="font-bold text-5xl text-center">Numbers at a Glance</h2>
-        <div class="flex justify-center items-center m-6 ">
+      <div className="m-24 ">
+        <h2 className="font-bold text-5xl text-center">Numbers at a Glance</h2>
+        <div className="flex justify-center items-center m-6 ">
           {cardDetails.map((item) => (
             <Card>
-              <p class="font-bold text-2xl mb-2" key={item.id}>
+              <p className="font-bold text-2xl mb-2" key={item.id}>
                 {item.name}
               </p>
               <p
-                class="text-gray-700 text-6xl font-black text-blue-800"
+                className="text-gray-700 text-6xl font-black text-blue-800"
                 key={item.id}
               >
                 {item.data}
@@ -37,14 +37,14 @@ function Home() {
           ))}
         </div>
         <Card>
-          <h2 class="text-2xl font-bold text-left ">
+          <h2 className="text-2xl font-bold text-left ">
             Global COVID-19 Vaccination Rate
           </h2>
-          <TableData></TableData>
+          <TableData />
         </Card>
       </div>
-      <div class="pb-48">
-        <div class="flex  items-center m-6  ">
+      <div className="pb-48">
+        <div className="flex  items-center m-6  ">
           {cardTypes.map((item) => (
             <CardGradient>
               <p>{item.name}</p>

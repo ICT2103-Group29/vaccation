@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import "./assets/font.css";
-import "./assets/searchFlights.css";
-import LargeCard from "./components/large_card";
-import CardGradient from "./components/cardGradient";
+import "../../assets/css/font.css";
+import "../../assets/css/searchFlights.css";
+import LargeCard from "../Shared/LargeCard";
+import CardGradient from "../Shared/CardGradient";
 import { Button } from "antd";
-import "./assets/button.css";
+import "../../assets/css/button.css";
 
 import { Form, Select, DatePicker } from "antd";
-function onChange(date, dateString) {
-  console.log(date, dateString);
-}
-
-const cardTypes = [
-  { id: 1, name: "Booking" },
-  { id: 2, name: "Travel Restrictions" },
-  { id: 3, name: "Pre-Departure COVID Test" },
-];
 
 const SearchFlights = () => {
+  function onChange(date, dateString) {
+    console.log(date, dateString);
+  }
+
+  const cardTypes = [
+    { id: 1, name: "Booking" },
+    { id: 2, name: "Travel Restrictions" },
+    { id: 3, name: "Pre-Departure COVID Test" },
+  ];
+
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">

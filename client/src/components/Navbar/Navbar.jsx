@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/font.css";
+import "../../assets/css/font.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const Navbar = (props) => {
           <h2 class="text-4xl text-white font-bold pl-12  ">Vaccation</h2>
           <ul class=" flex text-2xl font-semibold ">
             <li class="mr-5 ">
-              <Link to="">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li class="mr-5">
               <Link to="/travelRestrictions">Travel Restrictions</Link>
