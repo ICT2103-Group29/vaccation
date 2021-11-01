@@ -5,7 +5,7 @@ import Home from "./home";
 import searchFlights from "./searchFlights";
 import Results from "./results";
 import PassengerDetails from "./passengerDetails";
-import Payment from "./Payment";
+import Payment from "./payment";
 import Footer from "./components/footer";
 import "./assets/font.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";

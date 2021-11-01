@@ -3,7 +3,8 @@ import "./assets/font.css";
 import "./assets/searchFlights.css";
 import LargeCard from "./components/large_card";
 import CardGradient from "./components/cardGradient";
-import Button from "./components/button";
+import { Button } from "antd";
+import "./assets/button.css";
 
 import { Form, Select, DatePicker } from "antd";
 function onChange(date, dateString) {
@@ -50,7 +51,9 @@ const SearchFlights = () => {
                 <DatePicker onChange={onChange} />
               </Form.Item>
             </div>
-            <Button type="submit">Search Flights</Button>
+            <a href="/results">
+              <Button type="primary">Search Flights</Button>
+            </a>
           </div>
         </Form>
       </LargeCard>
