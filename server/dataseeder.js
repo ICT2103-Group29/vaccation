@@ -96,6 +96,8 @@ const getCleanedResData = async () => {
       let tempArr = [];
       for (const key in item) {
         if (item.hasOwnProperty(key)) {
+          if (key === "") continue;
+
           if (key === "ISO") {
             iso = item[key];
           }
@@ -151,7 +153,6 @@ const insertTravelRestrictions = () => {
       // Insert records if table is empty
       if (result.length === 0) {
         const data = await getCleanedResData();
-
         sql.query(query.INSERT_COUNTRYRES, [data], (err, result) => {
           if (err) {
             console.error(`Error: ${err?.sqlMessage}`);
