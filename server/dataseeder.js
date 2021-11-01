@@ -188,5 +188,4 @@ const seedData = async () => {
     console.error(err);
   }
 };
-
 module.exports = seedData;

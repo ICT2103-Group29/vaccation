@@ -18,6 +18,9 @@
     "concurrently": "^6.2.2"
   },
   "dependencies": {
+    "antd": "^4.16.13",
+    "nodemon": "^2.0.13",
+    "react-router-dom": "^5.3.0",
     "@headlessui/react": "^1.4.1"
   }
 }
