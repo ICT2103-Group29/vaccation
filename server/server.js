@@ -15,8 +15,7 @@ const { CLIENT_URL, PORT } = require("./config");
 
 const countryRoute = require("./routes/country");
 const bookingRoute = require("./routes/booking");
-const countryVaccRoute = require("./routes/country_vaccinated");
-const pcrClinicRoute = require("./routes/pcr_clinic");
+const clinicRoute = require("./routes/clinic");
 
 const app = express();
 
@@ -41,7 +40,7 @@ app.set("trust proxy", 1);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
+app.use(cors({ credentials: true, origin: CLIENT_URL }));
 app.use(helmet());
 app.use(morgan("combined", { stream: accessLogStream }));
 
@@ -70,7 +69,6 @@ app.get("/", (req, res) => res.send("API Running..."));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/countries", countryRoute);
 app.use("/api/bookings", bookingRoute);
-app.use("/api/countries_vaccinated", countryVaccRoute);
-app.use("/api/pcr_clinics", pcrClinicRoute);
+app.use("/api/clinics", clinicRoute);
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
