@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./assets/font.css";
-import "./assets/button.css";
+import "../../assets/css/font.css";
+import "../../assets/css/button.css";
 import { Button } from "antd";
 
-import Card from "./components/card";
+import Card from "../Shared/Card";
 
 const bookingDetails = [
   {
