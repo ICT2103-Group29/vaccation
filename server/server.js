@@ -41,7 +41,7 @@ app.set("trust proxy", 1);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ credentials: true, origin: CLIENT_URL }));
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 app.use(helmet());
 app.use(morgan("combined", { stream: accessLogStream }));
 
