@@ -40,6 +40,9 @@
   "devDependencies": {
     "autoprefixer": "^9.8.8",
     "postcss": "^7.0.39",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16",
+    "antd": "^4.16.13",
+    "react-router-dom": "^5.3.0",
+    "@headlessui/react": "^1.4.1"
   }
 }

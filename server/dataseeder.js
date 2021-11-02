@@ -130,24 +130,6 @@ const getCleanedResData = async () => {
  * Checks if there are any data in the table before insertion.
  */
 const insertTravelRestrictions = () => {
-<<<<<<< HEAD
-  sql.query(query.SELECT_COUNTRYRES_TOP1, async (err, result) => {
-    // Insert records if table is empty
-    if (result.length === 0) {
-      const data = await getCSVData("./datasets/travel_restrictions.csv");
-      // Check for empty values
-      const cleaned_data = [];
-      data.forEach((item) => {
-        if (
-          item[1].length === 0 ||
-          item[2].length === 0 ||
-          item[3].length === 0
-        ) {
-          return;
-        }
-        cleaned_data.push([item[1], item[2], item[3]]);
-      });
-=======
   return new Promise((resolve, reject) => {
     sql.query(query.SELECT_COUNTRYRES_TOP1, async (err, result) => {
       // Insert records if table is empty
@@ -168,7 +150,6 @@ const insertTravelRestrictions = () => {
     });
   });
 };
->>>>>>> 6ea985ddb52bad57b8755460295aae0c67ba812d
 
 /**
  * Insert pcr clinic data from csv into database.

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./assets/font.css";
-import "./assets/searchFlights.css";
-import LargeCard from "./components/large_card";
+import "../../assets/css/font.css";
+import "../../assets/css/searchFlights.css";
+import LargeCard from "../Shared/LargeCard";
 
 import { Form, Input, Button, DatePicker } from "antd";
 function onChange(date, dateString) {

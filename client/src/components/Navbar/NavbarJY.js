@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
+import logo from "../images/flight.jpg";
+
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,10 +13,13 @@ function Nav() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <img
+                {/* <img
                   className="h-8 w-8"
                   src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                  alt="Workflow"
+                  alt="Workflow" */}
+                  <img className="h-14 w-18"
+                  src = {logo}
+                  alt = ""
                 />
               </div>
               <div className="hidden md:block">
