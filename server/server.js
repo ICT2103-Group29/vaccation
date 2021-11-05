@@ -16,6 +16,7 @@ const { CLIENT_URL, PORT } = require("./config");
 const countryRoute = require("./routes/country");
 const bookingRoute = require("./routes/booking");
 const clinicRoute = require("./routes/clinic");
+const connectMongoDB = require("./config/mongodb");
 
 const app = express();
 
@@ -27,7 +28,7 @@ sql.getConnection((error, connection) => {
   connection.release();
 });
 seedData();
-// db.connectMongoDB();
+connectMongoDB();
 
 // Log api requests to file
 const accessLogStream = fs.createWriteStream(
