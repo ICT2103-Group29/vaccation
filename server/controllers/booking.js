@@ -3,33 +3,12 @@ const Booking = require("../models/Booking");
 const Customer = require("../models/Customer");
 
 exports.create = async (req, res) => {
-  const flight = new Flight({
-    airline: req.body.flight.airline,
-    arrivalTime: req.body.flight.arrivalTime,
-    departureTime: req.body.flight.departureTime,
-    departureAirport: req.body.flight.departureAirport,
-    destinationAirport: req.body.flight.destinationAirport,
-    flightDuration: req.body.flight.flightDuration,
-    flightNumber: req.body.flight.flightNumber,
-    origin: req.body.flight.origin,
-    destination: req.body.flight.destination,
-  });
-
   try {
+    const flight = new Flight(req.body.flight);
     const result = await Booking.createFlightAndBooking(flight);
     const bookingId = result[0][0].bookingId;
     req.body.customers.forEach(async (item) => {
-      const cust = new Customer({
-        mobileNumber: item.mobileNumber,
-        firstName: item.firstName,
-        lastName: item.lastName,
-        email: item.email,
-        passportNumber: item.passportNumber,
-        nationality: item.nationality,
-        placeOfIssue: item.placeOfIssue,
-        expiryDate: item.expiryDate,
-        dob: item.dob,
-      });
+      const cust = new Customer(item);
       await Booking.createCustomer(bookingId, cust);
     });
     res
