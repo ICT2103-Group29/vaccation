@@ -30,7 +30,7 @@ router.get("/", pcrClinic.findAll);
  *    tags: [PCR Clinics]
  *    parameters:
  *      - in: path
- *        name: clinic_id
+ *        name: clinicId
  *        required: true
  *    responses:
  *      '200':

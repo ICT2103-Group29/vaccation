@@ -1,34 +1,31 @@
 const PcrClinic = require("../models/Clinic");
 
-exports.findAll = (req, res) => {
-  PcrClinic.getAll((err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Server error");
-    } else {
-      res.json(data);
-    }
-  });
+exports.findAll = async (req, res) => {
+  try {
+    const data = await PcrClinic.getAll();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
 };
 
-exports.findOne = (req, res) => {
-  PcrClinic.findByClinicId(req.params.clinicId, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Server error");
-    } else {
-      res.json(data);
-    }
-  });
+exports.findOne = async (req, res) => {
+  try {
+    const data = await PcrClinic.findByClinicId(req.params.clinicId);
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
 };
 
-exports.search = (req, res) => {
-  PcrClinic.search(req.body.search, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Server error");
-    } else {
-      res.json(data);
-    }
-  });
+exports.search = async (req, res) => {
+  try {
+    const data = await PcrClinic.search(req.body.search);
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
 };

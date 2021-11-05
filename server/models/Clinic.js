@@ -10,36 +10,40 @@ const Clinic = (Clinic) => {
   this.contact_number = Clinic.contact_number;
 };
 
-Clinic.getAll = (result) => {
-  sql.query(query.SELECT_ALL_Clinic, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(null, err);
-      return;
-    }
-    result(null, res);
+Clinic.getAll = () => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_ALL_PCR_CLINIC, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
   });
 };
 
-Clinic.findByClinicId = (clinic_id, result) => {
-  sql.query(query.FIND_A_Clinic, clinic_id, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(null, err);
-      return;
-    }
-    result(null, res);
+Clinic.findByClinicId = (clinic_id) => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.FIND_A_PCR_CLINIC, clinic_id, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
   });
 };
 
-Clinic.search = (search, result) => {
-  sql.query(query.SEARCH_Clinic, [`%${search}%`, `%${search}%`], (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(null, err);
-      return;
-    }
-    result(null, res);
+Clinic.search = (search) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      query.SEARCH_PCR_CLINIC,
+      [`%${search}%`, `%${search}%`],
+      (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(res);
+      }
+    );
   });
 };
 
