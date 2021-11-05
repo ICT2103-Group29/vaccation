@@ -2,6 +2,7 @@ require("dotenv").config({ path: "../.env" });
 
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const connectMongoDB = require("./config/mongodb");
 const sql = require("./config/mysql");
 const express = require("express");
 const fs = require("fs");
@@ -16,7 +17,6 @@ const { CLIENT_URL, PORT } = require("./config");
 const countryRoute = require("./routes/country");
 const bookingRoute = require("./routes/booking");
 const clinicRoute = require("./routes/clinic");
-const connectMongoDB = require("./config/mongodb");
 
 const app = express();
 
