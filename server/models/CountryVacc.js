@@ -9,41 +9,41 @@ const Country_Vaccinated = (country_vaccinated) => {
   this.vacc_percent = country_vaccinated.vacc_percent;
 };
 
-Country_Vaccinated.getAll = (result) => {
-  sql.query(query.SELECT_ALL_COUNTRIES_VACCINATED, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(null, err);
-      return;
-    }
-    result(null, res);
-  });
-};
-
-Country_Vaccinated.findByISO = (iso, result) => {
-  sql.query(query.FIND_A_COUNTRY_VACCINATED, iso, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(null, err);
-      return;
-    }
-    result(null, res);
-  });
-};
-
-Country_Vaccinated.search = (search, result) => {
-  sql.query(
-    query.SEARCH_COUNTRY_VACCINATED,
-    [`%${search}%`, `%${search}%`],
-    (err, res) => {
+Country_Vaccinated.getAll = () => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_ALL_COUNTRIES_VACCINATED, (err, res) => {
       if (err) {
-        console.error("error:", err);
-        result(null, err);
-        return;
+        return reject(err);
       }
-      result(null, res);
-    }
-  );
+      return resolve(res);
+    });
+  });
+};
+
+Country_Vaccinated.findByISO = (iso) => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.FIND_A_COUNTRY_VACCINATED, iso, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+};
+
+Country_Vaccinated.search = (search) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      query.SEARCH_COUNTRY_VACCINATED,
+      [`%${search}%`, `%${search}%`],
+      (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(res);
+      }
+    );
+  });
 };
 
 module.exports = Country_Vaccinated;

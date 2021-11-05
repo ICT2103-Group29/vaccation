@@ -1,34 +1,31 @@
 const CountryVacc = require("../models/CountryVacc");
 
-exports.findAll = (req, res) => {
-  CountryVacc.getAll((err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Server error");
-    } else {
-      res.json(data);
-    }
-  });
+exports.findAll = async (req, res) => {
+  try {
+    const data = await CountryVacc.getAll();
+    res.json(data);
+  } catch (error) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
 };
 
-exports.findOne = (req, res) => {
-  CountryVacc.findByISO(req.params.iso, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Server error");
-    } else {
-      res.json(data);
-    }
-  });
+exports.findOne = async (req, res) => {
+  try {
+    const data = await CountryVacc.findByISO(req.params.iso);
+    res.json(data);
+  } catch (error) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
 };
 
-exports.search = (req, res) => {
-  CountryVacc.search(req.body.search, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Server error");
-    } else {
-      res.json(data);
-    }
-  });
+exports.search = async (req, res) => {
+  try {
+    const data = await CountryVacc.search(req.body.search);
+    res.json(data);
+  } catch (error) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
 };
