@@ -7,50 +7,49 @@ class Booking {
   }
 }
 
-Booking.createFlightAndBooking = (newFlight, result) => {
-  let param = [];
-  for (const key in newFlight) {
-    if (newFlight.hasOwnProperty(key)) {
-      param.push(newFlight[key]);
+Booking.createFlightAndBooking = (newFlight) => {
+  return new Promise((resolve, reject) => {
+    let param = [];
+    for (const key in newFlight) {
+      if (newFlight.hasOwnProperty(key)) {
+        param.push(newFlight[key]);
+      }
     }
-  }
-  sql.query(query.CREATE_FLIGHT_BOOKING, [param], (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
+    sql.query(query.CREATE_FLIGHT_BOOKING, [param], (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
   });
 };
 
-Booking.createCustomer = (bookingId, newCust, result) => {
-  let param = [];
-  param.push(bookingId);
-
-  for (const key in newCust) {
-    if (newCust.hasOwnProperty(key)) {
-      param.push(newCust[key]);
+Booking.createCustomer = (bookingId, newCust) => {
+  return new Promise((resolve, reject) => {
+    let param = [];
+    for (const key in newCust) {
+      if (newCust.hasOwnProperty(key)) {
+        param.push(newCust[key]);
+      }
     }
-  }
-  sql.query(query.CREATE_CUSTOMER, [param], (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
+    param.push(bookingId);
+    sql.query(query.CREATE_CUSTOMER, [param], (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
   });
 };
 
-Booking.getDetails = (bookingId, result) => {
-  sql.query(query.SELECT_BOOKING_DETAILS, bookingId, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
+Booking.getDetails = (bookingId) => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_BOOKING_DETAILS, bookingId, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
   });
 };
 

@@ -6,84 +6,84 @@ const Country = (country) => {
   this.countryName = country.country_name;
 };
 
-Country.getAll = (result) => {
-  sql.query(query.SELECT_ALL_COUNTRIES, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
-  });
-};
-
-Country.findByISO = (iso, result) => {
-  sql.query(query.FIND_A_COUNTRY, iso, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
-  });
-};
-
-Country.search = (search, result) => {
-  sql.query(
-    query.SEARCH_COUNTRY,
-    [`%${search}%`, `%${search}%`],
-    (err, res) => {
+Country.getAll = () => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_ALL_COUNTRIES, (err, res) => {
       if (err) {
-        console.error("error:", err);
-        result(err, null);
-        return;
+        return reject(err);
       }
-      result(null, res);
-    }
-  );
-};
-
-Country.getRestrictions = (iso, result) => {
-  sql.query(query.SELECT_COUNTRY_RESTRICTIONS, iso, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
+      return resolve(res);
+    });
   });
 };
 
-Country.getNumberOfCountries = (result) => {
-  sql.query(query.COUNT_COUNTRIES, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
+Country.findByISO = (iso) => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.FIND_A_COUNTRY, iso, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
   });
 };
 
-Country.getOpenWithRestrictions = (result) => {
-  sql.query(query.COUNT_COUNTRIES_WITH_RESTRICTIONS, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
+Country.search = (search) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+      query.SEARCH_COUNTRY,
+      [`%${search}%`, `%${search}%`],
+      (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(res);
+      }
+    );
   });
 };
 
-Country.getWorldVacc = (result) => {
-  sql.query(query.COUNT_COUNTRIES_AND_VACC, (err, res) => {
-    if (err) {
-      console.error("error:", err);
-      result(err, null);
-      return;
-    }
-    result(null, res);
+Country.getRestrictions = (iso) => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_COUNTRY_RESTRICTIONS, iso, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+};
+
+Country.getNumberOfCountries = () => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.COUNT_COUNTRIES, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+};
+
+Country.getOpenWithRestrictions = () => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.COUNT_COUNTRIES_WITH_RESTRICTIONS, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+};
+
+Country.getWorldVacc = () => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.COUNT_COUNTRIES_AND_VACC, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
   });
 };
 

@@ -6,6 +6,7 @@
  */
 const express = require("express");
 const country = require("../controllers/country.js");
+const countryVacc = require("../controllers/countryVacc.js");
 const router = express.Router();
 
 /**
@@ -52,21 +53,18 @@ router.get("/worldwide/vacc", country.getWorldwideVaccPercent);
 
 /**
  * @swagger
- * /api/countries/{iso}:
+ * /api/countries/vacc:
  *  get:
- *    summary: Find a country by ISO
+ *    summary: Retrieve all countries vaccinated
  *    tags: [Country]
- *    parameters:
- *      - in: path
- *        name: iso
- *        required: true
  *    responses:
  *      '200':
- *        description: JSON country object
+ *        description: JSON country vaccinated objects
  *      '500':
  *        description: Server error
  */
-router.get("/:iso", country.findOne);
+
+router.get("/vacc", countryVacc.findAll);
 
 /**
  * @swagger
@@ -85,6 +83,43 @@ router.get("/:iso", country.findOne);
  *        description: Server error
  */
 router.get("/restrictions/:iso", country.getRestrictions);
+
+/**
+ * @swagger
+ * /api/countries/vacc/{iso}:
+ *  get:
+ *    summary: Find a country vaccinated by ISO
+ *    tags: [Country]
+ *    parameters:
+ *      - in: path
+ *        name: iso
+ *        required: true
+ *    responses:
+ *      '200':
+ *        description: JSON country vaccinated object
+ *      '500':
+ *        description: Server error
+ */
+
+router.get("/vacc/:iso", countryVacc.findOne);
+
+/**
+ * @swagger
+ * /api/countries/{iso}:
+ *  get:
+ *    summary: Find a country by ISO
+ *    tags: [Country]
+ *    parameters:
+ *      - in: path
+ *        name: iso
+ *        required: true
+ *    responses:
+ *      '200':
+ *        description: JSON country object
+ *      '500':
+ *        description: Server error
+ */
+router.get("/:iso", country.findOne);
 
 /**
  * @swagger
@@ -110,5 +145,31 @@ router.get("/restrictions/:iso", country.getRestrictions);
  *        description: Server error
  */
 router.post("/search", country.search);
+
+/**
+ * @swagger
+ * /api/countries/vacc/search:
+ *  post:
+ *    summary: Search countries vaccinated
+ *    tags: [Country]
+ *    requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *              schema:
+ *                type: object
+ *              properties:
+ *                  search:
+ *                      type: string
+ *              example:
+ *                  search: Singapore
+ *    responses:
+ *      '200':
+ *        description: JSON country(s) object
+ *      '500':
+ *        description: Server error
+ */
+
+router.post("/vacc/search", countryVacc.search);
 
 module.exports = router;
