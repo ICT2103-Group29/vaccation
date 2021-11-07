@@ -1,4 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
+import { Link } from "react-router-dom";
+
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
@@ -39,22 +41,30 @@ function SearchFlights(props) {
     getCountriesInfo();
   }, []);
 
-  const [countrySelect, setCountrySelect] = useState("");
+  //get form data
+  const [postData, setPostData] = useState({
+    countryFrom: "",
+    countryTo: "",
+    noOfPassengers: "",
+    departureDate: "",
+    arrivalDate: "",
+  });
 
-  function getData(e) {
-    setCountrySelect(e.target.value);
-    alert(e.target.value);
-  }
-  useEffect(() => {
-    setCountrySelect((prevState) => ({
-      ...prevState,
-      loading: false,
-    }));
-  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e);
+    clear();
+  };
 
-  function onChange(date, dateString) {
-    console.log(date, dateString);
-  }
+  const clear = () => {
+    setPostData({
+      countryFrom: "",
+      countryTo: "",
+      noOfPassengers: "",
+      departureDate: "",
+      arrivalDate: "",
+    });
+  };
 
   const cardTypes = [
     { id: 1, name: "Booking" },
@@ -68,18 +78,24 @@ function SearchFlights(props) {
       </h1>
 
       <LargeCard>
-        <Form layout="vertical">
+        <Form layout="vertical" onSubmit={handleSubmit}>
           <div class="font-bold ">
             <div class=" ">
               {!data.loading && (
                 <Fragment>
                   <Form.Item label="Where From ">
-                    <Select>
+                    <Select
+                      onChange={(e) =>
+                        setPostData({
+                          ...postData,
+                          countryFrom: e,
+                        })
+                      }
+                    >
                       {data.countriesInfo.countries.map((country) => (
                         <Select.Option
                           name="countrySelectedFrom"
                           value={country.iso}
-                          onChange={getData}
                         >
                           {country.country_name}
                         </Select.Option>
@@ -87,38 +103,66 @@ function SearchFlights(props) {
                     </Select>
                   </Form.Item>
                   <Form.Item label="Where To">
-                    {/* <Select>
+                    <Select
+                      onChange={(e) =>
+                        setPostData({
+                          ...postData,
+                          countryTo: e,
+                        })
+                      }
+                    >
                       {data.countriesInfo.countries.map((country) => (
                         <Select.Option
                           name="countrySelectedTo"
                           value={country.iso}
-                          onChange={(e) =>
-                            updateFormData({
-                              ...formData,
-                              countrySelectedTo: e.target.value,
-                            })
-                          }
                         >
                           {country.country_name}
                         </Select.Option>
                       ))}
-                    </Select> */}
+                    </Select>
                   </Form.Item>
-                  {/* <Form.Item label="No of Passengers">
-                    <InputNumber min={1} max={10}></InputNumber>
-                  </Form.Item> */}
+                  <Form.Item label="No of Passengers">
+                    <InputNumber
+                      min={1}
+                      max={10}
+                      onChange={(e) =>
+                        setPostData({
+                          ...postData,
+                          noOfPassengers: e,
+                        })
+                      }
+                    ></InputNumber>
+                  </Form.Item>
                 </Fragment>
               )}
             </div>
-            {/* <div class="">
+            <div class="">
               <Form.Item label="Departure Date">
-                <DatePicker onChange={onChange} />
+                <DatePicker
+                  onChange={(e) =>
+                    setPostData({
+                      ...postData,
+                      departureDate: e,
+                    })
+                  }
+                />
               </Form.Item>
               <Form.Item label="Arrival Date">
-                <DatePicker onChange={onChange} />
+                <DatePicker
+                  onChange={(e) =>
+                    setPostData({
+                      ...postData,
+                      arrivalDate: e,
+                    })
+                  }
+                />
               </Form.Item>
-            </div> */}
-            <Button type="primary">Search Flights</Button>
+            </div>
+            <Link to="/results">
+              <Button type="primary" onClick={clear}>
+                Search Flights
+              </Button>
+            </Link>
           </div>
         </Form>
       </LargeCard>
