@@ -3,7 +3,7 @@ import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
 import CardGradient from "../Shared/CardGradient";
-import { Button } from "antd";
+import { Button, InputNumber } from "antd";
 import "../../assets/css/button.css";
 import { getCountries, getOpenCountries } from "../../api";
 
@@ -23,10 +23,9 @@ function SearchFlights() {
     const res1 = await getCountries();
     //retrieve countries names
     if ((res1.status = 200)) {
-      countries = res1.data?.country_name;
+      // countries = res1.map(data?.country_name)
+      countries = res1.data;
     }
-
-    console.log(countries);
 
     setData({
       countriesInfo: {
@@ -40,6 +39,23 @@ function SearchFlights() {
     getCountriesInfo();
   }, []);
 
+  const [formData, updateFormData] = useState({
+    countryFromSelected: "",
+    countryToSelected: "",
+  });
+
+  const handleSubmit = () => {
+    console.log(formData);
+    alert(formData);
+  };
+
+  useEffect(() => {
+    updateFormData((prevState) => ({
+      ...prevState,
+      loading: false,
+    }));
+  }, []);
+
   function onChange(date, dateString) {
     console.log(date, dateString);
   }
@@ -49,7 +65,6 @@ function SearchFlights() {
     { id: 2, name: "Travel Restrictions" },
     { id: 3, name: "Pre-Departure COVID Test" },
   ];
-
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
@@ -60,39 +75,61 @@ function SearchFlights() {
         <Form layout="vertical">
           <div class="font-bold ">
             <div class=" ">
-              <Form.Item label="Where From ">
-                {!data.loading && (
-                  <Fragment>
+              {!data.loading && (
+                <Fragment>
+                  <Form.Item label="Where From ">
                     <Select>
-                      <Select.Option>
-                        {data.countriesInfo.countries}
-                      </Select.Option>
+                      {data.countriesInfo.countries.map((country) => (
+                        <Select.Option
+                          name="countrySelectedFrom"
+                          value={country.iso}
+                          onChange={(e) =>
+                            updateFormData({
+                              ...formData,
+                              countrySelectedFrom: e.target.value,
+                            })
+                          }
+                        >
+                          {country.country_name}
+                        </Select.Option>
+                      ))}
                     </Select>
-                  </Fragment>
-                )}
-              </Form.Item>
-              <Form.Item label="Where To">
-                <Select>
-                  <Select.Option value="to">Singapore</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item label="Passengers">
-                <Select>
-                  <Select.Option value="noOfPassengers">1</Select.Option>
-                </Select>
-              </Form.Item>
+                  </Form.Item>
+                  <Form.Item label="Where To">
+                    <Select>
+                      {data.countriesInfo.countries.map((country) => (
+                        <Select.Option
+                          name="countrySelectedTo"
+                          value={country.iso}
+                          onChange={(e) =>
+                            updateFormData({
+                              ...formData,
+                              countrySelectedTo: e.target.value,
+                            })
+                          }
+                        >
+                          {country.country_name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                  {/* <Form.Item label="No of Passengers">
+                    <InputNumber min={1} max={10}></InputNumber>
+                  </Form.Item> */}
+                </Fragment>
+              )}
             </div>
-            <div class="">
+            {/* <div class="">
               <Form.Item label="Departure Date">
                 <DatePicker onChange={onChange} />
               </Form.Item>
               <Form.Item label="Arrival Date">
                 <DatePicker onChange={onChange} />
               </Form.Item>
-            </div>
-            <a href="/results">
-              <Button type="primary">Search Flights</Button>
-            </a>
+            </div> */}
+            <Button type="primary" onClick={handleSubmit}>
+              Search Flights
+            </Button>
           </div>
         </Form>
       </LargeCard>
