@@ -5,3 +5,5 @@ export const getOpenCountries = () => API.get("countries/open");
 
 export const getWorldWideVaccPercent = () =>
   API.get("countries/worldwide/vacc");
+
+  // export const getFlights(0)

@@ -19,6 +19,12 @@ const SearchFlights = () => {
     { id: 3, name: "Pre-Departure COVID Test" },
   ];
 
+  // const getFlights = async () => {
+  //   let destinations, arrivals;
+  //   const res1 = await getFlights();
+  //   if(res1.status)
+  // }
+
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">

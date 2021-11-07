@@ -13,25 +13,40 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 function App() {
   return (
     <div class="h-full bg-gray-100 ">
-      <Navbar />
       <Router>
+        <Navbar />
+
         <Switch>
-          <Route exact key="home" path="/" component={Home} />
+          <Route exact key="home" path="/" exact component={Home} />
 
           <Route
             exact
-            key="searchFlights"
-            path="/searchFlights"
+            key="booking"
+            path="/booking"
+            exact
             component={SearchFlights}
           />
-          <Route exact key="results" path="/results" component={Results} />
+          {/* <Route
+            exact
+            key="results"
+            path="/results"
+            exact
+            component={Results}
+          />
           <Route
             exact
             key="passengerDetails"
             path="/passengerDetails"
+            exact
             component={PassengerDetails}
           />
-          <Route exact key="payment" path="/payment" component={Payment} />
+          <Route
+            exact
+            key="payment"
+            path="/payment"
+            exact
+            component={Payment}
+          /> */}
         </Switch>
       </Router>
 
