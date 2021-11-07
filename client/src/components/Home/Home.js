@@ -22,6 +22,7 @@ const cardTypes = [
 ];
 
 function Home() {
+  // How data object is structured
   const [data, setData] = useState({
     stats: {
       open: "",
@@ -31,10 +32,12 @@ function Home() {
     loading: true,
   });
 
+  /* Helper function to separate numbers by commas */
   const getNumberCommas = (num) => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  // Define vaccination rate table columns
   const tableColumns = [
     {
       title: "Country",
@@ -62,6 +65,7 @@ function Home() {
     },
   ];
 
+  /* Retrieve open with restrictions and worldwide vacc rate*/
   const getStats = async () => {
     let open, percent;
 
@@ -75,6 +79,7 @@ function Home() {
       percent = res2.data?.vaccPercent;
     }
 
+    // Update state
     setData((prevState) => {
       return {
         ...prevState,
@@ -86,8 +91,11 @@ function Home() {
     });
   };
 
+  /* Retrieve data for vacc rate table */
   const getVaccRate = async () => {
     const res = await getVaccData();
+
+    // Update state
     setData((prevState) => ({
       ...prevState,
       vaccRate: res.data,
@@ -97,6 +105,7 @@ function Home() {
   useEffect(() => {
     getStats();
     getVaccRate();
+    // Update loading to false
     setData((prevState) => ({
       ...prevState,
       loading: false,
