@@ -10,6 +10,7 @@ import "../../assets/css/button.css";
 import { getCountries, getOpenCountries } from "../../api";
 
 import { Form, Select, DatePicker } from "antd";
+import moment from "moment";
 
 function SearchFlights(props) {
   const [data, setData] = useState({
@@ -71,6 +72,10 @@ function SearchFlights(props) {
     { id: 2, name: "Travel Restrictions" },
     { id: 3, name: "Pre-Departure COVID Test" },
   ];
+  function disabledDate(current) {
+    // Can not select days before today and today
+    return current && current < moment().endOf("day");
+  }
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
@@ -145,6 +150,7 @@ function SearchFlights(props) {
                       departureDate: e,
                     })
                   }
+                  disabledDate={disabledDate}
                 />
               </Form.Item>
               <Form.Item label="Arrival Date">
@@ -155,6 +161,7 @@ function SearchFlights(props) {
                       arrivalDate: e,
                     })
                   }
+                  disabledDate={disabledDate}
                 />
               </Form.Item>
             </div>
