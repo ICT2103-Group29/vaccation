@@ -5,7 +5,7 @@ import LargeCard from "../Shared/LargeCard";
 import CardGradient from "../Shared/CardGradient";
 import { Button } from "antd";
 import "../../assets/css/button.css";
-import { getCountries } from "../../api/index";
+import { getCountries, getOpenCountries } from "../../api";
 
 import { Form, Select, DatePicker } from "antd";
 
@@ -25,6 +25,9 @@ function SearchFlights() {
     if ((res1.status = 200)) {
       countries = res1.data?.country_name;
     }
+
+    console.log(countries);
+
     setData({
       countriesInfo: {
         countries,
@@ -61,7 +64,7 @@ function SearchFlights() {
                 {!data.loading && (
                   <Fragment>
                     <Select>
-                      <Select.Option value="From">
+                      <Select.Option>
                         {data.countriesInfo.countries}
                       </Select.Option>
                     </Select>
