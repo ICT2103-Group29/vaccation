@@ -9,7 +9,7 @@ import { getCountries, getOpenCountries } from "../../api";
 
 import { Form, Select, DatePicker } from "antd";
 
-function SearchFlights() {
+function SearchFlights(props) {
   const [data, setData] = useState({
     //can be any variable name
     countriesInfo: {
@@ -39,18 +39,14 @@ function SearchFlights() {
     getCountriesInfo();
   }, []);
 
-  const [formData, updateFormData] = useState({
-    countryFromSelected: "",
-    countryToSelected: "",
-  });
+  const [countrySelect, setCountrySelect] = useState("");
 
-  const handleSubmit = () => {
-    console.log(formData);
-    alert(formData);
-  };
-
+  function getData(e) {
+    setCountrySelect(e.target.value);
+    alert(e.target.value);
+  }
   useEffect(() => {
-    updateFormData((prevState) => ({
+    setCountrySelect((prevState) => ({
       ...prevState,
       loading: false,
     }));
@@ -83,12 +79,7 @@ function SearchFlights() {
                         <Select.Option
                           name="countrySelectedFrom"
                           value={country.iso}
-                          onChange={(e) =>
-                            updateFormData({
-                              ...formData,
-                              countrySelectedFrom: e.target.value,
-                            })
-                          }
+                          onChange={getData}
                         >
                           {country.country_name}
                         </Select.Option>
@@ -96,7 +87,7 @@ function SearchFlights() {
                     </Select>
                   </Form.Item>
                   <Form.Item label="Where To">
-                    <Select>
+                    {/* <Select>
                       {data.countriesInfo.countries.map((country) => (
                         <Select.Option
                           name="countrySelectedTo"
@@ -111,7 +102,7 @@ function SearchFlights() {
                           {country.country_name}
                         </Select.Option>
                       ))}
-                    </Select>
+                    </Select> */}
                   </Form.Item>
                   {/* <Form.Item label="No of Passengers">
                     <InputNumber min={1} max={10}></InputNumber>
@@ -127,9 +118,7 @@ function SearchFlights() {
                 <DatePicker onChange={onChange} />
               </Form.Item>
             </div> */}
-            <Button type="primary" onClick={handleSubmit}>
-              Search Flights
-            </Button>
+            <Button type="primary">Search Flights</Button>
           </div>
         </Form>
       </LargeCard>
