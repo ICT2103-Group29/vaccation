@@ -76,112 +76,153 @@ function SearchFlights(props) {
     // Can not select days before today and today
     return current && current < moment().endOf("day");
   }
-  return (
-    <div>
-      <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
-        Plan Ahead and Book with Confidence
-      </h1>
+   
 
-      <LargeCard>
-        <Form layout="vertical" onSubmit={handleSubmit}>
-          <div class="font-bold ">
-            <div class=" ">
-              {!data.loading && (
-                <Fragment>
-                  <Form.Item label="Where From ">
-                    <Select
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          countryFrom: e,
-                        })
-                      }
+ 
+    return (
+      <div>
+        <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
+          Plan Ahead and Book with Confidence
+        </h1>
+
+        <LargeCard>
+          <Form layout="vertical" onSubmit={handleSubmit}>
+            <div class="font-bold ">
+              <div class=" ">
+                {!data.loading && (
+                  <Fragment>
+                    <Form.Item
+                      label="Where From "
+                      name="countryFrom"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please select country!",
+                        },
+                      ]}
                     >
-                      {data.countriesInfo.countries.map((country) => (
-                        <Select.Option
-                          name="countrySelectedFrom"
-                          value={country.iso}
-                        >
-                          {country.country_name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                  <Form.Item label="Where To">
-                    <Select
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          countryTo: e,
-                        })
-                      }
+                      <Select
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            countryFrom: e,
+                          })
+                        }
+                      >
+                        {data.countriesInfo.countries.map((country) => (
+                          <Select.Option
+                            name="countrySelectedFrom"
+                            value={country.iso}
+                          >
+                            {country.country_name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                    <Form.Item
+                      label="Where To"
+                      name="countryTo"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please select country!",
+                        },
+                      ]}
                     >
-                      {data.countriesInfo.countries.map((country) => (
-                        <Select.Option
-                          name="countrySelectedTo"
-                          value={country.iso}
-                        >
-                          {country.country_name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                  <Form.Item label="No of Passengers">
-                    <InputNumber
-                      min={1}
-                      max={10}
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          noOfPassengers: e,
-                        })
-                      }
-                    ></InputNumber>
-                  </Form.Item>
-                </Fragment>
-              )}
-            </div>
-            <div class="">
-              <Form.Item label="Departure Date">
-                <DatePicker
-                  onChange={(e) =>
-                    setPostData({
-                      ...postData,
-                      departureDate: e,
-                    })
-                  }
-                  disabledDate={disabledDate}
-                />
+                      <Select
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            countryTo: e,
+                          })
+                        }
+                      >
+                        {data.countriesInfo.countries.map((country) => (
+                          <Select.Option
+                            name="countrySelectedTo"
+                            value={country.iso}
+                          >
+                            {country.country_name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                    <Form.Item label="No of Passengers" name="noOfPassengers">
+                      <InputNumber
+                        min={1}
+                        max={10}
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            noOfPassengers: e,
+                          })
+                        }
+                      ></InputNumber>
+                    </Form.Item>
+                  </Fragment>
+                )}
+              </div>
+              <div class="">
+                <Form.Item
+                  name="departureDate"
+                  label="Departure Date"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select depature date!",
+                    },
+                  ]}
+                >
+                  <DatePicker
+                    onChange={(e) =>
+                      setPostData({
+                        ...postData,
+                        departureDate: e,
+                      })
+                    }
+                    disabledDate={disabledDate}
+                  />
+                </Form.Item>
+                <Form.Item
+                  label="Arrival Date"
+                  name="arrivalDate"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select arrival date!",
+                    },
+                  ]}
+                >
+                  <DatePicker
+                    onChange={(e) =>
+                      setPostData({
+                        ...postData,
+                        arrivalDate: e,
+                      })
+                    }
+                    disabledDate={disabledDate}
+                  />
+                </Form.Item>
+              </div>
+              <Form.Item>
+                <Link to="/results">
+                  <Button type="primary" onClick={clear}>
+                    Search Flights
+                  </Button>
+                </Link>
               </Form.Item>
-              <Form.Item label="Arrival Date">
-                <DatePicker
-                  onChange={(e) =>
-                    setPostData({
-                      ...postData,
-                      arrivalDate: e,
-                    })
-                  }
-                  disabledDate={disabledDate}
-                />
-              </Form.Item>
             </div>
-            <Link to="/results">
-              <Button type="primary" onClick={clear}>
-                Search Flights
-              </Button>
-            </Link>
-          </div>
-        </Form>
-      </LargeCard>
-      <div class="flex justify-around  mt-32 m-auto w-11/12">
-        {cardTypes.map((item) => (
-          <CardGradient>
-            <p>{item.name}</p>
-          </CardGradient>
-        ))}
+          </Form>
+        </LargeCard>
+        <div class="flex justify-around  mt-32 m-auto w-11/12">
+          {cardTypes.map((item) => (
+            <CardGradient>
+              <p>{item.name}</p>
+            </CardGradient>
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default SearchFlights;
