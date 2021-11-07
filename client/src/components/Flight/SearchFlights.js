@@ -1,14 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
 import CardGradient from "../Shared/CardGradient";
 import { Button } from "antd";
 import "../../assets/css/button.css";
+import { getCountries } from "../../api/index";
 
 import { Form, Select, DatePicker } from "antd";
 
-const SearchFlights = () => {
+function SearchFlights() {
+  const [data, setData] = useState({
+    //can be any variable name
+    countriesInfo: {
+      countries: "",
+    },
+    loading: true,
+  });
+
+  const getCountriesInfo = async () => {
+    let countries;
+    const res1 = await getCountries();
+    //retrieve countries names
+    if ((res1.status = 200)) {
+      countries = res1.data?.country_name;
+    }
+    setData({
+      countriesInfo: {
+        countries,
+      },
+      loading: false,
+    });
+  };
+
+  useEffect(() => {
+    getCountriesInfo();
+  }, []);
+
   function onChange(date, dateString) {
     console.log(date, dateString);
   }
@@ -19,25 +47,26 @@ const SearchFlights = () => {
     { id: 3, name: "Pre-Departure COVID Test" },
   ];
 
-  // const getFlights = async () => {
-  //   let destinations, arrivals;
-  //   const res1 = await getFlights();
-  //   if(res1.status)
-  // }
-
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
         Plan Ahead and Book with Confidence
       </h1>
+
       <LargeCard>
         <Form layout="vertical">
           <div class="font-bold ">
             <div class=" ">
               <Form.Item label="Where From ">
-                <Select>
-                  <Select.Option value="from">Singapore</Select.Option>
-                </Select>
+                {!data.loading && (
+                  <Fragment>
+                    <Select>
+                      <Select.Option value="From">
+                        {data.countriesInfo.countries}
+                      </Select.Option>
+                    </Select>
+                  </Fragment>
+                )}
               </Form.Item>
               <Form.Item label="Where To">
                 <Select>
@@ -73,6 +102,6 @@ const SearchFlights = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SearchFlights;
