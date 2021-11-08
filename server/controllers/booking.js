@@ -1,11 +1,13 @@
 const Flight = require("../models/Flight");
 const Booking = require("../models/Booking");
 const Customer = require("../models/Customer");
+const Payment = require("../models/Payment");
 
 exports.create = async (req, res) => {
   try {
     const flight = new Flight(req.body.flight);
-    const result = await Booking.createFlightAndBooking(flight);
+    const payment = new Payment(req.body.payment);
+    const result = await Booking.createFlightAndBooking(flight, payment);
     const bookingId = result[0][0].bookingId;
     req.body.customers.forEach(async (item) => {
       const cust = new Customer(item);

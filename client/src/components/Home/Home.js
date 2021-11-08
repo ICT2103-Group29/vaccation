@@ -2,7 +2,6 @@ import React, { useEffect, useState, Fragment } from "react";
 import Card from "../Shared/Card";
 import CardGradient from "../Shared/CardGradient";
 import TableData from "../Shared/Table";
-import Banner from "./Banner";
 import "../../assets/css/font.css";
 import {
   getOpenCountries,
@@ -73,7 +72,6 @@ function Home() {
     if (res1.status === 200) {
       open = res1.data?.open;
     }
-
 
     const res2 = await getWorldWideVaccPercent();
     if (res2.status === 200) {
