@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.3.0",
+    "@stripe/react-stripe-js": "^1.6.0",
+    "@stripe/stripe-js": "^1.21.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -38,11 +40,11 @@
     ]
   },
   "devDependencies": {
+    "@headlessui/react": "^1.4.1",
+    "antd": "^4.16.13",
     "autoprefixer": "^9.8.8",
     "postcss": "^7.0.39",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16",
-    "antd": "^4.16.13",
     "react-router-dom": "^5.3.0",
-    "@headlessui/react": "^1.4.1"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16"
   }
 }
