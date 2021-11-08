@@ -5,3 +5,12 @@
     border-radius: 10px;
     font-size: 1rem;
 }
+
+.ant-btn-default {
+    /* background-color: #ffffff; */
+    outline: 4px;
+    width: 8rem;
+    height: 2.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+}

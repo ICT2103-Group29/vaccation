@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
-import searchFlights from "./components/Flight/SearchFlights";
+import SearchFlights from "./components/Flight/SearchFlights";
 import Results from "./components/Flight/Results";
 import PassengerDetails from "./components/Flight/PassengerDetails";
 import Payment from "./components/Flight/Payment";
@@ -16,11 +16,36 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/searchFlights" component={searchFlights} />
-          <Route exact path="/results" component={Results} />
-          <Route exact path="/passengerDetails" component={PassengerDetails} />
-          <Route exact path="/payment" component={Payment} />
+          <Route exact key="home" path="/" exact component={Home} />
+
+          <Route
+            exact
+            key="booking"
+            path="/booking"
+            exact
+            component={SearchFlights}
+          />
+          <Route
+            exact
+            key="results"
+            path="/results"
+            exact
+            component={Results}
+          />
+          <Route
+            exact
+            key="passengerDetails"
+            path="/passengerDetails"
+            exact
+            component={PassengerDetails}
+          />
+          <Route
+            exact
+            key="payment"
+            path="/payment"
+            exact
+            component={Payment}
+          />
         </Switch>
       </Router>
 
