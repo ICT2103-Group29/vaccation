@@ -26,7 +26,7 @@ function App() {
             exact
             component={SearchFlights}
           />
-          {/* <Route
+          <Route
             exact
             key="results"
             path="/results"
@@ -46,7 +46,7 @@ function App() {
             path="/payment"
             exact
             component={Payment}
-          /> */}
+          />
         </Switch>
       </Router>
 

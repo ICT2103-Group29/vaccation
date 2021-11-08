@@ -79,7 +79,6 @@ function SearchFlights() {
   }
 
   const onFinish = (e) => {
-    e.preventDefault();
     console.log("Success:", e);
     clear();
   };
