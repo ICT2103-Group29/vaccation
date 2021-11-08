@@ -15,7 +15,6 @@ function App() {
     <div class="h-full bg-gray-100 ">
       <Router>
         <Navbar />
-
         <Switch>
           <Route exact key="home" path="/" exact component={Home} />
 

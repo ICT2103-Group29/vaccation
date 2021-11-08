@@ -1,10 +1,14 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Card from "../Shared/Card";
 import CardGradient from "../Shared/CardGradient";
-import TableData from "./Table";
+import TableData from "../Shared/Table";
 import Banner from "./Banner";
 import "../../assets/css/font.css";
-import { getOpenCountries, getWorldWideVaccPercent } from "../../api";
+import {
+  getOpenCountries,
+  getWorldWideVaccPercent,
+  getVaccData,
+} from "../../api";
 
 const cardDetails = [
   { id: 1, name: "Open with Restrictions", data: "200" },
@@ -18,14 +22,50 @@ const cardTypes = [
 ];
 
 function Home() {
+  // How data object is structured
   const [data, setData] = useState({
     stats: {
       open: "",
       worldwide: "",
     },
+    vaccRate: [],
     loading: true,
   });
 
+  /* Helper function to separate numbers by commas */
+  const getNumberCommas = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  // Define vaccination rate table columns
+  const tableColumns = [
+    {
+      title: "Country",
+      dataIndex: "country_name",
+      width: 150,
+      sorter: (a, b) => a.country_name - b.country_name,
+    },
+    {
+      title: "Total Vaccinated",
+      dataIndex: "total_vacc",
+      width: 120,
+      sorter: (a, b) => a.total_vacc - b.total_vacc,
+      render: (text) => {
+        return <span>{getNumberCommas(text)}</span>;
+      },
+    },
+    {
+      title: "Total Fully Vaccinated",
+      dataIndex: "total_fully_vacc",
+      width: 100,
+      sorter: (a, b) => a.total_fully_vacc - b.total_fully_vacc,
+      render: (text) => {
+        return <span>{getNumberCommas(text)}</span>;
+      },
+    },
+  ];
+
+  /* Retrieve open with restrictions and worldwide vacc rate*/
   const getStats = async () => {
     let open, percent;
 
@@ -40,17 +80,37 @@ function Home() {
       percent = res2.data?.vaccPercent;
     }
 
-    setData({
-      stats: {
-        open,
-        worldwide: percent,
-      },
-      loading: false,
+    // Update state
+    setData((prevState) => {
+      return {
+        ...prevState,
+        stats: {
+          open: open,
+          worldwide: percent,
+        },
+      };
     });
+  };
+
+  /* Retrieve data for vacc rate table */
+  const getVaccRate = async () => {
+    const res = await getVaccData();
+
+    // Update state
+    setData((prevState) => ({
+      ...prevState,
+      vaccRate: res.data,
+    }));
   };
 
   useEffect(() => {
     getStats();
+    getVaccRate();
+    // Update loading to false
+    setData((prevState) => ({
+      ...prevState,
+      loading: false,
+    }));
   }, []);
 
   return (
@@ -81,7 +141,7 @@ function Home() {
           <h2 className="text-2xl font-bold text-left ">
             Global COVID-19 Vaccination Rate
           </h2>
-          <TableData />
+          <TableData columns={tableColumns} data={data.vaccRate} />
         </Card>
       </div>
       <div className="pb-48">
