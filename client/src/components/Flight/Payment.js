@@ -107,19 +107,6 @@ const PassengerDetails = () => {
                       <Input size="large" placeholder="Enter CVV" />
                     </Form.Item>
                   </div>
-                  <div class="">
-                    <div class="flex">
-                      <Form.Item label="Expiry Month*">
-                        <DatePicker onChange={onChange} picker="month" />
-                      </Form.Item>
-                      <Form.Item label="Expiry Year*">
-                        <DatePicker onChange={onChange} picker="year" />
-                      </Form.Item>
-                      <Form.Item label="CVV*">
-                        <Input size="large" placeholder="Enter CVV" />
-                      </Form.Item>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div class=" mt-12 text-right">
