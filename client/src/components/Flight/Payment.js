@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 import { Form, Input, Button, DatePicker } from "antd";
 function onChange(date, dateString) {
   console.log(date, dateString);
 }
+
+const stripePromise = loadStripe("API KEY");
 
 const PassengerDetails = () => {
   return (
@@ -17,31 +21,36 @@ const PassengerDetails = () => {
       <div class="m-auto">
         <h3 class="text-2xl font-bold pl-64">Payment</h3>
         <LargeCard>
-          <Form layout="vertical">
-            <div class="font-bold">
-              <div class=" ">
-                <Form.Item label="Name on Credit Card* ">
-                  <DatePicker onChange={onChange} picker="month" />
-                </Form.Item>
-                <Form.Item label="Credit Card Number*">
-                  <Input size="large" placeholder="Enter Credit Card Number" />
-                </Form.Item>
-              </div>
-              <div class="">
-                <div class="flex">
-                  <Form.Item label="Expiry Month*">
+          <Elements stripe={stripePromise}>
+            <Form layout="vertical">
+              <div class="font-bold">
+                <div class=" ">
+                  <Form.Item label="Name on Credit Card* ">
                     <DatePicker onChange={onChange} picker="month" />
                   </Form.Item>
-                  <Form.Item label="Expiry Year*">
-                    <DatePicker onChange={onChange} picker="year" />
-                  </Form.Item>
-                  <Form.Item label="CVV*">
-                    <Input size="large" placeholder="Enter CVV" />
+                  <Form.Item label="Credit Card Number*">
+                    <Input
+                      size="large"
+                      placeholder="Enter Credit Card Number"
+                    />
                   </Form.Item>
                 </div>
+                <div class="">
+                  <div class="flex">
+                    <Form.Item label="Expiry Month*">
+                      <DatePicker onChange={onChange} picker="month" />
+                    </Form.Item>
+                    <Form.Item label="Expiry Year*">
+                      <DatePicker onChange={onChange} picker="year" />
+                    </Form.Item>
+                    <Form.Item label="CVV*">
+                      <Input size="large" placeholder="Enter CVV" />
+                    </Form.Item>
+                  </div>
+                </div>
               </div>
-            </div>
-          </Form>
+            </Form>
+          </Elements>
           <div class="text-center mt-12 text-right">
             <h3 class="text-xl font-bold text-blue-800">
               Total to be paid now
