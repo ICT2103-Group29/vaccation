@@ -40,7 +40,7 @@ const Results = (props) => {
         <h3 class="text-2xl font-extrabold">Results From Booking</h3>
         <h3 class="text-2xl font-bold text-blue-800">Singapore to Manila</h3>
       </div>
-
+      {/* {!Destination.loading && ( */}
       <div class=" mt-26 m-auto w-8/12 ">
         {bookingDetails.map((item) => (
           <Card>
@@ -66,6 +66,7 @@ const Results = (props) => {
           </Card>
         ))}
       </div>
+      {/* )} */}
     </div>
   );
 };

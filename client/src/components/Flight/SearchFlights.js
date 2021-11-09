@@ -8,6 +8,8 @@ import CardGradient from "../Shared/CardGradient";
 import { Button, InputNumber, Form, Select, DatePicker } from "antd";
 import "../../assets/css/button.css";
 import { getCountries } from "../../api";
+import { fetchFlights } from "../../api";
+
 import moment from "moment";
 
 function SearchFlights() {
@@ -40,7 +42,7 @@ function SearchFlights() {
     getCountriesInfo();
   }, []);
 
-  //get form data
+  //Get form data
   const [postData, setPostData] = useState({
     countryFrom: "",
     countryTo: "",
@@ -48,6 +50,18 @@ function SearchFlights() {
     departureDate: "",
     arrivalDate: "",
   });
+
+  const createSession = async () => {
+    let session;
+    const res1 = await fetchFlights();
+    if ((res1.status = 200)) {
+      session = res1.data;
+      alert.log(session);
+    }
+  };
+  useEffect(() => {
+    createSession();
+  }, []);
 
   const clear = () => {
     setPostData({
