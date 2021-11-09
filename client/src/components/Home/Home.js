@@ -2,7 +2,6 @@ import React, { useEffect, useState, Fragment } from "react";
 import Card from "../Shared/Card";
 import CardGradient from "../Shared/CardGradient";
 import TableData from "../Shared/Table";
-import Banner from "./Banner";
 import "../../assets/css/font.css";
 import {
   getOpenCountries,
