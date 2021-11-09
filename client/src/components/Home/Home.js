@@ -73,7 +73,6 @@ function Home() {
       open = res1.data?.open;
     }
 
-
     const res2 = await getWorldWideVaccPercent();
     if (res2.status === 200) {
       percent = res2.data?.vaccPercent;

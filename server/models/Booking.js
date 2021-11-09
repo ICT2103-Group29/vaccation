@@ -7,7 +7,7 @@ class Booking {
   }
 }
 
-Booking.createFlightAndBooking = (newFlight) => {
+Booking.createFlightAndBooking = (newFlight, newPayment) => {
   return new Promise((resolve, reject) => {
     let param = [];
     for (const key in newFlight) {
@@ -15,6 +15,13 @@ Booking.createFlightAndBooking = (newFlight) => {
         param.push(newFlight[key]);
       }
     }
+
+    for (const key in newPayment) {
+      if (newPayment.hasOwnProperty(key)) {
+        param.push(newPayment[key]);
+      }
+    }
+
     sql.query(query.CREATE_FLIGHT_BOOKING, [param], (err, res) => {
       if (err) {
         return reject(err);

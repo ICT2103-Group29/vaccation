@@ -11,7 +11,12 @@ CREATE PROCEDURE Create_Booking
     IN flightDuration VARCHAR(20),
     IN flightNumber VARCHAR(50),
     IN origin CHAR(3),
-    IN destination CHAR(3)
+    IN destination CHAR(3),
+    IN amount FLOAT,
+    IN paymentStatus VARCHAR(20),
+    IN paymentMethod VARCHAR(50),
+    IN expireMonth INT,
+    IN expireYear INT
 )
 BEGIN 
  DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -28,7 +33,12 @@ INSERT INTO flight (airline, arrival_time, departure_time, departure_airport,
 -- booking
 INSERT INTO booking (booking_date, flight_id)
 	VALUES (SYSDATE(), @flightId);
-SELECT LAST_INSERT_ID() as bookingId;
+    SET @bookingId = LAST_INSERT_ID();
+-- payment
+INSERT INTO payment (amount, payment_status, payment_method,
+						expire_month, expire_year, booking_id)
+		VALUES (amount, paymentStatus, paymentMethod, expireMonth,
+        expireYear, @bookingId);
 COMMIT;
 END $$
 DELIMITER ;
