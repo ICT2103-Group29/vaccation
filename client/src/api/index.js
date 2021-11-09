@@ -8,3 +8,12 @@ export const getWorldWideVaccPercent = () =>
 
 export const getCountries = () => API.get("countries");
 export const getVaccData = () => API.get("countries/vacc");
+export const searchPCRClinic = (search) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  return API.post("clinics/search", { search }, config);
+};
