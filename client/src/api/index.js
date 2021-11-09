@@ -22,23 +22,22 @@ export const searchPCRClinic = (search) => {
 export const fetchFlights = (
   originplace,
   destinationplace,
-  outboundate,
-  inboundate,
+  outbounddate,
+  inbounddate,
   adults
 ) => {
   const config = {
-    method: "POST",
     headers: {
-      apikey: "prtl6749387986743898559646983194",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
   };
   return API.post(
-    `http://partners.api.skyscanner.net/apiservices/pricing/v1.0/SG/SGD/en-SG/iata/${originplace}/${destinationplace}/${outboundate}/${inboundate}/${adults}`,
+    `http://partners.api.skyscanner.net/apiservices/pricing/v1.0/SG/SGD/en-SG/iata/${originplace}/${destinationplace}/${outbounddate}/${inbounddate}/${adults}/prtl6749387986743898559646983194`,
     {
       originplace,
       destinationplace,
-      outboundate,
-      inboundate,
+      outbounddate,
+      inbounddate,
       adults,
     },
     config

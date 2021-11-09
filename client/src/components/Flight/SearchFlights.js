@@ -44,32 +44,47 @@ function SearchFlights() {
 
   //Get form data
   const [postData, setPostData] = useState({
-    countryFrom: "",
-    countryTo: "",
-    noOfPassengers: "",
-    departureDate: "",
-    arrivalDate: "",
+    originplace: "",
+    destinationplace: "",
+    adults: "",
+    outbounddate: "",
+    inbounddate: "",
   });
 
   const createSession = async () => {
     let session;
+    alert("test 1");
+
     const res1 = await fetchFlights();
+    console.log(res1);
+
     if ((res1.status = 200)) {
+      alert("test 2");
+
       session = res1.data;
       alert.log(session);
+      alert(session.originplace);
     }
+    setData({
+      originplace: session.originplace,
+      // destinationplace: "",
+      // adults: "",
+      // outbounddate: "",
+      // inbounddate: "",
+    });
   };
+
   useEffect(() => {
     createSession();
   }, []);
 
   const clear = () => {
     setPostData({
-      countryFrom: "",
-      countryTo: "",
-      noOfPassengers: "",
-      departureDate: "",
-      arrivalDate: "",
+      originplace: "",
+      destinationplace: "",
+      adults: "",
+      outbounddate: "",
+      inbounddate: "",
     });
   };
 
@@ -118,7 +133,7 @@ function SearchFlights() {
                 <Fragment>
                   <Form.Item
                     label="Where From "
-                    name="countryFrom"
+                    name="originplace"
                     rules={[
                       {
                         required: true,
@@ -130,7 +145,7 @@ function SearchFlights() {
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          countryFrom: e,
+                          originplace: e,
                         })
                       }
                     >
@@ -146,7 +161,7 @@ function SearchFlights() {
                   </Form.Item>
                   <Form.Item
                     label="Where To"
-                    name="countryTo"
+                    name="destinationplace"
                     rules={[
                       {
                         required: true,
@@ -158,7 +173,7 @@ function SearchFlights() {
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          countryTo: e,
+                          destinationplace: e,
                         })
                       }
                     >
@@ -174,7 +189,7 @@ function SearchFlights() {
                   </Form.Item>
                   <Form.Item
                     label="No of Passengers"
-                    name="noOfPassengers"
+                    name="adults"
                     rules={[
                       {
                         required: true,
@@ -188,7 +203,7 @@ function SearchFlights() {
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          noOfPassengers: e,
+                          adults: e,
                         })
                       }
                     ></InputNumber>
@@ -211,7 +226,7 @@ function SearchFlights() {
                   onChange={(e) =>
                     setPostData({
                       ...postData,
-                      departureDate: e,
+                      outbounddate: e,
                     })
                   }
                   disabledDate={disabledDate}
@@ -231,7 +246,7 @@ function SearchFlights() {
                   onChange={(e) =>
                     setPostData({
                       ...postData,
-                      arrivalDate: e,
+                      inbounddate: e,
                     })
                   }
                   disabledDate={disabledDate}
