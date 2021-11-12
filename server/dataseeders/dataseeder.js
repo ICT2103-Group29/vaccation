@@ -1,7 +1,6 @@
 const query = require("../constants/queries/dataseeder");
 const sql = require("../config/mysql");
-const { getCSVData } = require("./utils");
-
+const { getCSVData, getCleanedResData } = require("./utils");
 
 /**
  * Insert country data from csv into database.
@@ -58,51 +57,6 @@ const insertCountryVaccinations = () => {
       }
     });
   });
-};
-
-/**
- * Helper function to clean country restriction data
- *
- * @returns {Array} cleaned data
- */
-const getCleanedResData = async () => {
-  try {
-    const data = await getCSVData("./datasets/travel_restrictions.csv", true);
-    let cleanedData = [];
-    let iso, quarantine, covidTest;
-    data.forEach((item) => {
-      iso = "";
-      quarantine = "";
-      covidTest = "";
-      let tempArr = [];
-      for (const key in item) {
-        if (item.hasOwnProperty(key)) {
-          if (key === "") continue;
-
-          if (key === "ISO") {
-            iso = item[key];
-          }
-
-          if (key.includes("quarantine") && item[key] !== "") {
-            quarantine += `${item[key]}\n`;
-          }
-
-          if (key.includes("covidTest") && item[key] !== "") {
-            covidTest += `${item[key]}\n`;
-          }
-        }
-      }
-      tempArr.push(
-        iso,
-        quarantine.replace(/\s+/g, " ").trim(),
-        covidTest.replace(/\s+/g, " ").trim()
-      );
-      cleanedData.push(tempArr);
-    });
-    return cleanedData;
-  } catch (error) {
-    console.log(error);
-  }
 };
 
 /**
