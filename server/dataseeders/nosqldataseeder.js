@@ -23,6 +23,7 @@ const insertCountries = () => {
             country_name: item[0],
           });
         });
+        await countriesCollection.createIndex({ country_name: "text" });
         const res = await countriesCollection.insertMany(countries);
         console.log(
           `Successfully inserted ${res?.insertedCount} rows into country collection...`

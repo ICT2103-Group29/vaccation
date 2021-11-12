@@ -21,7 +21,7 @@ const router = express.Router();
  *      '500':
  *        description: Server error
  */
-router.get("/", country.findAll);
+router.get("/", country.nosqlFindAll);
 
 /**
  * @swagger
@@ -35,7 +35,7 @@ router.get("/", country.findAll);
  *      '500':
  *        description: Server error
  */
-router.get("/open", country.getOpenWithRestrictions);
+router.get("/open", country.nosqlGetOpenWithRestrictions);
 
 /**
  * @swagger
@@ -49,7 +49,7 @@ router.get("/open", country.getOpenWithRestrictions);
  *      '500':
  *        description: Server error
  */
-router.get("/worldwide/vacc", country.getWorldwideVaccPercent);
+router.get("/worldwide/vacc", country.nosqlGetWorldwideVaccPercent);
 
 /**
  * @swagger
@@ -64,7 +64,7 @@ router.get("/worldwide/vacc", country.getWorldwideVaccPercent);
  *        description: Server error
  */
 
-router.get("/vacc", countryVacc.findAll);
+router.get("/vacc", countryVacc.nosqlFindAll);
 
 /**
  * @swagger
@@ -82,7 +82,7 @@ router.get("/vacc", countryVacc.findAll);
  *      '500':
  *        description: Server error
  */
-router.get("/restrictions/:iso", country.getRestrictions);
+router.get("/restrictions/:iso", country.nosqlGetRestrictions);
 
 /**
  * @swagger
@@ -101,7 +101,7 @@ router.get("/restrictions/:iso", country.getRestrictions);
  *        description: Server error
  */
 
-router.get("/vacc/:iso", countryVacc.findOne);
+router.get("/vacc/:iso", countryVacc.nosqlFindOne);
 
 /**
  * @swagger
@@ -119,7 +119,7 @@ router.get("/vacc/:iso", countryVacc.findOne);
  *      '500':
  *        description: Server error
  */
-router.get("/:iso", country.findOne);
+router.get("/:iso", country.nosqlFindOne);
 
 /**
  * @swagger
@@ -144,7 +144,7 @@ router.get("/:iso", country.findOne);
  *      '500':
  *        description: Server error
  */
-router.post("/search", country.search);
+router.post("/search", country.nosqlSearch);
 
 /**
  * @swagger
@@ -170,6 +170,6 @@ router.post("/search", country.search);
  *        description: Server error
  */
 
-router.post("/vacc/search", countryVacc.search);
+router.post("/vacc/search", countryVacc.nosqlSearch);
 
 module.exports = router;

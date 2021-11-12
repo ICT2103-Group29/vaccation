@@ -32,6 +32,7 @@ sql.getConnection((error, connection) => {
   connection.release();
 });
 connectMongoDB;
+console.log("MongoDB connected...");
 seedData();
 seedNoSQLData();
 

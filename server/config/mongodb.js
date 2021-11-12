@@ -8,7 +8,6 @@ const connectMongoDB = async () => {
       useUnifiedTopology: true,
     });
     const conn = await client.connect();
-    console.log("MongoDB Connected...");
     return conn.db("vaccationdb");
   } catch (err) {
     console.error(err.message);
