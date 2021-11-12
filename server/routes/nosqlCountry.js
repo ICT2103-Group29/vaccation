@@ -1,8 +1,8 @@
 /**
  * @swagger
  *  tags:
- *  name: Country
- *  description: Country related APIs
+ *  name: NoSQL Country
+ *  description: NoSQL Country related APIs
  */
 const express = require("express");
 const country = require("../controllers/country.js");
@@ -14,7 +14,7 @@ const router = express.Router();
  * /api/nosql/countries:
  *  get:
  *    summary: Retrieve all countries
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    responses:
  *      '200':
  *        description: JSON country objects
@@ -28,7 +28,7 @@ router.get("/", country.nosqlFindAll);
  * /api/nosql/countries/open:
  *  get:
  *    summary: Retrieve percentage of countries that are open with restrictions
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    responses:
  *      '200':
  *        description: JSON objects
@@ -42,7 +42,7 @@ router.get("/open", country.nosqlGetOpenWithRestrictions);
  * /api/nosql/countries/worldwide/vacc:
  *  get:
  *    summary: Retrieve percentage of countries that are vaccinated world wide
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    responses:
  *      '200':
  *        description: JSON object
@@ -56,7 +56,7 @@ router.get("/worldwide/vacc", country.nosqlGetWorldwideVaccPercent);
  * /api/nosql/countries/vacc:
  *  get:
  *    summary: Retrieve all countries vaccinated
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    responses:
  *      '200':
  *        description: JSON country vaccinated objects
@@ -71,7 +71,7 @@ router.get("/vacc", countryVacc.nosqlFindAll);
  * /api/nosql/countries/restrictions/{iso}:
  *  get:
  *    summary: Get a country's restrictions
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    parameters:
  *      - in: path
  *        name: iso
@@ -89,7 +89,7 @@ router.get("/restrictions/:iso", country.nosqlGetRestrictions);
  * /api/nosql/countries/vacc/{iso}:
  *  get:
  *    summary: Find a country vaccinated by ISO
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    parameters:
  *      - in: path
  *        name: iso
@@ -108,7 +108,7 @@ router.get("/vacc/:iso", countryVacc.nosqlFindOne);
  * /api/nosql/countries/{iso}:
  *  get:
  *    summary: Find a country by ISO
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    parameters:
  *      - in: path
  *        name: iso
@@ -126,7 +126,7 @@ router.get("/:iso", country.nosqlFindOne);
  * /api/nosql/countries/search:
  *  post:
  *    summary: Search countries
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    requestBody:
  *        required: true
  *        content:
@@ -151,7 +151,7 @@ router.post("/search", country.nosqlSearch);
  * /api/nosql/countries/vacc/search:
  *  post:
  *    summary: Search countries vaccinated
- *    tags: [Country]
+ *    tags: [NoSQL Country]
  *    requestBody:
  *        required: true
  *        content:

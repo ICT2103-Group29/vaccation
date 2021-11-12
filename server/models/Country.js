@@ -95,25 +95,23 @@ Country.getWorldVacc = () => {
 /* ============== NoSQL ============== */
 
 Country.nosqlGetAll = async () => {
-  const countryCollection = (await mongo).collection("country");
-  return countryCollection.find({}).toArray();
+  const collection = (await mongo).collection("country");
+  return collection.find({}).toArray();
 };
 
 Country.nosqlFindByISO = async (iso) => {
-  const countryCollection = (await mongo).collection("country");
-  return countryCollection.findOne({ iso: iso.toUpperCase() });
+  const collection = (await mongo).collection("country");
+  return collection.findOne({ iso: iso.toUpperCase() });
 };
 
 Country.nosqlSearch = async (search) => {
-  const countryCollection = (await mongo).collection("country");
-  return countryCollection.find({ $text: { $search: search } }).toArray();
+  const collection = (await mongo).collection("country");
+  return collection.find({ $text: { $search: search } }).toArray();
 };
 
 Country.nosqlGetRestrictions = async (iso) => {
-  const countryRestrictionCollection = (await mongo).collection(
-    "country_restriction"
-  );
-  return countryRestrictionCollection
+  const collection = (await mongo).collection("country_restriction");
+  return collection
     .aggregate([
       {
         $match: { country: iso.toUpperCase() },
@@ -131,15 +129,13 @@ Country.nosqlGetRestrictions = async (iso) => {
 };
 
 Country.nosqlGetNumberOfCountries = async () => {
-  const countryCollection = (await mongo).collection("country");
-  return countryCollection.countDocuments();
+  const collection = (await mongo).collection("country");
+  return collection.countDocuments();
 };
 
 Country.nosqlGetOpenWithRestrictions = async () => {
-  const countryRestrictionCollection = (await mongo).collection(
-    "country_restriction"
-  );
-  return countryRestrictionCollection.countDocuments();
+  const collection = (await mongo).collection("country_restriction");
+  return collection.countDocuments();
 };
 
 Country.nosqlGetWorldVacc = async () => {
