@@ -2,7 +2,7 @@
  * @swagger
  *  tags:
  *  name: Booking
- *  description: Country related APIs
+ *  description: Booking related APIs
  */
 const express = require("express");
 const booking = require("../controllers/booking");

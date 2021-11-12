@@ -1,8 +1,8 @@
 /**
  * @swagger
  *  tags:
- *  name: PCR Clinics
- *  description: PCR Clinics related APIs
+ *  name: NoSQL PCR Clinics
+ *  description: NoSQL PCR Clinics related APIs
  */
 const express = require("express");
 const pcrClinic = require("../controllers/clinic.js");
@@ -13,7 +13,7 @@ const router = express.Router();
  * /api/nosql/clinics:
  *  get:
  *    summary: Retrieve all pcr clinics
- *    tags: [PCR Clinics]
+ *    tags: [NoSQL PCR Clinics]
  *    responses:
  *      '200':
  *        description: JSON pcr clinic objects
@@ -27,7 +27,7 @@ router.get("/", pcrClinic.findAll);
  * /api/nosql/clinics/{clinicId}:
  *  get:
  *    summary: Find a pcr clinic by clinic id
- *    tags: [PCR Clinics]
+ *    tags: [NoSQL PCR Clinics]
  *    parameters:
  *      - in: path
  *        name: clinicId
@@ -45,7 +45,7 @@ router.get("/:clinicId", pcrClinic.findOne);
  * /api/nosql/clinics/search:
  *  post:
  *    summary: Search PCR Clinics
- *    tags: [PCR Clinics]
+ *    tags: [NoSQL PCR Clinics]
  *    requestBody:
  *        required: true
  *        content:
