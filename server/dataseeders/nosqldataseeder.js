@@ -15,16 +15,19 @@ const insertCountries = () => {
       const documentCount = await countriesCollection.countDocuments();
 
       if (documentCount === 0) {
-        const data = await getCSVData("./datasets/countries.csv", false);
         let countries = [];
+
+        const data = await getCSVData("./datasets/countries.csv", false);
         data.forEach((item) => {
           countries.push({
             iso: item[1],
             country_name: item[0],
           });
         });
+
         await countriesCollection.createIndex({ country_name: "text" });
         const res = await countriesCollection.insertMany(countries);
+
         console.log(
           `Successfully inserted ${res?.insertedCount} rows into country collection...`
         );
@@ -101,7 +104,7 @@ const insertTravelRestrictions = () => {
           if (country) {
             const countryId = country._id;
             countryRestrictions.push({
-              country: countryId,
+              country: item[0],
               restrictions: item[2],
               procedures: item[1],
             });

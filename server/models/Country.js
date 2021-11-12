@@ -113,40 +113,41 @@ Country.nosqlGetRestrictions = async (iso) => {
   const countryRestrictionCollection = (await mongo).collection(
     "country_restriction"
   );
-  return countryRestrictionCollection.find({ iso });
+  return countryRestrictionCollection
+    .aggregate([
+      {
+        $match: { country: iso.toUpperCase() },
+      },
+      {
+        $lookup: {
+          from: "country",
+          localField: "country",
+          foreignField: "iso",
+          as: "country",
+        },
+      },
+    ])
+    .toArray();
 };
 
-Country.nosqlGetNumberOfCountries = () => {
-  return new Promise((resolve, reject) => {
-    sql.query(query.COUNT_COUNTRIES, (err, res) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(res);
-    });
-  });
+Country.nosqlGetNumberOfCountries = async () => {
+  const countryCollection = (await mongo).collection("country");
+  return countryCollection.countDocuments();
 };
 
-Country.nosqlGetOpenWithRestrictions = () => {
-  return new Promise((resolve, reject) => {
-    sql.query(query.COUNT_COUNTRIES_WITH_RESTRICTIONS, (err, res) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(res);
-    });
-  });
+Country.nosqlGetOpenWithRestrictions = async () => {
+  const countryRestrictionCollection = (await mongo).collection(
+    "country_restriction"
+  );
+  return countryRestrictionCollection.countDocuments();
 };
 
-Country.nosqlGetWorldVacc = () => {
-  return new Promise((resolve, reject) => {
-    sql.query(query.COUNT_COUNTRIES_AND_VACC, (err, res) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(res);
-    });
-  });
+Country.nosqlGetWorldVacc = async () => {
+  const countryCollection = (await mongo).collection("country");
+  const countryVaccCollection = (await mongo).collection("country_vaccinated");
+  const countryCount = await countryCollection.countDocuments();
+  const countryVaccCount = await countryVaccCollection.countDocuments();
+  return [countryCount, countryVaccCount];
 };
 
 module.exports = Country;

@@ -103,7 +103,7 @@ exports.nosqlGetRestrictions = async (req, res) => {
     const data = await Country.nosqlGetRestrictions(req.params.iso);
     res.json(data);
   } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(500).send("Server error");
   }
 };
@@ -111,7 +111,7 @@ exports.nosqlGetRestrictions = async (req, res) => {
 exports.nosqlGetOpenWithRestrictions = async (req, res) => {
   try {
     const data = await Country.nosqlGetOpenWithRestrictions();
-    res.json(data[0]);
+    res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
@@ -121,8 +121,8 @@ exports.nosqlGetOpenWithRestrictions = async (req, res) => {
 exports.nosqlGetWorldwideVaccPercent = async (req, res) => {
   try {
     const data = await Country.nosqlGetWorldVacc();
-    const vacc = data[1].cnt;
-    const total = data[0].cnt;
+    const vacc = data[1];
+    const total = data[0];
     res.json({
       vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
     });
