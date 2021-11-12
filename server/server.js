@@ -10,7 +10,8 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const seedData = require("./dataseeder");
+const seedData = require("./dataseeders/dataseeder");
+const seedNoSQLData = require("./dataseeders/nosqldataseeder");
 const path = require("path");
 const { CLIENT_URL, PORT } = require("./config");
 
@@ -27,8 +28,9 @@ sql.getConnection((error, connection) => {
   }
   connection.release();
 });
+connectMongoDB;
 seedData();
-connectMongoDB();
+seedNoSQLData();
 
 // Log api requests to file
 const accessLogStream = fs.createWriteStream(
