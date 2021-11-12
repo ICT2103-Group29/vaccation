@@ -1,5 +1,7 @@
 const PcrClinic = require("../models/Clinic");
 
+/* ============== SQL ============== */
+
 exports.findAll = async (req, res) => {
   try {
     const data = await PcrClinic.getAll();
@@ -21,6 +23,38 @@ exports.findOne = async (req, res) => {
 };
 
 exports.search = async (req, res) => {
+  try {
+    const data = await PcrClinic.search(req.body.search);
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+/* ============== NoSQL ============== */
+
+exports.nosqlFindAll = async (req, res) => {
+  try {
+    const data = await PcrClinic.getAll();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.nosqlFindOne = async (req, res) => {
+  try {
+    const data = await PcrClinic.findByClinicId(req.params.clinicId);
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.nosqlSearch = async (req, res) => {
   try {
     const data = await PcrClinic.search(req.body.search);
     res.json(data);

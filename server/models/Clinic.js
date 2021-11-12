@@ -1,5 +1,8 @@
-const query = require("../constants/queries/clinic");
 const sql = require("../config/mysql");
+const connectMongoDB = require("../config/mongodb");
+const query = require("../constants/queries/clinic");
+
+const mongo = connectMongoDB();
 
 const Clinic = (Clinic) => {
   this.clinic_id = Clinic.clinic_id;
@@ -9,6 +12,8 @@ const Clinic = (Clinic) => {
   this.age = Clinic.age;
   this.contact_number = Clinic.contact_number;
 };
+
+/* ============== SQL ============== */
 
 Clinic.getAll = () => {
   return new Promise((resolve, reject) => {
@@ -45,6 +50,23 @@ Clinic.search = (search) => {
       }
     );
   });
+};
+
+/* ============== NoSQL ============== */
+
+Clinic.nosqlGetAll = async () => {
+  const collection = (await mongo).collection("pcr_clinic");
+  return collection.find({}).toArray();
+};
+
+Clinic.nosqlFindByClinicId = async (clinic_id) => {
+  const collection = (await mongo).collection("pcr_clinic");
+  return collection.findOne({ clinic_id });
+};
+
+Clinic.nosqlSearch = async (search) => {
+  const collection = (await mongo).collection("pcr_clinic");
+  return collection.find({ $text: { $search: search } }).toArray();
 };
 
 module.exports = Clinic;

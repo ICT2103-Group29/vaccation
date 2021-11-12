@@ -7,9 +7,8 @@ const connectMongoDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    await client.connect();
-
-    console.log("MongoDB Connected...");
+    const conn = await client.connect();
+    return conn.db("vaccationdb");
   } catch (err) {
     console.error(err.message);
     process.exit(1);
