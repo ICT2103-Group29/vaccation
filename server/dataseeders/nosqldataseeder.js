@@ -128,7 +128,6 @@ const insertTravelRestrictions = () => {
 const insertPCRClinics = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const countryCollection = (await mongo).collection("country");
       const pcrclinicCollection = (await mongo).collection("pcr_clinic");
       const documentCount = await pcrclinicCollection.countDocuments();
 
