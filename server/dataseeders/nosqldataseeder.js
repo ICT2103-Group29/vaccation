@@ -47,7 +47,6 @@ const insertCountries = () => {
 const insertCountryVaccinations = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const countryCollection = (await mongo).collection("country");
       const countryVaccCollection = (await mongo).collection(
         "country_vaccinated"
       );
@@ -60,10 +59,8 @@ const insertCountryVaccinations = () => {
         );
         let countryVaccinations = [];
         for (const item of data) {
-          const country = await countryCollection.findOne({ iso: item[0] });
-          const countryId = country._id;
           countryVaccinations.push({
-            country: countryId,
+            country: item[0],
             total_vacc: item[1],
             total_fully_vacc: item[2],
             vacc_percent: item[3],
@@ -90,7 +87,6 @@ const insertCountryVaccinations = () => {
 const insertTravelRestrictions = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const countryCollection = (await mongo).collection("country");
       const countryRestrictionCollection = (await mongo).collection(
         "country_restriction"
       );
@@ -100,15 +96,11 @@ const insertTravelRestrictions = () => {
         const data = await getCleanedResData();
         let countryRestrictions = [];
         for (const item of data) {
-          const country = await countryCollection.findOne({ iso: item[0] });
-          if (country) {
-            const countryId = country._id;
-            countryRestrictions.push({
-              country: item[0],
-              restrictions: item[2],
-              procedures: item[1],
-            });
-          }
+          countryRestrictions.push({
+            country: item[0],
+            restrictions: item[2],
+            procedures: item[1],
+          });
         }
         const res = await countryRestrictionCollection.insertMany(
           countryRestrictions
