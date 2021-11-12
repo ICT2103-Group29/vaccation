@@ -18,6 +18,9 @@ const { CLIENT_URL, PORT } = require("./config");
 const countryRoute = require("./routes/country");
 const bookingRoute = require("./routes/booking");
 const clinicRoute = require("./routes/clinic");
+const nosqlCountryRoute = require("./routes/nosqlCountry");
+const nosqlBookingRoute = require("./routes/nosqlBooking");
+const nosqlClinicRoute = require("./routes/nosqlClinic");
 
 const app = express();
 
@@ -73,5 +76,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/countries", countryRoute);
 app.use("/api/bookings", bookingRoute);
 app.use("/api/clinics", clinicRoute);
+app.use("/api/nosql/countries", nosqlCountryRoute);
+app.use("/api/nosql/bookings", nosqlBookingRoute);
+app.use("/api/nosql/clinics", nosqlClinicRoute);
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
