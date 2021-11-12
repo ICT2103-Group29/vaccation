@@ -20,7 +20,7 @@ const router = express.Router();
  *      '500':
  *        description: Server error
  */
-router.get("/", pcrClinic.findAll);
+router.get("/", pcrClinic.nosqlFindAll);
 
 /**
  * @swagger
@@ -38,7 +38,7 @@ router.get("/", pcrClinic.findAll);
  *      '500':
  *        description: Server error
  */
-router.get("/:clinicId", pcrClinic.findOne);
+router.get("/:clinicId", pcrClinic.nosqlFindOne);
 
 /**
  * @swagger
@@ -63,6 +63,6 @@ router.get("/:clinicId", pcrClinic.findOne);
  *      '500':
  *        description: Server error
  */
-router.post("/search", pcrClinic.search);
+router.post("/search", pcrClinic.nosqlSearch);
 
 module.exports = router;

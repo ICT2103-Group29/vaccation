@@ -128,6 +128,7 @@ const insertPCRClinics = () => {
       const documentCount = await pcrclinicCollection.countDocuments();
 
       if (documentCount === 0) {
+        pcrclinicCollection.createIndex({ clinic_name: "text" });
         const data = await getCSVData("./datasets/pcr_clinics.csv");
         let pcrClinics = [];
         for (const item of data) {
