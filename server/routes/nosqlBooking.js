@@ -22,7 +22,7 @@ const router = express.Router();
  *      '500':
  *        description: Server error
  */
-router.post("/", booking.create);
+router.post("/", booking.nosqlCreate);
 
 /**
  * @swagger
@@ -40,6 +40,6 @@ router.post("/", booking.create);
  *      '500':
  *        description: Server error
  */
-router.get("/:bookingId", booking.getBookingDetails);
+router.get("/:bookingId", booking.nosqlGetBookingDetails);
 
 module.exports = router;
