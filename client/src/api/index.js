@@ -1,4 +1,3 @@
-import { triggerFocus } from "antd/lib/input/Input";
 import API from "axios";
 API.defaults.baseURL = "http://localhost:5000/api/";
 
@@ -16,10 +15,11 @@ export const searchPCRClinic = (search) => {
     },
   };
 
+  console.log("search", search);
   return API.post("clinics/search", { search }, config);
 };
 
-export const fetchFlights = (
+export const createSession = (
   originplace,
   destinationplace,
   outbounddate,
