@@ -38,17 +38,24 @@ function SearchFlights() {
   };
 
   //sky scanner api
-  const createSession = async (e) => {
+  const createSkySession = async (e) => {
     console.log("Success data:", e);
 
-    clear();
-    // to get each varaible
-    var jsonData = JSON.parse(e);
-    console.log(jsonData[0].name);
-    // for (const key in e) {
-    //   console.log(`${key}: ${e[key]}`);
-    // }
-    const res1 = await createSession();
+    // clear();
+    let data = {
+      originplace: "SG",
+      destinationplace: "ISL",
+      outbounddate: postData.departureDate,
+      inbounddate: postData.arrivalDate,
+      adults: "2",
+    };
+    const res1 = await createSession(
+      data.originplace,
+      data.destinationplace,
+      data.outbounddate,
+      data.inbounddate,
+      data.adults
+    );
     if (res1 == 200) {
       console.log("status 200");
     }
@@ -68,15 +75,15 @@ function SearchFlights() {
     arrivalDate: "",
   });
 
-  const clear = () => {
-    setPostData({
-      countryFrom: "",
-      countryTo: "",
-      noOfPassengers: "",
-      departureDate: "",
-      arrivalDate: "",
-    });
-  };
+  // const clear = () => {
+  //   setPostData({
+  //     countryFrom: "",
+  //     countryTo: "",
+  //     noOfPassengers: "",
+  //     departureDate: "",
+  //     arrivalDate: "",
+  //   });
+  // };
   useEffect(() => {
     getCountriesInfo();
     createSession();
@@ -243,7 +250,11 @@ function SearchFlights() {
               </Form.Item>
             </div>
             <Form.Item>
-              <Button type="primary" htmlType="submit" onClick={createSession}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                onClick={createSkySession}
+              >
                 Search Flights
               </Button>
             </Form.Item>
