@@ -70,6 +70,11 @@ Clinic.nosqlGetAll = async () => {
   return collection.find({}).toArray();
 };
 
+Clinic.nosqlGetSome = async (number) => {
+  const collection = (await mongo).collection("pcr_clinic");
+  return collection.find({}).limit(number).toArray();
+};
+
 Clinic.nosqlFindByClinicId = async (clinic_id) => {
   const collection = (await mongo).collection("pcr_clinic");
   return collection.findOne({ clinic_id });

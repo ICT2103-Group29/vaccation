@@ -24,6 +24,24 @@ router.get("/", pcrClinic.nosqlFindAll);
 
 /**
  * @swagger
+ * /api/clinics/get/{number}:
+ *  get:
+ *    summary: Retrieve number of pcr clinics
+ *    tags: [PCR Clinics]
+ *    parameters:
+ *      - in: path
+ *        name: number
+ *        required: true
+ *    responses:
+ *      '200':
+ *        description: JSON pcr clinic objects
+ *      '500':
+ *        description: Server error
+ */
+router.get("/get/:number", pcrClinic.nosqlFindSome);
+
+/**
+ * @swagger
  * /api/nosql/clinics/{clinicId}:
  *  get:
  *    summary: Find a pcr clinic by clinic id

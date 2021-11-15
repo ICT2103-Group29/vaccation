@@ -46,7 +46,17 @@ exports.search = async (req, res) => {
 
 exports.nosqlFindAll = async (req, res) => {
   try {
-    const data = await PcrClinic.getAll();
+    const data = await PcrClinic.nosqlGetAll();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.nosqlFindSome = async (req, res) => {
+  try {
+    const data = await PcrClinic.nosqlGetSome(req.params.number);
     res.json(data);
   } catch (error) {
     console.error(error);
@@ -56,7 +66,7 @@ exports.nosqlFindAll = async (req, res) => {
 
 exports.nosqlFindOne = async (req, res) => {
   try {
-    const data = await PcrClinic.findByClinicId(req.params.clinicId);
+    const data = await PcrClinic.nosqlFindByClinicId(req.params.clinicId);
     res.json(data);
   } catch (error) {
     console.error(error);
@@ -66,7 +76,7 @@ exports.nosqlFindOne = async (req, res) => {
 
 exports.nosqlSearch = async (req, res) => {
   try {
-    const data = await PcrClinic.search(req.body.search);
+    const data = await PcrClinic.nosqlSearch(req.body.search);
     res.json(data);
   } catch (error) {
     console.error(error);
