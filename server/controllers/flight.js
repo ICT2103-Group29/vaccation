@@ -24,6 +24,9 @@ const createSession = async (search) => {
   return result.headers.location;
 };
 
+/**
+ * Packages the data into a format that is easier to consume.
+ */
 const getCleanedData = (data) => {
   const cleanedData = [];
   const itineries = data.Itineraries;
