@@ -29,3 +29,20 @@ exports.search = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
+exports.places = async (req, res) => {
+  try {
+    const url = `http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/SG/SGP/SG/?query=${req.params.country}&apiKey=prtl6749387986743898559646983194`;
+    const options = {
+      method: "GET",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      url: url,
+    };
+    const result = await axios(options);
+    const data = result.data.Places.filter((place) => place.CityId !== "-sky");
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
