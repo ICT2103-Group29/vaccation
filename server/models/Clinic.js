@@ -26,6 +26,17 @@ Clinic.getAll = () => {
   });
 };
 
+Clinic.getSome = (number) => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_SOME_PCR_CLINIC, parseInt(number), (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+};
+
 Clinic.findByClinicId = (clinic_id) => {
   return new Promise((resolve, reject) => {
     sql.query(query.FIND_A_PCR_CLINIC, clinic_id, (err, res) => {
