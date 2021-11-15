@@ -7,14 +7,23 @@ import "../../assets/css/button.css";
 
 import { Form, Select, DatePicker } from "antd";
 import PCRCard from "./PCRCard";
-import { getPCRClinics } from "../../api";
+import { getPCRClinics, searchPCRClinic } from "../../api";
 
 function PCRClinics() {
   const [clinics, setClinics] = useState([]);
+  const [search, setSearch] = useState("");
 
   const retrieveData = async () => {
     const result = await getPCRClinics();
     setClinics(result.data);
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const result = await searchPCRClinic(search);
+    if (result.data.length > 0) {
+      setClinics(result.data);
+    }
   };
 
   useEffect(() => {
@@ -54,10 +63,12 @@ function PCRClinics() {
           >
             <i class="fas fa-search"></i>
           </span>
-          <input
-            type="text"
-            placeholder="Search"
-            class="
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+              class="
         px-3
         py-3
         placeholder-gray-400
@@ -72,12 +83,13 @@ function PCRClinics() {
         w-full
         pl-10
       "
-          />
+            />
+          </form>
         </div>
       </div>
       <div class="relative"></div>
 
-      <div class="p-2 flex flex-row justify-center ">
+      {/* <div class="p-2 flex flex-row justify-center ">
         <div class="m-5">
           <button
             type="button"
@@ -94,7 +106,7 @@ function PCRClinics() {
             Filter option 2
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div class="flex flex-col pb-20">
         <div class="container mx-auto  my-4 px-4 py-4 bg-blue-800">
