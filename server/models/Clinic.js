@@ -26,6 +26,17 @@ Clinic.getAll = () => {
   });
 };
 
+Clinic.getSome = (number) => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_SOME_PCR_CLINIC, parseInt(number), (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+};
+
 Clinic.findByClinicId = (clinic_id) => {
   return new Promise((resolve, reject) => {
     sql.query(query.FIND_A_PCR_CLINIC, clinic_id, (err, res) => {
@@ -57,6 +68,11 @@ Clinic.search = (search) => {
 Clinic.nosqlGetAll = async () => {
   const collection = (await mongo).collection("pcr_clinic");
   return collection.find({}).toArray();
+};
+
+Clinic.nosqlGetSome = async (number) => {
+  const collection = (await mongo).collection("pcr_clinic");
+  return collection.find({}).limit(number).toArray();
 };
 
 Clinic.nosqlFindByClinicId = async (clinic_id) => {

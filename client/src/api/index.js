@@ -43,3 +43,4 @@ export const searchFlight = (postData) => {
   return API.post("flights/search", body, config);
 };;
 
+export const getPCRClinics = () => API.get("clinics/get/10");
