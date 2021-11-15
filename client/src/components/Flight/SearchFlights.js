@@ -39,12 +39,13 @@ function SearchFlights() {
 
   //sky scanner api
   const createSkySession = async (e) => {
+    e.preventDefault();
     console.log("Success data:", e);
 
     // clear();
     let data = {
-      originplace: "SG",
-      destinationplace: "ISL",
+      originplace: "SIN",
+      destinationplace: "HKG",
       outbounddate: postData.departureDate,
       inbounddate: postData.arrivalDate,
       adults: "2",
@@ -138,11 +139,18 @@ function SearchFlights() {
                     ]}
                   >
                     <Select
+                      showSearch
+                      optionFilterProp="children"
                       onChange={(e) =>
                         setPostData({
                           ...postData,
                           countryFrom: e,
                         })
+                      }
+                      filterOption={(input, option) =>
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
                       }
                     >
                       {data.countriesInfo.countries.map((country) => (
@@ -166,11 +174,18 @@ function SearchFlights() {
                     ]}
                   >
                     <Select
+                      showSearch
+                      optionFilterProp="children"
                       onChange={(e) =>
                         setPostData({
                           ...postData,
                           countryTo: e,
                         })
+                      }
+                      filterOption={(input, option) =>
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
                       }
                     >
                       {data.countriesInfo.countries.map((country) => (

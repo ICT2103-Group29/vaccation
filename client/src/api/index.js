@@ -37,9 +37,12 @@ export const createSession = (
   console.log(" inbounddate", inbounddate);
   console.log("adults", adults);
 
-  return API.post(
-    `http://partners.api.skyscanner.net/apiservices/pricing/v1.0/SG/SGD/en-SG/iata/${originplace}/${destinationplace}/${outbounddate}/${inbounddate}/${adults}/prtl6749387986743898559646983194`,
+  // return API.post(
+  //   `http://partners.api.skyscanner.net/apiservices/pricing/v1.0/SG/SGD/en-SG/iata/${originplace}/${destinationplace}/${outbounddate}/${inbounddate}/${adults}/prtl6749387986743898559646983194`,
 
-    config
-  );
-};
+  //   config,
+  //   { mode: "no-cors" }
+  // );
+    return API.post("/creation-session", { originplace,destinationplace,outbounddate,inbounddate, adults }, config);
+
+};;
