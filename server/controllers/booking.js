@@ -3,6 +3,8 @@ const Booking = require("../models/Booking");
 const Customer = require("../models/Customer");
 const Payment = require("../models/Payment");
 
+/* ============== SQL ============== */
+
 exports.create = async (req, res) => {
   try {
     const flight = new Flight(req.body.flight);
@@ -68,6 +70,54 @@ exports.getBookingDetails = async (req, res) => {
     });
 
     res.json(cleanedData);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server error");
+  }
+};
+
+/* ============== NoSQL ============== */
+
+exports.nosqlCreate = async (req, res) => {
+  try {
+    let booking = {
+      flight: {},
+      payment: {},
+      customers: [],
+    };
+
+    booking.flight = new Flight(req.body.flight);
+    booking.payment = new Payment(req.body.payment);
+    for (const customer of req.body.customers) {
+      const cust = new Customer(customer);
+      booking.customers.push({
+        mobileNumber: cust.mobileNumber,
+        firstName: cust.firstName,
+        lastName: cust.lastName,
+        email: cust.email,
+        passport: {
+          passportNumber: cust.passportNumber,
+          nationality: cust.nationality,
+          placeOfIssue: cust.placeOfIssue,
+          expiryDate: cust.expiryDate,
+          dob: cust.dob,
+        },
+      });
+    }
+    const result = await Booking.nosqlCreate(booking);
+    res.status(200).json({
+      message: `Booking successful. Booking ID is ${result.insertedId}.`,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Server error");
+  }
+};
+
+exports.nosqlGetBookingDetails = async (req, res) => {
+  try {
+    const data = await Booking.nosqlGetDetails(req.params.bookingId);
+    res.json(data);
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server error");

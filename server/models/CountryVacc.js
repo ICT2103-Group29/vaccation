@@ -1,5 +1,8 @@
-const query = require("../constants/queries/countryVacc");
 const sql = require("../config/mysql");
+const connectMongoDB = require("../config/mongodb");
+const query = require("../constants/queries/countryVacc");
+
+const mongo = connectMongoDB();
 
 const Country_Vaccinated = (country_vaccinated) => {
   this.cv_id = country_vaccinated.cv_id;
@@ -8,6 +11,8 @@ const Country_Vaccinated = (country_vaccinated) => {
   this.total_vacc = country_vaccinated.total_vacc;
   this.vacc_percent = country_vaccinated.vacc_percent;
 };
+
+/* ============== SQL ============== */
 
 Country_Vaccinated.getAll = () => {
   return new Promise((resolve, reject) => {
@@ -44,6 +49,60 @@ Country_Vaccinated.search = (search) => {
       }
     );
   });
+};
+
+/* ============== NoSQL ============== */
+
+Country_Vaccinated.nosqlGetAll = async () => {
+  const collection = (await mongo).collection("country_vaccinated");
+  return collection
+    .aggregate([
+      { $match: {} },
+      {
+        $lookup: {
+          from: "country",
+          localField: "country",
+          foreignField: "iso",
+          as: "country",
+        },
+      },
+    ])
+    .toArray();
+};
+
+Country_Vaccinated.nosqlFindByISO = async (iso) => {
+  const collection = (await mongo).collection("country_vaccinated");
+  return collection
+    .aggregate([
+      { $match: { country: iso.toUpperCase() } },
+      {
+        $lookup: {
+          from: "country",
+          localField: "country",
+          foreignField: "iso",
+          as: "country",
+        },
+      },
+    ])
+    .toArray();
+};
+
+Country_Vaccinated.nosqlSearch = async (search) => {
+  const collection = (await mongo).collection("country_vaccinated");
+  return collection
+    .aggregate([
+      {
+        $lookup: {
+          from: "country",
+          localField: "country",
+          foreignField: "iso",
+          as: "country",
+        },
+      },
+      { $unwind: "$country" },
+      { $match: { "country.country_name": search } },
+    ])
+    .toArray();
 };
 
 module.exports = Country_Vaccinated;

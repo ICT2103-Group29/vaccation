@@ -1,8 +1,8 @@
 /**
  * @swagger
  *  tags:
- *  name: Booking
- *  description: Booking related APIs
+ *  name: NoSQL Booking
+ *  description: NoSQL Booking related APIs
  */
 const express = require("express");
 const booking = require("../controllers/booking");
@@ -10,10 +10,10 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/bookings:
+ * /api/nosql/bookings:
  *  post:
  *    summary: Create booking
- *    tags: [Booking]
+ *    tags: [NoSQL Booking]
  *    requestBody:
  *        required: true
  *    responses:
@@ -22,14 +22,14 @@ const router = express.Router();
  *      '500':
  *        description: Server error
  */
-router.post("/", booking.create);
+router.post("/", booking.nosqlCreate);
 
 /**
  * @swagger
- * /api/bookings/{bookingId}:
+ * /api/nosql/bookings/{bookingId}:
  *  get:
  *    summary: Get booking details
- *    tags: [Booking]
+ *    tags: [NoSQL Booking]
  *    parameters:
  *      - in: path
  *        name: bookingId
@@ -40,6 +40,6 @@ router.post("/", booking.create);
  *      '500':
  *        description: Server error
  */
-router.get("/:bookingId", booking.getBookingDetails);
+router.get("/:bookingId", booking.nosqlGetBookingDetails);
 
 module.exports = router;
