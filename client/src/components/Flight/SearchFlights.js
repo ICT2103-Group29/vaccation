@@ -75,24 +75,18 @@ function SearchFlights() {
     });
   };
 
-  // const onFinish = (e) => {
-  //   console.log("Success:", e);
-  //   clear();
-  // };
-
   //get form data
   const [postData, setPostData] = useState({
     country: "SG",
     currency: "SGD",
     locale: "en-SG",
     locationSchema: "sky",
-    originplace: "HKGA-sky",
-    destinationplace: "TYOA-sky",
+    originplace: "SIN-sky",
+    destinationplace: "NYCA-sky",
     outbounddate: "2021-11-16",
     inbounddate: "2021-11-25",
     adults: "",
   });
-
   // const clear = () => {
   //   setPostData({
   //     countryFrom: "",
