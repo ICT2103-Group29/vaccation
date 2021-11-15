@@ -19,30 +19,27 @@ export const searchPCRClinic = (search) => {
   return API.post("clinics/search", { search }, config);
 };
 
-export const createSession = (
-  originplace,
-  destinationplace,
-  outbounddate,
-  inbounddate,
-  adults
-) => {
+export const createSession = (postData) => {
   const config = {
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
     },
   };
-  console.log("origin place", originplace);
-  console.log(" destination place", destinationplace);
-  console.log("outbounddate", outbounddate);
-  console.log(" inbounddate", inbounddate);
-  console.log("adults", adults);
+  console.log("country", postData);
 
-  // return API.post(
-  //   `http://partners.api.skyscanner.net/apiservices/pricing/v1.0/SG/SGD/en-SG/iata/${originplace}/${destinationplace}/${outbounddate}/${inbounddate}/${adults}/prtl6749387986743898559646983194`,
+  var body = JSON.stringify(postData);
+  return API.post("flights/search", body, config);
+};
 
-  //   config,
-  //   { mode: "no-cors" }
-  // );
-    return API.post("/creation-session", { originplace,destinationplace,outbounddate,inbounddate, adults }, config);
+export const createSession = (postData) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  console.log("country", postData);
 
+  var body = JSON.stringify(postData);
+  return API.post("flights/search", body, config);
 };;
+

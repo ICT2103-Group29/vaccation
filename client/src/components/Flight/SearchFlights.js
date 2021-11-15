@@ -44,22 +44,35 @@ function SearchFlights() {
 
     // clear();
     let data = {
-      originplace: "SIN",
-      destinationplace: "HKG",
-      outbounddate: postData.departureDate,
-      inbounddate: postData.arrivalDate,
-      adults: "2",
+      country: postData.country,
+      currency: postData.currency,
+      locale: postData.locale,
+      locationSchema: postData.locationSchema,
+      originplace: postData.originplace,
+      destinationplace: postData.destinationplace,
+      outbounddate: postData.outbounddate,
+      inbounddate: postData.inbounddate,
+      adults: postData.adults,
     };
-    const res1 = await createSession(
-      data.originplace,
-      data.destinationplace,
-      data.outbounddate,
-      data.inbounddate,
-      data.adults
-    );
-    if (res1 == 200) {
+    const res1 = await createSession(data);
+    console.log(res1.status);
+    if (res1.status == 200) {
       console.log("status 200");
+    } else {
+      console.log("res1", res1.status);
     }
+
+    setPostData({
+      country: data.country,
+      currency: data.currency,
+      locale: data.locale,
+      locationSchema: data.locationSchema,
+      originplace: data.originplace,
+      destinationplace: data.destinationplace,
+      outbounddate: data.outbounddate,
+      inbounddate: data.inbounddate,
+      adults: data.adults,
+    });
   };
 
   // const onFinish = (e) => {
@@ -69,12 +82,17 @@ function SearchFlights() {
 
   //get form data
   const [postData, setPostData] = useState({
-    countryFrom: "",
-    countryTo: "",
-    noOfPassengers: "",
-    departureDate: "",
-    arrivalDate: "",
+    country: "SG",
+    currency: "SGD",
+    locale: "en-SG",
+    locationSchema: "sky",
+    originplace: "HKGA-sky",
+    destinationplace: "TYOA-sky",
+    outbounddate: "2021-11-16",
+    inbounddate: "2021-11-25",
+    adults: "",
   });
+  console.log("this is outbound date", postData.outbounddate);
 
   // const clear = () => {
   //   setPostData({
@@ -104,6 +122,8 @@ function SearchFlights() {
       name: "Pre-Departure COVID Test",
     },
   ];
+  const dateFormatList = ["YYYY/MM/DD", "YYYY/MM/DD"];
+
   function disabledDate(current) {
     // Can not select days before today and today
     return current && current < moment().endOf("day");
@@ -130,7 +150,7 @@ function SearchFlights() {
                 <Fragment>
                   <Form.Item
                     label="Where From "
-                    name="countryFrom"
+                    name="originplace"
                     rules={[
                       {
                         required: true,
@@ -144,7 +164,7 @@ function SearchFlights() {
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          countryFrom: e,
+                          originplace: e,
                         })
                       }
                       filterOption={(input, option) =>
@@ -165,7 +185,7 @@ function SearchFlights() {
                   </Form.Item>
                   <Form.Item
                     label="Where To"
-                    name="countryTo"
+                    name="destinationplace"
                     rules={[
                       {
                         required: true,
@@ -179,7 +199,7 @@ function SearchFlights() {
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          countryTo: e,
+                          destinationplace: e,
                         })
                       }
                       filterOption={(input, option) =>
@@ -200,7 +220,7 @@ function SearchFlights() {
                   </Form.Item>
                   <Form.Item
                     label="No of Passengers"
-                    name="noOfPassengers"
+                    name="adults"
                     rules={[
                       {
                         required: true,
@@ -214,7 +234,7 @@ function SearchFlights() {
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          noOfPassengers: e,
+                          adults: e,
                         })
                       }
                     ></InputNumber>
@@ -224,7 +244,7 @@ function SearchFlights() {
             </div>
             <div class="">
               <Form.Item
-                name="departureDate"
+                name="outbounddate"
                 label="Departure Date"
                 rules={[
                   {
@@ -237,15 +257,16 @@ function SearchFlights() {
                   onChange={(e) =>
                     setPostData({
                       ...postData,
-                      departureDate: e,
+                      outbounddate: e,
                     })
                   }
                   disabledDate={disabledDate}
+                  format={dateFormatList}
                 />
               </Form.Item>
               <Form.Item
+                name="inbounddate"
                 label="Arrival Date"
-                name="arrivalDate"
                 rules={[
                   {
                     required: true,
@@ -257,7 +278,7 @@ function SearchFlights() {
                   onChange={(e) =>
                     setPostData({
                       ...postData,
-                      arrivalDate: e,
+                      inbounddate: e,
                     })
                   }
                   disabledDate={disabledDate}
