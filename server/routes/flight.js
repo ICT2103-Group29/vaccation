@@ -2,6 +2,6 @@ const express = require("express");
 const flight = require("../controllers/flight");
 const router = express.Router();
 
-router.post("/create-session", flight.createSession);
+router.post("/search", flight.search);
 
 module.exports = router;
