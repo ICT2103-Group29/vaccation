@@ -1,11 +1,16 @@
 const sql = require("../config/mysql");
+const connectMongoDB = require("../config/mongodb");
 const query = require("../constants/queries/booking");
+const { ObjectId } = require("bson");
 
+const mongo = connectMongoDB();
 class Booking {
   constructor(booking) {
     this.bookingId = booking.bookingId;
   }
 }
+
+/* ============== SQL ============== */
 
 Booking.createFlightAndBooking = (newFlight, newPayment) => {
   return new Promise((resolve, reject) => {
@@ -58,6 +63,19 @@ Booking.getDetails = (bookingId) => {
       return resolve(res);
     });
   });
+};
+
+/* ============== NoSQL ============== */
+
+Booking.nosqlCreate = async (booking) => {
+  const collection = (await mongo).collection("booking");
+  return collection.insertOne(booking);
+};
+
+Booking.nosqlGetDetails = async (bookingId) => {
+  const collection = (await mongo).collection("booking");
+  const id = ObjectId(bookingId);
+  return collection.findOne({ _id: id });
 };
 
 module.exports = Booking;
