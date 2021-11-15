@@ -9,6 +9,10 @@ import Payment from "./components/Flight/Payment";
 import Footer from "./components/Footer/Footer";
 import "./assets/css/font.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PCRClinics from "./components/PCRclinic/PCRClinics";
+import HowToNavigate from "./components/HowToNavigate/HowToNavigate";
+import TravelRestrictions from "./components/TravelRestrictions/TravelRestrictions";
+import TravelRestrictionsFull from "./components/TravelRestrictions/TravelRestrictionsFull";
 
 function App() {
   return (
@@ -46,6 +50,12 @@ function App() {
             exact
             component={Payment}
           />
+
+          <Route exact path="/PCRClinics" component={PCRClinics} />
+          <Route exact path="/HowToNavigate" component={HowToNavigate} />
+          <Route exact path="/TravelRestrictions" component={TravelRestrictions} />
+          <Route exact path="/TravelRestrictionsFull" component={TravelRestrictionsFull} />
+
         </Switch>
       </Router>
 
