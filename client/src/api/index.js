@@ -17,3 +17,5 @@ export const searchPCRClinic = (search) => {
 
   return API.post("clinics/search", { search }, config);
 };
+
+export const getPCRClinics = () => API.get("clinics/get/10");

@@ -12,6 +12,16 @@ exports.findAll = async (req, res) => {
   }
 };
 
+exports.findSome = async (req, res) => {
+  try {
+    const data = await PcrClinic.getSome(req.params.number);
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
 exports.findOne = async (req, res) => {
   try {
     const data = await PcrClinic.findByClinicId(req.params.clinicId);
