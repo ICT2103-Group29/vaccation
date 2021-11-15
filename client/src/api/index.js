@@ -31,7 +31,7 @@ export const createSession = (postData) => {
   return API.post("flights/search", body, config);
 };
 
-export const createSession = (postData) => {
+export const searchFlight = (postData) => {
   const config = {
     headers: {
       "Content-Type": "application/json",

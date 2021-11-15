@@ -24,6 +24,8 @@ exports.search = async (req, res) => {
     };
     const result = await axios(options);
     res.json(result.data);
+    console.log("result", result.data);
+    console.log("res-json", res.json(result.data));
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");

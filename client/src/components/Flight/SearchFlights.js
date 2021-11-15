@@ -92,7 +92,6 @@ function SearchFlights() {
     inbounddate: "2021-11-25",
     adults: "",
   });
-  console.log("this is outbound date", postData.outbounddate);
 
   // const clear = () => {
   //   setPostData({
