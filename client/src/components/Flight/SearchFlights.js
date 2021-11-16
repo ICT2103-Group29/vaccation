@@ -39,8 +39,9 @@ function SearchFlights() {
   };
 
   const [place, setPlace] = useState({
-    originplace: "",
-    destinationplace: "",
+    placesInfo: {
+      places: "",
+    },
   });
 
   //to find placeid (airport) with country
@@ -50,12 +51,23 @@ function SearchFlights() {
     if (res1.status == 200) {
       console.log("status 200");
       //able to retrieve array
+      // console.log(res1);
+      // placeData = res1.data;
+      // console.log(placeData);
+      // placeData.forEach((id) => setPlace(id.PlaceId));
+      // console.log(place);
       placeData = res1.data;
-      return placeData.forEach((id) => setPlace(id.PlaceId));
+
+      setPlace({
+        placesInfo: {
+          placeData,
+        },
+        loading: false,
+      });
+      console.log("places", place);
     } else {
       console.log("res1", res1.status);
     }
-    // console.log(place);
   };
 
   //get form data
@@ -165,11 +177,13 @@ function SearchFlights() {
                     <Select
                       showSearch
                       optionFilterProp="children"
-                      onChange={(e) =>
-                        setPostData({
-                          ...place,
-                          originplace: findPlaces(e),
-                        })
+                      onChange={
+                        ((e) =>
+                          setPostData({
+                            ...postData,
+                            originplace: e,
+                          }),
+                        findPlaces)
                       }
                       // onChange={((e) => setPlace(e), findPlaces)}
                       filterOption={(input, option) =>
@@ -201,11 +215,13 @@ function SearchFlights() {
                     <Select
                       showSearch
                       optionFilterProp="children"
-                      onChange={(e) =>
-                        setPostData({
-                          ...place,
-                          destinationplace: findPlaces(e),
-                        })
+                      onChange={
+                        ((e) =>
+                          setPostData({
+                            ...postData,
+                            destinationplace: e,
+                          }),
+                        findPlaces)
                       }
                       filterOption={(input, option) =>
                         option.children
