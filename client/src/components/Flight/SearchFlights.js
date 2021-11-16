@@ -51,17 +51,20 @@ function SearchFlights() {
 
   //to find placeid (airport) with country
   const findPlaces = async (e) => {
+    let placeData;
     console.log("Success data:", e);
-
     const res1 = await places(e);
+
     if (res1.status == 200) {
       console.log("status 200");
+      //able to retrieve array
+      placeData = res1.data;
+      placeData.forEach((id) => console.log(id.PlaceId));
     } else {
       console.log("res1", res1.status);
     }
 
     setPlace(e);
-    console.log("place", place);
   };
 
   //sky scanner api
@@ -81,8 +84,9 @@ function SearchFlights() {
     if (res1.status == 200) {
       console.log("status 200");
     } else {
-      console.log("res1", res1.status);
+      console.log("error", res1.status);
     }
+    console.log("res1", res1);
 
     setPostData({
       originplace: data.originplace,
@@ -186,6 +190,66 @@ function SearchFlights() {
                       {
                         required: true,
                         message: "Please select country!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      showSearch
+                      optionFilterProp="children"
+                      onChange={(e) => setPlace(e)}
+                      filterOption={(input, option) =>
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      {data.placeData.placeId.map((place) => (
+                        <Select.Option
+                          name="countrySelectedTo"
+                          value={place.placeId}
+                        >
+                          {place.placeId}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
+                    label="Place From"
+                    name="placefrom"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select place!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      showSearch
+                      optionFilterProp="children"
+                      onChange={(e) => setPlace(e)}
+                      filterOption={(input, option) =>
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      {data.countriesInfo.countries.map((country) => (
+                        <Select.Option
+                          name="countrySelectedTo"
+                          value={country.iso}
+                        >
+                          {country.country_name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
+                    label="Place from"
+                    name="placefrom"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select place!",
                       },
                     ]}
                   >

@@ -46,4 +46,6 @@ export const createSession = (postData) => {
 
 export const places = (place) => API.get(`flights/places/${place}`);
 
+  
+
 export const getPCRClinics = () => API.get("clinics/get/10");

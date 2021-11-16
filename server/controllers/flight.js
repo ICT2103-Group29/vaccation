@@ -99,6 +99,8 @@ exports.places = async (req, res) => {
     const result = await axios(options);
     const data = result.data.Places.filter((place) => place.CityId !== "-sky");
     res.json(data);
+        console.log("data", data);
+
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
