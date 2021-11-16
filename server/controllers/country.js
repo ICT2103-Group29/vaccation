@@ -111,7 +111,7 @@ exports.nosqlGetRestrictions = async (req, res) => {
 exports.nosqlGetOpenWithRestrictions = async (req, res) => {
   try {
     const data = await Country.nosqlGetOpenWithRestrictions();
-    res.json(data);
+    res.json({ open: data });
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");

@@ -57,7 +57,6 @@ Country_Vaccinated.nosqlGetAll = async () => {
   const collection = (await mongo).collection("country_vaccinated");
   return collection
     .aggregate([
-      { $match: {} },
       {
         $lookup: {
           from: "country",
@@ -66,6 +65,8 @@ Country_Vaccinated.nosqlGetAll = async () => {
           as: "country",
         },
       },
+      { $unwind: "$country" },
+      { $match: {} },
     ])
     .toArray();
 };
