@@ -8,16 +8,26 @@ import LargeCard from "../Shared/LargeCard";
 import CardGradient from "../Shared/CardGradient";
 import { Button, InputNumber, Form, Select, DatePicker } from "antd";
 import "../../assets/css/button.css";
-import { getCountries, createSession } from "../../api";
+import { getCountries, createSession, places } from "../../api";
 import moment from "moment";
 
 function SearchFlights() {
+  //get country data
   const [data, setData] = useState({
     //can be any variable name
     countriesInfo: {
       countries: "",
     },
     loading: true,
+  });
+
+  //get form data
+  const [postData, setPostData] = useState({
+    originplace: "SIN-sky",
+    destinationplace: "NYCA-sky",
+    outbounddate: "2021-11-16",
+    inbounddate: "2021-11-25",
+    adults: "",
   });
 
   const getCountriesInfo = async () => {
@@ -37,6 +47,23 @@ function SearchFlights() {
     });
   };
 
+  const [place, setPlace] = useState("");
+
+  //to find placeid (airport) with country
+  const findPlaces = async (e) => {
+    console.log("Success data:", e);
+
+    const res1 = await places(place);
+    if (res1.status == 200) {
+      console.log("status 200");
+    } else {
+      console.log("res1", res1.status);
+    }
+
+    setPlace(place);
+    console.log("place", place);
+  };
+
   //sky scanner api
   const createSkySession = async (e) => {
     e.preventDefault();
@@ -44,10 +71,6 @@ function SearchFlights() {
 
     // clear();
     let data = {
-      country: postData.country,
-      currency: postData.currency,
-      locale: postData.locale,
-      locationSchema: postData.locationSchema,
       originplace: postData.originplace,
       destinationplace: postData.destinationplace,
       outbounddate: postData.outbounddate,
@@ -63,10 +86,6 @@ function SearchFlights() {
     }
 
     setPostData({
-      country: data.country,
-      currency: data.currency,
-      locale: data.locale,
-      locationSchema: data.locationSchema,
       originplace: data.originplace,
       destinationplace: data.destinationplace,
       outbounddate: data.outbounddate,
@@ -75,18 +94,6 @@ function SearchFlights() {
     });
   };
 
-  //get form data
-  const [postData, setPostData] = useState({
-    country: "SG",
-    currency: "SGD",
-    locale: "en-SG",
-    locationSchema: "sky",
-    originplace: "SIN-sky",
-    destinationplace: "NYCA-sky",
-    outbounddate: "2021-11-16",
-    inbounddate: "2021-11-25",
-    adults: "",
-  });
   // const clear = () => {
   //   setPostData({
   //     countryFrom: "",
@@ -99,6 +106,8 @@ function SearchFlights() {
   useEffect(() => {
     getCountriesInfo();
     createSession();
+
+    findPlaces();
   }, []);
 
   const links = [
@@ -154,12 +163,7 @@ function SearchFlights() {
                     <Select
                       showSearch
                       optionFilterProp="children"
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          originplace: e,
-                        })
-                      }
+                      onChange={((e) => setPlace(e), findPlaces)}
                       filterOption={(input, option) =>
                         option.children
                           .toLowerCase()
@@ -189,12 +193,7 @@ function SearchFlights() {
                     <Select
                       showSearch
                       optionFilterProp="children"
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          destinationplace: e,
-                        })
-                      }
+                      onChange={((e) => setPlace(e), findPlaces)}
                       filterOption={(input, option) =>
                         option.children
                           .toLowerCase()
@@ -279,11 +278,7 @@ function SearchFlights() {
               </Form.Item>
             </div>
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                onClick={createSkySession}
-              >
+              <Button type="primary" htmlType="submit" onClick={createSession}>
                 Search Flights
               </Button>
             </Form.Item>

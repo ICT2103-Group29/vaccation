@@ -25,22 +25,37 @@ export const createSession = (postData) => {
       "Content-Type": "application/json",
     },
   };
-  console.log("country", postData);
+  console.log("country postData", postData);
 
   var body = JSON.stringify(postData);
+  console.log("body for createSession", body);
   return API.post("flights/search", body, config);
 };
 
-export const searchFlight = (postData) => {
+// export const searchFlight = (postData) => {
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   };
+//   console.log("country", postData);
+
+//   var body = JSON.stringify(postData);
+//   return API.post("flights/search", body, config);
+// };
+
+export const places = (place) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  console.log("country", postData);
+  console.log("the place in index.js", place);
 
-  var body = JSON.stringify(postData);
-  return API.post("flights/search", body, config);
-};;
+  var body = JSON.stringify(place);
+
+  console.log("body for places", body);
+  return API.get("flights/places", body, config);
+};
 
 export const getPCRClinics = () => API.get("clinics/get/10");
