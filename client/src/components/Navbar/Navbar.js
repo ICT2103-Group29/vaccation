@@ -7,7 +7,11 @@ const Navbar = (props) => {
   return (
     <div class=" max-screen h-28 mx-auto  bg-blue-800">
       <div class="flex pt-11 justify-between">
-        <h2 class="text-4xl text-white font-bold pl-12  ">Vaccation</h2>
+        <h2 class="text-4xl text-white  font-bold pl-12  ">
+          <Link class="hover:text-white" to="/">
+            Vaccation
+          </Link>
+        </h2>
         <ul class=" flex text-xl font-semibold mr-5">
           <li class="mr-5 " key="/">
             <Link to="/">Home</Link>
