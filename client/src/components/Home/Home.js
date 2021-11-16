@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
+import { Link } from "react-router-dom";
 import Card from "../Shared/Card";
 import CardGradient from "../Shared/CardGradient";
 import TableData from "../Shared/Table";
@@ -15,9 +16,9 @@ const cardDetails = [
 ];
 
 const cardTypes = [
-  { id: 1, name: "Book a Flight" },
-  { id: 2, name: "Travel Restrictions" },
-  { id: 3, name: "Pre-Departure COVID Test" },
+  { id: 1, name: "Book a Flight", link: "/booking" },
+  { id: 2, name: "Travel Restrictions", link: "/travelRestrictions" },
+  { id: 3, name: "Pre-Departure COVID Test", link: "/PCRClinics" },
 ];
 
 function Home() {
@@ -146,7 +147,9 @@ function Home() {
         <div className="flex  items-center m-6  ">
           {cardTypes.map((item) => (
             <CardGradient>
-              <p>{item.name}</p>
+              <Link to={item.link}>
+                <p>{item.name}</p>
+              </Link>
             </CardGradient>
           ))}
         </div>
