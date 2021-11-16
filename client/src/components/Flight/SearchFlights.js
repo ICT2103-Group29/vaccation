@@ -21,15 +21,6 @@ function SearchFlights() {
     loading: true,
   });
 
-  //get form data
-  const [postData, setPostData] = useState({
-    originplace: "SIN-sky",
-    destinationplace: "NYCA-sky",
-    outbounddate: "2021-11-16",
-    inbounddate: "2021-11-25",
-    adults: "",
-  });
-
   const getCountriesInfo = async () => {
     let countries;
     const res1 = await getCountries();
@@ -47,25 +38,34 @@ function SearchFlights() {
     });
   };
 
-  const [place, setPlace] = useState("");
+  const [place, setPlace] = useState({
+    originplace: "",
+    destinationplace: "",
+  });
 
   //to find placeid (airport) with country
   const findPlaces = async (e) => {
     let placeData;
-    console.log("Success data:", e);
     const res1 = await places(e);
-
     if (res1.status == 200) {
       console.log("status 200");
       //able to retrieve array
       placeData = res1.data;
-      placeData.forEach((id) => console.log(id.PlaceId));
+      return placeData.forEach((id) => setPlace(id.PlaceId));
     } else {
       console.log("res1", res1.status);
     }
-
-    setPlace(e);
+    // console.log(place);
   };
+
+  //get form data
+  const [postData, setPostData] = useState({
+    originplace: "",
+    destinationplace: "",
+    outbounddate: "2021-11-16",
+    inbounddate: "2021-11-25",
+    adults: "",
+  });
 
   //sky scanner api
   const createSkySession = async (e) => {
@@ -109,7 +109,6 @@ function SearchFlights() {
   useEffect(() => {
     getCountriesInfo();
     createSkySession();
-
     findPlaces();
   }, []);
 
@@ -166,7 +165,13 @@ function SearchFlights() {
                     <Select
                       showSearch
                       optionFilterProp="children"
-                      onChange={((e) => setPlace(e), findPlaces)}
+                      onChange={(e) =>
+                        setPostData({
+                          ...place,
+                          originplace: findPlaces(e),
+                        })
+                      }
+                      // onChange={((e) => setPlace(e), findPlaces)}
                       filterOption={(input, option) =>
                         option.children
                           .toLowerCase()
@@ -196,67 +201,12 @@ function SearchFlights() {
                     <Select
                       showSearch
                       optionFilterProp="children"
-                      onChange={(e) => setPlace(e)}
-                      filterOption={(input, option) =>
-                        option.children
-                          .toLowerCase()
-                          .indexOf(input.toLowerCase()) >= 0
+                      onChange={(e) =>
+                        setPostData({
+                          ...place,
+                          destinationplace: findPlaces(e),
+                        })
                       }
-                    >
-                      {data.placeData.placeId.map((place) => (
-                        <Select.Option
-                          name="countrySelectedTo"
-                          value={place.placeId}
-                        >
-                          {place.placeId}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    label="Place From"
-                    name="placefrom"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please select place!",
-                      },
-                    ]}
-                  >
-                    <Select
-                      showSearch
-                      optionFilterProp="children"
-                      onChange={(e) => setPlace(e)}
-                      filterOption={(input, option) =>
-                        option.children
-                          .toLowerCase()
-                          .indexOf(input.toLowerCase()) >= 0
-                      }
-                    >
-                      {data.countriesInfo.countries.map((country) => (
-                        <Select.Option
-                          name="countrySelectedTo"
-                          value={country.iso}
-                        >
-                          {country.country_name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    label="Place from"
-                    name="placefrom"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please select place!",
-                      },
-                    ]}
-                  >
-                    <Select
-                      showSearch
-                      optionFilterProp="children"
-                      onChange={((e) => setPlace(e), findPlaces)}
                       filterOption={(input, option) =>
                         option.children
                           .toLowerCase()
