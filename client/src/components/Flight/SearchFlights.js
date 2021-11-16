@@ -42,6 +42,7 @@ function SearchFlights() {
     placesInfo: {
       places: "",
     },
+    loading: true,
   });
 
   //to find placeid (airport) with country
@@ -57,17 +58,14 @@ function SearchFlights() {
       // placeData.forEach((id) => setPlace(id.PlaceId));
       // console.log(place);
       placeData = res1.data;
-
-      setPlace({
-        placesInfo: {
-          placeData,
-        },
-        loading: false,
-      });
-      console.log("places", place);
-    } else {
-      console.log("res1", res1.status);
     }
+    setPlace({
+      placesInfo: {
+        placeData,
+      },
+      loading: false,
+    });
+    console.log("places", place);
   };
 
   //get form data
@@ -263,6 +261,81 @@ function SearchFlights() {
                 </Fragment>
               )}
             </div>
+            {!place.loading && (
+              <Fragment>
+                <Form.Item
+                  label="Place From "
+                  name="placefrom"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select country!",
+                    },
+                  ]}
+                >
+                  <Select
+                    showSearch
+                    optionFilterProp="children"
+                    onChange={(e) =>
+                      setPlace({
+                        ...place,
+                        places: e,
+                      })
+                    }
+                    filterOption={(input, option) =>
+                      option.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                  >
+                    {place.placesInfo.places.map((id) => (
+                      <Select.Option
+                        name="countrySelectedFrom"
+                        value={id.placeId}
+                      >
+                        {id.placeId}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+                <Form.Item
+                  label="Place to"
+                  name="placeto"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select place!",
+                    },
+                  ]}
+                >
+                  <Select
+                    showSearch
+                    optionFilterProp="children"
+                    onChange={(e) =>
+                      setPlace({
+                        ...place,
+                        places: e,
+                      })
+                    }
+                    filterOption={(input, option) =>
+                      option.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                  >
+                    {/* {place.map((placeData) => (
+                        <Select.Option
+                          name="countrySelectedTo"
+                          value={placeData.placeId}
+                        >
+                          {placeData.placeId}
+                        </Select.Option>
+                      ))} */}
+                  </Select>
+                </Form.Item>
+              </Fragment>
+            )}
+
             <div class="">
               <Form.Item
                 name="outbounddate"
