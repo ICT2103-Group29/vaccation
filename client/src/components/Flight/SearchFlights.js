@@ -40,7 +40,7 @@ function SearchFlights() {
 
   const [place, setPlace] = useState({
     placesInfo: {
-      places: "",
+      placeData: "",
     },
     loading: true,
   });
@@ -66,6 +66,7 @@ function SearchFlights() {
       loading: false,
     });
     console.log("places", place);
+    console.log("placesinfo", place.placesInfo.placeData);
   };
 
   //get form data
@@ -288,7 +289,7 @@ function SearchFlights() {
                         .indexOf(input.toLowerCase()) >= 0
                     }
                   >
-                    {place.placesInfo.places.map((id) => (
+                    {place.placesInfo.placeData.map((id) => (
                       <Select.Option
                         name="countrySelectedFrom"
                         value={id.placeId}
