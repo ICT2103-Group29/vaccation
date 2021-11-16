@@ -1,5 +1,5 @@
 import API from "axios";
-API.defaults.baseURL = "http://localhost:5000/api/nosql";
+API.defaults.baseURL = "http://localhost:5000/api";
 
 export const getOpenCountries = () => API.get("countries/open");
 
