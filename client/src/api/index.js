@@ -44,18 +44,6 @@ export const createSession = (postData) => {
 //   return API.post("flights/search", body, config);
 // };
 
-export const places = (place) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  console.log("the place in index.js", place);
-
-  var body = JSON.stringify(place);
-
-  console.log("body for places", body);
-  return API.get("flights/places", body, config);
-};
+export const places = (place) => API.get(`flights/places/${place}`);
 
 export const getPCRClinics = () => API.get("clinics/get/10");

@@ -53,20 +53,19 @@ function SearchFlights() {
   const findPlaces = async (e) => {
     console.log("Success data:", e);
 
-    const res1 = await places(place);
+    const res1 = await places(e);
     if (res1.status == 200) {
       console.log("status 200");
     } else {
       console.log("res1", res1.status);
     }
 
-    setPlace(place);
+    setPlace(e);
     console.log("place", place);
   };
 
   //sky scanner api
   const createSkySession = async (e) => {
-    e.preventDefault();
     console.log("Success data:", e);
 
     // clear();
@@ -105,7 +104,7 @@ function SearchFlights() {
   // };
   useEffect(() => {
     getCountriesInfo();
-    createSession();
+    createSkySession();
 
     findPlaces();
   }, []);
@@ -144,7 +143,7 @@ function SearchFlights() {
           initialValues={{
             remember: true,
           }}
-          onFinish={createSession}
+          onFinish={createSkySession}
         >
           <div class="font-bold ">
             <div class=" ">
@@ -278,7 +277,11 @@ function SearchFlights() {
               </Form.Item>
             </div>
             <Form.Item>
-              <Button type="primary" htmlType="submit" onClick={createSession}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                onClick={createSkySession}
+              >
                 Search Flights
               </Button>
             </Form.Item>
