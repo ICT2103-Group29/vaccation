@@ -37,7 +37,16 @@ exports.search = async (req, res) => {
 exports.nosqlFindAll = async (req, res) => {
   try {
     const data = await CountryVacc.nosqlGetAll();
-    res.json(data);
+    const cleanedData = [];
+    data.forEach((item) => {
+      cleanedData.push({
+        total_vacc: item.total_vacc,
+        total_fully_vacc: item.total_fully_vacc,
+        vacc_percent: item.vacc_percent,
+        country_name: item.country.country_name,
+      });
+    });
+    res.json(cleanedData);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
