@@ -173,14 +173,10 @@ function SearchFlights() {
                     <Select
                       showSearch
                       optionFilterProp="children"
-                      onChange={
-                        ((e) =>
-                          setPlace({
-                            ...place,
-                            originplace: e,
-                          }),
-                        findPlaces)
-                      }
+                      onChange={(e) => {
+                        setPlace({ ...place, originplace: e });
+                        findPlaces(e, "placeorigin");
+                      }}
                       filterOption={(input, option) =>
                         option.children
                           .toLowerCase()
@@ -210,14 +206,10 @@ function SearchFlights() {
                     <Select
                       showSearch
                       optionFilterProp="children"
-                      onChange={
-                        ((e) =>
-                          setPlace({
-                            ...place,
-                            destinationplace: e,
-                          }),
-                        findPlaces)
-                      }
+                      onChange={(e) => {
+                        setPlace({ ...place, destinationplace: e });
+                        findPlaces(e, "placedestination");
+                      }}
                       filterOption={(input, option) =>
                         option.children
                           .toLowerCase()
@@ -273,13 +265,11 @@ function SearchFlights() {
                   <Select
                     showSearch
                     optionFilterProp="children"
-                    onChange={
-                      ((e) =>
-                        setPostData({
-                          ...postData,
-                          originplace: e,
-                        }),
-                      findPlaces)
+                    onChange={(e) =>
+                      setPostData({
+                        ...postData,
+                        originplace: e,
+                      })
                     }
                     filterOption={(input, option) =>
                       option.children
@@ -307,13 +297,11 @@ function SearchFlights() {
                   <Select
                     showSearch
                     optionFilterProp="children"
-                    onChange={
-                      ((e) =>
-                        setPostData({
-                          ...postData,
-                          destinationplace: e,
-                        }),
-                      findPlaces)
+                    onChange={(e) =>
+                      setPostData({
+                        ...postData,
+                        destinationplace: e,
+                      })
                     }
                     filterOption={(input, option) =>
                       option.children
