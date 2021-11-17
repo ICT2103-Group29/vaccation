@@ -11,8 +11,11 @@ import "./assets/css/font.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PCRClinics from "./components/PCRclinic/PCRClinics";
 import HowToNavigate from "./components/HowToNavigate/HowToNavigate";
-import TravelRestrictions from "./components/TravelRestrictions/TravelRestrictions";
-import TravelRestrictionsFull from "./components/TravelRestrictions/TravelRestrictionsFull";
+/*import TravelRestrictions from "./components/TravelRestrictions/TravelRestrictions";
+import TravelRestrictionsFull from "./components/TravelRestrictions/TravelRestrictionsFull";*/
+import TravelRestrictions from "./components/Restrictions/TravelRestrictions";
+
+
 
 function App() {
   return (
@@ -54,7 +57,8 @@ function App() {
           <Route exact path="/PCRClinics" component={PCRClinics} />
           <Route exact path="/HowToNavigate" component={HowToNavigate} />
           <Route exact path="/TravelRestrictions" component={TravelRestrictions} />
-          <Route exact path="/TravelRestrictionsFull" component={TravelRestrictionsFull} />
+       
+         
 
         </Switch>
       </Router>

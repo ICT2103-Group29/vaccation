@@ -172,4 +172,62 @@ router.post("/search", country.search);
 
 router.post("/vacc/search", countryVacc.search);
 
+/**
+ * @swagger
+ * /api/countries/all/restrictions:
+ *  get:
+ *    summary: Retrieve all countries restrictions
+ *    tags: [Country]
+ *    responses:
+ *      '200':
+ *        description: JSON country objects
+ *      '500':
+ *        description: Server error
+ */
+router.get("/all/restrictions", country.getAllRestrictions);
+
+/**
+ * @swagger
+ * /api/countries/restrictions/search:
+ *  post:
+ *    summary: Search Countries Restrictions
+ *    tags: [Country]
+ *    requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *              schema:
+ *                type: object
+ *              properties:
+ *                  search:
+ *                      type: string
+ *              example:
+ *                  search: TWN
+ *    responses:
+ *      '200':
+ *        description: JSON countries restriction(s) object
+ *      '500':
+ *        description: Server error
+ */
+router.post("/restrictions/search", country.searchRestrictions);
+
+/**
+ * @swagger
+ * /api/countries/all/restrictions/get/{number}:
+ *  get:
+ *    summary: Retrieve number of restrictions
+ *    tags: [Country]
+ *    parameters:
+ *      - in: path
+ *        name: number
+ *        required: true
+ *    responses:
+ *      '200':
+ *        description: JSON restrictions objects
+ *      '500':
+ *        description: Server error
+ */
+router.get("/all/restrictions/get/:number", country.getSome);
+
+
 module.exports = router;

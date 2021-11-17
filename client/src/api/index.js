@@ -19,3 +19,16 @@ export const searchPCRClinic = (search) => {
 };
 
 export const getPCRClinics = () => API.get("clinics/get/10");
+
+export const searchRestrictions = (search) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  return API.post("countries/restrictions/search", { search }, config);
+};
+
+export const getRestrictions = () => API.get("countries/all/restrictions/get/10");
+
