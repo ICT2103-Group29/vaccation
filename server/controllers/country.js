@@ -66,6 +66,37 @@ exports.getWorldwideVaccPercent = async (req, res) => {
   }
 };
 
+exports.getAllRestrictions = async (req, res) => {
+  try {
+    const data = await Country.getAllRestrictions();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.searchRestrictions = async (req, res) => {
+  try {
+    const data = await Country.searchRestrictions(req.body.search);
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.getSome = async (req, res) => {
+  try {
+    const data = await Country.getSome(req.params.number);
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+
 /* ============== NoSQL ============== */
 
 exports.nosqlFindAll = async (req, res) => {

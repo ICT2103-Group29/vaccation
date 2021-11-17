@@ -20,6 +20,24 @@ const COUNT_COUNTRIES_AND_VACC = `SELECT COUNT(*) cnt FROM country
 UNION
 SELECT COUNT(*) cnt FROM country_vaccinated`;
 
+const SELECT_ALL_COUNTRY_RESTRICTIONS = `SELECT C.iso, C.country_name, CR.restrictions, CR.procedures 
+FROM country C 
+JOIN country_restriction CR 
+ON C.iso = CR.iso`;
+
+const SEARCH_COUNTRY_RESTRICTIONS = `SELECT C.iso, C.country_name, CR.restrictions, CR.procedures 
+FROM country C 
+JOIN country_restriction CR 
+ON C.iso = CR.iso
+WHERE C.iso LIKE ? OR C.country_name LIKE ?`;
+
+/*const SELECT_SOME_RESTRICTIONS = "SELECT * FROM country_restriction LIMIT ?";*/
+const SELECT_SOME_RESTRICTIONS = `SELECT C.iso, C.country_name, CR.restrictions, CR.procedures 
+FROM country C 
+JOIN country_restriction CR 
+ON C.iso = CR.iso
+LIMIT ?`;
+
 module.exports = Object.freeze({
   SELECT_ALL_COUNTRIES,
   FIND_A_COUNTRY,
@@ -28,4 +46,7 @@ module.exports = Object.freeze({
   COUNT_COUNTRIES,
   COUNT_COUNTRIES_WITH_RESTRICTIONS,
   COUNT_COUNTRIES_AND_VACC,
+  SELECT_ALL_COUNTRY_RESTRICTIONS,
+  SEARCH_COUNTRY_RESTRICTIONS,
+  SELECT_SOME_RESTRICTIONS
 });
