@@ -53,9 +53,7 @@ function SearchFlights() {
     if (res1.status == 200) {
       console.log("status 200");
       placeorigin = res1.data;
-      console.log("origin in res1", placeorigin);
       placedestination = res1.data;
-      console.log("destination in res1", placedestination);
     }
 
     setPlace({
@@ -71,15 +69,13 @@ function SearchFlights() {
   const [postData, setPostData] = useState({
     originplace: "",
     destinationplace: "",
-    outbounddate: "2021-11-16",
-    inbounddate: "2021-11-25",
+    outbounddate: "",
+    inbounddate: "",
     adults: "",
   });
 
   //sky scanner api
   const createSkySession = async (e) => {
-    console.log("Success data:", e);
-
     let data = {
       originplace: postData.originplace,
       destinationplace: postData.destinationplace,
@@ -88,7 +84,7 @@ function SearchFlights() {
       adults: postData.adults,
     };
     const res1 = await createSession(data);
-    console.log(res1.status);
+    console.log("res1 status", res1);
     if (res1.status == 200) {
       console.log("status 200");
     } else {
@@ -103,6 +99,7 @@ function SearchFlights() {
       inbounddate: data.inbounddate,
       adults: data.adults,
     });
+    console.log("outbounddate", data.outbounddate);
   };
 
   // const clear = () => {
@@ -134,7 +131,6 @@ function SearchFlights() {
       name: "Pre-Departure COVID Test",
     },
   ];
-  const dateFormatList = ["YYYY/MM/DD", "YYYY/MM/DD"];
 
   function disabledDate(current) {
     // Can not select days before today and today
@@ -193,39 +189,114 @@ function SearchFlights() {
                       ))}
                     </Select>
                   </Form.Item>
-                  <Form.Item
-                    label="Where To"
-                    name="destinationplace"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please select country!",
-                      },
-                    ]}
-                  >
-                    <Select
-                      showSearch
-                      optionFilterProp="children"
-                      onChange={(e) => {
-                        setPlace({ ...place, destinationplace: e });
-                        findPlaces(e, "placedestination");
-                      }}
-                      filterOption={(input, option) =>
-                        option.children
-                          .toLowerCase()
-                          .indexOf(input.toLowerCase()) >= 0
-                      }
-                    >
-                      {data.countriesInfo.countries.map((country) => (
-                        <Select.Option
-                          name="countrySelectedTo"
-                          value={country.country_name}
+                  {!place.loading && (
+                    <Fragment>
+                      {" "}
+                      <Form.Item
+                        label="Place From "
+                        name="placeorigin"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please select place!",
+                          },
+                        ]}
+                      >
+                        <Select
+                          showSearch
+                          optionFilterProp="children"
+                          onChange={(e) =>
+                            setPostData({
+                              ...postData,
+                              originplace: e,
+                            })
+                          }
+                          filterOption={(input, option) =>
+                            option.children
+                              .toLowerCase()
+                              .indexOf(input.toLowerCase()) >= 0
+                          }
                         >
-                          {country.country_name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </Form.Item>
+                          {place.placesInfo.placeorigin.map((id) => (
+                            <Select.Option
+                              name="placeorigin"
+                              value={id.PlaceId}
+                            >
+                              {id.PlaceName}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
+                      <Form.Item
+                        label="Where To"
+                        name="destinationplace"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please select country!",
+                          },
+                        ]}
+                      >
+                        <Select
+                          showSearch
+                          optionFilterProp="children"
+                          onChange={(e) => {
+                            setPlace({ ...place, destinationplace: e });
+                            findPlaces(e, "placedestination");
+                          }}
+                          filterOption={(input, option) =>
+                            option.children
+                              .toLowerCase()
+                              .indexOf(input.toLowerCase()) >= 0
+                          }
+                        >
+                          {data.countriesInfo.countries.map((country) => (
+                            <Select.Option
+                              name="countrySelectedTo"
+                              value={country.country_name}
+                            >
+                              {country.country_name}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
+                      <Form.Item
+                        label="Place to"
+                        name="placedestination"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Please select place!",
+                          },
+                        ]}
+                      >
+                        <Select
+                          showSearch
+                          optionFilterProp="children"
+                          onChange={(e) =>
+                            setPostData({
+                              ...postData,
+                              destinationplace: e,
+                            })
+                          }
+                          filterOption={(input, option) =>
+                            option.children
+                              .toLowerCase()
+                              .indexOf(input.toLowerCase()) >= 0
+                          }
+                        >
+                          {place.placesInfo.placedestination.map((id) => (
+                            <Select.Option
+                              name="placedestination"
+                              value={id.PlaceId}
+                            >
+                              {id.PlaceName}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                      </Form.Item>
+                    </Fragment>
+                  )}
                   <Form.Item
                     label="No of Passengers"
                     name="adults"
@@ -250,74 +321,11 @@ function SearchFlights() {
                 </Fragment>
               )}
             </div>
-            {!place.loading && (
+            {/* {!place.loading && (
               <Fragment>
-                <Form.Item
-                  label="Place From "
-                  name="placeorigin"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please select place!",
-                    },
-                  ]}
-                >
-                  <Select
-                    showSearch
-                    optionFilterProp="children"
-                    onChange={(e) =>
-                      setPostData({
-                        ...postData,
-                        originplace: e,
-                      })
-                    }
-                    filterOption={(input, option) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                  >
-                    {place.placesInfo.placeorigin.map((id) => (
-                      <Select.Option name="placeorigin" value={id.PlaceId}>
-                        {id.PlaceName}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-                <Form.Item
-                  label="Place to"
-                  name="placedestination"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please select place!",
-                    },
-                  ]}
-                >
-                  <Select
-                    showSearch
-                    optionFilterProp="children"
-                    onChange={(e) =>
-                      setPostData({
-                        ...postData,
-                        destinationplace: e,
-                      })
-                    }
-                    filterOption={(input, option) =>
-                      option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                    }
-                  >
-                    {place.placesInfo.placedestination.map((id) => (
-                      <Select.Option name="placedestination" value={id.PlaceId}>
-                        {id.PlaceName}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
+                
               </Fragment>
-            )}
+            )} */}
 
             <div class="">
               <Form.Item
@@ -334,11 +342,10 @@ function SearchFlights() {
                   onChange={(e) =>
                     setPostData({
                       ...postData,
-                      outbounddate: e,
+                      outbounddate: moment(e).format("YYYY-MM-DD"),
                     })
                   }
                   disabledDate={disabledDate}
-                  format={dateFormatList}
                 />
               </Form.Item>
               <Form.Item
@@ -355,7 +362,7 @@ function SearchFlights() {
                   onChange={(e) =>
                     setPostData({
                       ...postData,
-                      inbounddate: e,
+                      inbounddate: moment(e).format("YYYY-MM-DD"),
                     })
                   }
                   disabledDate={disabledDate}

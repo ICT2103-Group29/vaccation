@@ -3,7 +3,6 @@ import "../../assets/css/font.css";
 import "../../assets/css/button.css";
 import { Button } from "antd";
 import Card from "../Shared/Card";
-import { createSession } from "../../api";
 
 const bookingDetails = [
   {
@@ -31,13 +30,6 @@ const bookingDetails = [
 ];
 
 const Results = (props) => {
-  const [retrieveData, setRetrieveData] = useState({
-    originplace: props.originplace,
-    destinationplace: "",
-    outbounddate: "2021-11-16",
-    inbounddate: "2021-11-25",
-    adults: "",
-  });
   return (
     <div class="">
       <h1 class="text-4xl font-bold text-blue-800 mt-20 text-center">
@@ -51,7 +43,7 @@ const Results = (props) => {
       <div class=" mt-26 m-auto w-8/12 ">
         <Card>
           <div class="flex justify-evenly text-2xl font-semibold items-center">
-            <h3 class=" font-bold">{retrieveData.originplace}</h3>
+            <h3 class=" font-bold"></h3>
             <h3 class=" font-bold"></h3>
 
             <div>
