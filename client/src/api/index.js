@@ -25,7 +25,6 @@ export const createSession = (postData) => {
       "Content-Type": "application/json",
     },
   };
-  console.log("country postData", postData);
 
   var body = JSON.stringify(postData);
   console.log("body for createSession", body);

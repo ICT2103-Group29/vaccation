@@ -1,6 +1,6 @@
 // export default SearchFlights;
 import React, { useEffect, useState, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
@@ -10,8 +10,9 @@ import { Button, InputNumber, Form, Select, DatePicker } from "antd";
 import "../../assets/css/button.css";
 import { getCountries, createSession, places } from "../../api";
 import moment from "moment";
+import Results from "../Flight/Results";
 
-function SearchFlights() {
+function SearchFlights(props) {
   //get country data
   const [data, setData] = useState({
     //can be any variable name
@@ -65,7 +66,7 @@ function SearchFlights() {
     });
   };
 
-  //get form data
+
   const [postData, setPostData] = useState({
     originplace: "",
     destinationplace: "",
@@ -76,6 +77,8 @@ function SearchFlights() {
 
   //sky scanner api
   const createSkySession = async (e) => {
+    //get form data
+   
     let data = {
       originplace: postData.originplace,
       destinationplace: postData.destinationplace,
@@ -83,6 +86,8 @@ function SearchFlights() {
       inbounddate: postData.inbounddate,
       adults: postData.adults,
     };
+
+   
     const res1 = await createSession(data);
     console.log("res1 status", res1);
     if (res1.status == 200) {
@@ -91,7 +96,8 @@ function SearchFlights() {
       console.log("error", res1.status);
     }
     console.log("res1", res1);
-
+    let flightData = res1.data;
+    console.log('flightData', flightData)
     setPostData({
       originplace: data.originplace,
       destinationplace: data.destinationplace,
@@ -99,8 +105,17 @@ function SearchFlights() {
       inbounddate: data.inbounddate,
       adults: data.adults,
     });
-    console.log("outbounddate", data.outbounddate);
+    console.log("postData", postData);
+      props.history.push({
+        path: e.target.pathname,
+        state: {
+          flight: flightData,
+        },
+      });
+    
   };
+
+  
 
   // const clear = () => {
   //   setPostData({
@@ -191,7 +206,6 @@ function SearchFlights() {
                   </Form.Item>
                   {!place.loading && (
                     <Fragment>
-                      {" "}
                       <Form.Item
                         label="Place From "
                         name="placeorigin"
@@ -375,7 +389,7 @@ function SearchFlights() {
                 htmlType="submit"
                 onClick={createSkySession}
               >
-                Search Flights
+                <Link to="/results">Search Flights</Link>
               </Button>
             </Form.Item>
           </div>
@@ -390,6 +404,6 @@ function SearchFlights() {
       </div>
     </div>
   );
-  };
+};
 
 export default SearchFlights;
