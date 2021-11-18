@@ -10,7 +10,6 @@ import { Button, InputNumber, Form, Select, DatePicker } from "antd";
 import "../../assets/css/button.css";
 import { getCountries, createSession, places } from "../../api";
 import moment from "moment";
-import Results from "../Flight/Results";
 
 function SearchFlights(props) {
   //get country data
@@ -66,7 +65,6 @@ function SearchFlights(props) {
     });
   };
 
-
   const [postData, setPostData] = useState({
     originplace: "",
     destinationplace: "",
@@ -78,7 +76,7 @@ function SearchFlights(props) {
   //sky scanner api
   const createSkySession = async (e) => {
     //get form data
-   
+
     let data = {
       originplace: postData.originplace,
       destinationplace: postData.destinationplace,
@@ -87,7 +85,6 @@ function SearchFlights(props) {
       adults: postData.adults,
     };
 
-   
     const res1 = await createSession(data);
     console.log("res1 status", res1);
     if (res1.status == 200) {
@@ -97,7 +94,7 @@ function SearchFlights(props) {
     }
     console.log("res1", res1);
     let flightData = res1.data;
-    console.log('flightData', flightData)
+    console.log("flightData", flightData);
     setPostData({
       originplace: data.originplace,
       destinationplace: data.destinationplace,
@@ -106,30 +103,18 @@ function SearchFlights(props) {
       adults: data.adults,
     });
     console.log("postData", postData);
-      props.history.push({
-        path: e.target.pathname,
-        state: {
-          flight: flightData,
-        },
-      });
-    
+    props.history.push({
+      path: e.target.pathname,
+      state: {
+        flight: flightData,
+      },
+    });
   };
 
-  
-
-  // const clear = () => {
-  //   setPostData({
-  //     countryFrom: "",
-  //     countryTo: "",
-  //     noOfPassengers: "",
-  //     departureDate: "",
-  //     arrivalDate: "",
-  //   });
-  // };
   useEffect(() => {
     getCountriesInfo();
-    createSkySession();
     findPlaces();
+    createSkySession();
   }, []);
 
   const links = [
