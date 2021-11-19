@@ -82,6 +82,7 @@ exports.search = async (req, res) => {
       url: `${location}?apikey=prtl6749387986743898559646983194`,
     };
     const result = await axios(options);
+    console.log(getCleanedData(result.data));
     res.json(getCleanedData(result.data));
   } catch (error) {
     console.error(error);
@@ -99,8 +100,6 @@ exports.places = async (req, res) => {
     const result = await axios(options);
     const data = result.data.Places.filter((place) => place.CityId !== "-sky");
     res.json(data);
-        console.log("data", data);
-
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
