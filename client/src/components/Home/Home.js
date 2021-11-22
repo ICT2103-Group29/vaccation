@@ -4,6 +4,7 @@ import Card from "../Shared/Card";
 import CardGradient from "../Shared/CardGradient";
 import TableData from "../Shared/Table";
 import "../../assets/css/font.css";
+import CountUp from "react-countup";
 import {
   getOpenCountries,
   getWorldWideVaccPercent,
@@ -127,15 +128,23 @@ function Home() {
                 <p className="font-bold text-2xl mb-2">
                   Open with Restrictions
                 </p>
-                <p className="text-6xl font-black text-blue-800">
-                  {data.stats.open}
-                </p>
+                <CountUp
+                  className="text-6xl font-black text-blue-800"
+                  start={parseInt(data.stats.open) - 10}
+                  end={parseInt(data.stats.open)}
+                  duration={1.7}
+                />
               </Card>
               <Card>
                 <p className="font-bold text-2xl mb-2">Worldwide Vaccination</p>
-                <p className="text-6xl font-black text-blue-800">
-                  {data.stats.worldwide}
-                </p>
+                <CountUp
+                  className="text-6xl font-black text-blue-800"
+                  start={parseFloat(data.stats.worldwide) - 10}
+                  end={parseFloat(data.stats.worldwide)}
+                  duration={1.5}
+                  decimals={2}
+                  suffix="%"
+                />
               </Card>
             </Fragment>
           )}

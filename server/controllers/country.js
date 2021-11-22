@@ -58,7 +58,7 @@ exports.getWorldwideVaccPercent = async (req, res) => {
     const vacc = data[1].cnt;
     const total = data[0].cnt;
     res.json({
-      vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
+      vaccPercent: ((vacc / total) * 100).toFixed(2),
     });
   } catch (error) {
     console.error(error);
@@ -159,7 +159,7 @@ exports.nosqlGetWorldwideVaccPercent = async (req, res) => {
     const vacc = data[1];
     const total = data[0];
     res.json({
-      vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
+      vaccPercent: ((vacc / total) * 100).toFixed(2),
     });
   } catch (error) {
     console.error(error);
