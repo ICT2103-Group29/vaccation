@@ -118,7 +118,7 @@ function Home() {
   return (
     <div id="home">
       <div className="m-24 ">
-        <h2 className="font-bold text-5xl text-center text-blue-900">
+        <h2 className="font-bold text-4xl text-center text-blue-900">
           Numbers at a Glance
         </h2>
         <div className="flex justify-center items-center m-6 ">
@@ -126,10 +126,11 @@ function Home() {
             <Fragment>
               <Card>
                 <p className="font-bold text-2xl mb-2">
-                  Open with Restrictions
+                  Countries
+                  <br /> Open with Restrictions
                 </p>
                 <CountUp
-                  className="text-6xl font-black text-blue-800"
+                  className="text-6xl font-black text-blue-600"
                   start={parseInt(data.stats.open) - 10}
                   end={parseInt(data.stats.open)}
                   duration={1.7}
@@ -138,7 +139,7 @@ function Home() {
               <Card>
                 <p className="font-bold text-2xl mb-2">Worldwide Vaccination</p>
                 <CountUp
-                  className="text-6xl font-black text-blue-800"
+                  className="text-6xl font-black text-blue-600"
                   start={parseFloat(data.stats.worldwide) - 10}
                   end={parseFloat(data.stats.worldwide)}
                   duration={1.5}
@@ -149,7 +150,7 @@ function Home() {
             </Fragment>
           )}
         </div>
-        <h2 className="font-bold text-5xl mt-20 text-center text-blue-900">
+        <h2 className="font-bold text-4xl mt-20 text-center text-blue-900">
           Global COVID-19 Vaccination Rate
         </h2>
         <div class="rounded shadow-md h-auto text-center p-4 bg-white">
