@@ -5,25 +5,45 @@ import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
-    <div class=" max-screen h-28 mx-auto  bg-blue-800">
-      <div class="flex pt-11 justify-between">
+    <div class=" max-screen h-24 mx-auto  bg-blue-800">
+      <div class="flex justify-between pt-5 items-center">
         <h2 class="text-4xl text-white  font-bold pl-12  ">
           <Link class="hover:text-white" to="/">
             Vaccation
           </Link>
         </h2>
-        <ul class=" flex text-xl font-semibold mr-5">
+        <ul class="flex text-xl font-semibold mr-5 mt-4">
           <li class="mr-5 " key="/">
-            <Link to="/">Home</Link>
+            <Link
+              class="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+              to="/"
+            >
+              Home
+            </Link>
           </li>
           <li class="mr-5" key="/travelRestrictions">
-            <Link to="/travelRestrictions">Travel Restrictions</Link>
+            <Link
+              class="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+              to="/travelRestrictions"
+            >
+              Travel Restrictions
+            </Link>
           </li>
           <li class="mr-5">
-            <Link to="/PCRClinics">PCR Clinics</Link>
+            <Link
+              class="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+              to="/PCRClinics"
+            >
+              PCR Clinics
+            </Link>
           </li>
           <li class="mr-5" key="/booking">
-            <Link to="/booking">Booking</Link>
+            <Link
+              class="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+              to="/booking"
+            >
+              Booking
+            </Link>
           </li>
         </ul>
       </div>

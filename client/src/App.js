@@ -17,7 +17,7 @@ import TravelRestrictions from "./components/Restrictions/TravelRestrictions";
 
 function App() {
   return (
-    <div class="h-full bg-gray-100">
+    <div class="h-full bg-gray-50">
       <Router>
         <Navbar />
         <div className="px-6">

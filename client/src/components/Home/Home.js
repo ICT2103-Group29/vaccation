@@ -4,11 +4,13 @@ import Card from "../Shared/Card";
 import CardGradient from "../Shared/CardGradient";
 import TableData from "../Shared/Table";
 import "../../assets/css/font.css";
+import CountUp from "react-countup";
 import {
   getOpenCountries,
   getWorldWideVaccPercent,
   getVaccData,
 } from "../../api";
+import HowToNavigate from "../HowToNavigate/HowToNavigate";
 
 const cardDetails = [
   { id: 1, name: "Open with Restrictions", data: "200" },
@@ -19,7 +21,7 @@ const cardTypes = [
   { id: 1, name: "Book a Flight", link: "/booking" },
   { id: 2, name: "Travel Restrictions", link: "/travelRestrictions" },
   { id: 3, name: "Pre-Departure COVID Test", link: "/PCRClinics" },
-  { id: 3, name: "How To Navigate Vaccation", link: "/HowToNavigate" }
+  { id: 3, name: "How To Navigate Vaccation", link: "/HowToNavigate" },
 ];
 
 function Home() {
@@ -116,7 +118,9 @@ function Home() {
   return (
     <div id="home">
       <div className="m-24 ">
-        <h2 className="font-bold text-5xl text-center">Numbers at a Glance</h2>
+        <h2 className="font-bold text-5xl text-center text-blue-900">
+          Numbers at a Glance
+        </h2>
         <div className="flex justify-center items-center m-6 ">
           {!data.loading && (
             <Fragment>
@@ -124,35 +128,37 @@ function Home() {
                 <p className="font-bold text-2xl mb-2">
                   Open with Restrictions
                 </p>
-                <p className="text-gray-700 text-6xl font-black text-blue-800">
-                  {data.stats.open}
-                </p>
+                <CountUp
+                  className="text-6xl font-black text-blue-800"
+                  start={parseInt(data.stats.open) - 10}
+                  end={parseInt(data.stats.open)}
+                  duration={1.7}
+                />
               </Card>
               <Card>
                 <p className="font-bold text-2xl mb-2">Worldwide Vaccination</p>
-                <p className="text-gray-700 text-6xl font-black text-blue-800">
-                  {data.stats.worldwide}
-                </p>
+                <CountUp
+                  className="text-6xl font-black text-blue-800"
+                  start={parseFloat(data.stats.worldwide) - 10}
+                  end={parseFloat(data.stats.worldwide)}
+                  duration={1.5}
+                  decimals={2}
+                  suffix="%"
+                />
               </Card>
             </Fragment>
           )}
         </div>
-        <Card>
-          <h2 className="text-2xl font-bold text-left ">
-            Global COVID-19 Vaccination Rate
-          </h2>
+        <h2 className="font-bold text-5xl mt-20 text-center text-blue-900">
+          Global COVID-19 Vaccination Rate
+        </h2>
+        <div class="rounded shadow-md h-auto text-center p-4 bg-white">
           <TableData columns={tableColumns} data={data.vaccRate} />
-        </Card>
+        </div>
       </div>
       <div className="pb-48">
         <div className="flex  items-center m-6  ">
-          {cardTypes.map((item) => (
-            <CardGradient>
-              <Link to={item.link}>
-                <p>{item.name}</p>
-              </Link>
-            </CardGradient>
-          ))}
+          <HowToNavigate />
         </div>
       </div>
     </div>

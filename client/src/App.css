@@ -37,3 +37,7 @@
   }
 }
 
+.ant-table-thead > tr > th {
+  color: white !important;
+  background: #1e3b8a !important;
+}
