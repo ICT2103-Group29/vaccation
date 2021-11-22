@@ -46,7 +46,7 @@ function Home() {
       title: "Country",
       dataIndex: "country_name",
       width: 150,
-      sorter: (a, b) => a.country_name - b.country_name,
+      sorter: (a, b) => a.country_name.localeCompare(b.country_name),
     },
     {
       title: "Total Vaccinated",
