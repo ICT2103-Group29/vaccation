@@ -9,6 +9,7 @@ import {
   getWorldWideVaccPercent,
   getVaccData,
 } from "../../api";
+import HowToNavigate from "../HowToNavigate/HowToNavigate";
 
 const cardDetails = [
   { id: 1, name: "Open with Restrictions", data: "200" },
@@ -19,7 +20,7 @@ const cardTypes = [
   { id: 1, name: "Book a Flight", link: "/booking" },
   { id: 2, name: "Travel Restrictions", link: "/travelRestrictions" },
   { id: 3, name: "Pre-Departure COVID Test", link: "/PCRClinics" },
-  { id: 3, name: "How To Navigate Vaccation", link: "/HowToNavigate" }
+  { id: 3, name: "How To Navigate Vaccation", link: "/HowToNavigate" },
 ];
 
 function Home() {
@@ -116,7 +117,9 @@ function Home() {
   return (
     <div id="home">
       <div className="m-24 ">
-        <h2 className="font-bold text-5xl text-center">Numbers at a Glance</h2>
+        <h2 className="font-bold text-5xl text-center text-blue-900">
+          Numbers at a Glance
+        </h2>
         <div className="flex justify-center items-center m-6 ">
           {!data.loading && (
             <Fragment>
@@ -146,13 +149,14 @@ function Home() {
       </div>
       <div className="pb-48">
         <div className="flex  items-center m-6  ">
-          {cardTypes.map((item) => (
+          <HowToNavigate />
+          {/* {cardTypes.map((item) => (
             <CardGradient>
               <Link to={item.link}>
                 <p>{item.name}</p>
               </Link>
             </CardGradient>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

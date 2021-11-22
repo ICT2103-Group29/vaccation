@@ -11,11 +11,11 @@ import { Link } from "react-router-dom";
 function HowToNavigate() {
   return (
     <div>
-      <h1 class=" text-5xl text-center pt-28 text-blue-900">
+      <h1 class=" text-5xl text-center pt-10 text-blue-900">
         <b>How to Navigate</b>
       </h1>
       <div class=" grid grid-cols-4 gap-10 pb-20 px-10 mt-20">
-        <div class="bg-blue-200 rounded p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+        <div class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-500 rounded p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
           <Link to="travelRestrictions">
             <div class="flex justify-center items-center">
               <div class="bg-blue-900 rounded-full h-32 w-32 m-3 flex items-center justify-center text-white">
@@ -37,12 +37,12 @@ function HowToNavigate() {
             </div>
             <h1 class="text-2xl text-center text-black">
               <b>
-                <h1 class="text-blue-700">
+                <h1 class="text-white">
                   <b>Step 1 - Restrictions</b>{" "}
                 </h1>
               </b>
             </h1>
-            <h2 class="text-center text-black text-lg">
+            <h2 class="text-center text-gray-100 text-sm">
               <b>
                 Check the travel restrictions according to the country you would
                 like to visit and abide by the restrictions{" "}
@@ -51,7 +51,7 @@ function HowToNavigate() {
           </Link>
         </div>
 
-        <div class="bg-blue-200 p-3 rounded transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+        <div class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-500  p-3 rounded transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
           <Link to="PCRClinics">
             <div class="flex justify-center items-center">
               <div class="bg-blue-900 rounded-full h-32 w-32 m-3 flex items-center justify-center text-white">
@@ -71,14 +71,14 @@ function HowToNavigate() {
                 </svg>
               </div>
             </div>
-            <h1 class="text-2xl text-center text-black">
+            <h1 class="text-2xl text-center ">
               <b>
-                <h1 class="text-blue-700">
+                <h1 class="text-white">
                   <b>Step 2 - Testing</b>{" "}
                 </h1>
               </b>
             </h1>
-            <h2 class="text-center text-black text-lg">
+            <h2 class="text-center text-gray-100 text-sm">
               <b>
                 You can find your nearest PCR Clinic to conduct your swab test
                 if required.{" "}
@@ -87,7 +87,7 @@ function HowToNavigate() {
           </Link>
         </div>
 
-        <div class="bg-blue-200 p-3 rounded transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+        <div class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-500  p-3 rounded transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
           <Link to="booking">
             <div class="flex justify-center items-center">
               <div class="bg-blue-900 rounded-full h-32 w-32 m-3 flex items-center justify-center text-white">
@@ -109,18 +109,18 @@ function HowToNavigate() {
             </div>
             <h1 class="text-2xl text-center text-black">
               <b>
-                <h1 class="text-blue-700">
+                <h1 class="text-white">
                   <b>Step 3 : Book Flight</b>{" "}
                 </h1>
               </b>
             </h1>
-            <h2 class="text-center text-black text-lg">
+            <h2 class="text-center text-gray-100 text-sm">
               <b>Book your flight with Vaccation.</b>
             </h2>
           </Link>
         </div>
 
-        <div class="bg-blue-200 p-3 rounded transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+        <div class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-500  p-3 rounded transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
           <Link to="checkBooking">
             <div class="flex justify-center items-center">
               <div class="bg-blue-900 rounded-full h-32 w-32 m-3 flex items-center justify-center text-white">
@@ -142,12 +142,12 @@ function HowToNavigate() {
             </div>
             <h1 class="text-2xl text-center text-black">
               <b>
-                <h1 class="text-blue-700">
+                <h1 class="text-white">
                   <b>Step 4 : Check Booking</b>{" "}
                 </h1>
               </b>
             </h1>
-            <h2 class="text-center text-black text-lg">
+            <h2 class="text-center text-gray-100 text-sm">
               <b>You may also check your previous bookings with us.</b>
             </h2>
           </Link>

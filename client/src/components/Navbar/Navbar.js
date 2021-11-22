@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
-    <div class=" max-screen h-28 mx-auto  bg-blue-800">
+    <div class=" max-screen h-24 mx-auto  bg-blue-800">
       <div class="flex pt-11 justify-between">
         <h2 class="text-4xl text-white  font-bold pl-12  ">
           <Link class="hover:text-white" to="/">
