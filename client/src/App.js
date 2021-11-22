@@ -14,6 +14,7 @@ import HowToNavigate from "./components/HowToNavigate/HowToNavigate";
 /*import TravelRestrictions from "./components/TravelRestrictions/TravelRestrictions";
 import TravelRestrictionsFull from "./components/TravelRestrictions/TravelRestrictionsFull";*/
 import TravelRestrictions from "./components/Restrictions/TravelRestrictions";
+import ScrollToTop from "./components/Shared/ScrollToTop";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Router>
         <Navbar />
         <div className="px-6">
+          <ScrollToTop />
           <Switch>
             <Route exact key="home" path="/" exact component={Home} />
 
