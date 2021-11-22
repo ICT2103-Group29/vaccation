@@ -9,12 +9,15 @@ exports.create = async (req, res) => {
   try {
     const flight = new Flight(req.body.flight);
     const payment = new Payment(req.body.payment);
+
     const result = await Booking.createFlightAndBooking(flight, payment);
     const bookingId = result[0][0].bookingId;
+
     req.body.customers.forEach(async (item) => {
       const cust = new Customer(item);
       await Booking.createCustomer(bookingId, cust);
     });
+
     res
       .status(200)
       .json({ message: `Booking successful. Booking ID is ${bookingId}.` });
