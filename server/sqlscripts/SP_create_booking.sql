@@ -39,6 +39,7 @@ INSERT INTO payment (amount, payment_status, payment_method,
 						expire_month, expire_year, booking_id)
 		VALUES (amount, paymentStatus, paymentMethod, expireMonth,
         expireYear, @bookingId);
+SELECT @bookingId as bookingId;
 COMMIT;
 END $$
 DELIMITER ;
