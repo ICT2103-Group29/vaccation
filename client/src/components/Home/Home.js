@@ -127,36 +127,29 @@ function Home() {
                 <p className="font-bold text-2xl mb-2">
                   Open with Restrictions
                 </p>
-                <p className="text-gray-700 text-6xl font-black text-blue-800">
+                <p className="text-6xl font-black text-blue-800">
                   {data.stats.open}
                 </p>
               </Card>
               <Card>
                 <p className="font-bold text-2xl mb-2">Worldwide Vaccination</p>
-                <p className="text-gray-700 text-6xl font-black text-blue-800">
+                <p className="text-6xl font-black text-blue-800">
                   {data.stats.worldwide}
                 </p>
               </Card>
             </Fragment>
           )}
         </div>
-        <Card>
-          <h2 className="text-2xl font-bold text-left ">
-            Global COVID-19 Vaccination Rate
-          </h2>
+        <h2 className="font-bold text-5xl mt-20 text-center text-blue-900">
+          Global COVID-19 Vaccination Rate
+        </h2>
+        <div class="rounded shadow-md h-auto text-center p-4 m-12 bg-white">
           <TableData columns={tableColumns} data={data.vaccRate} />
-        </Card>
+        </div>
       </div>
       <div className="pb-48">
         <div className="flex  items-center m-6  ">
           <HowToNavigate />
-          {/* {cardTypes.map((item) => (
-            <CardGradient>
-              <Link to={item.link}>
-                <p>{item.name}</p>
-              </Link>
-            </CardGradient>
-          ))} */}
         </div>
       </div>
     </div>
