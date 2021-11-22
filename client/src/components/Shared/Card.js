@@ -3,7 +3,7 @@ import "../../assets/css/font.css";
 
 const Card = (props) => {
   return (
-    <div class="rounded shadow-md h-64 text-center p-20 m-12 bg-white">
+    <div class="rounded-lg shadow-md h-64 text-center p-20 m-12 bg-white">
       {props.children}
     </div>
   );

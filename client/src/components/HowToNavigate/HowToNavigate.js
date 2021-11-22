@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 function HowToNavigate() {
   return (
     <div>
-      <h1 class=" text-5xl text-center pt-10 text-blue-900">
+      <h1 class=" text-4xl text-center pt-10 text-blue-900">
         <b>How to Navigate</b>
       </h1>
       <div class=" grid grid-cols-4 gap-10 pb-20 px-10 mt-20">

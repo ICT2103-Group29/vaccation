@@ -1,11 +1,10 @@
 import React from "react";
 import "../../assets/css/font.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
-    <div className="max-screen h-22 mx-auto  bg-blue-800">
+    <nav className="max-screen h-22 mx-auto bg-blue-800 shadow-lg sticky top-0 z-50">
       <div className="flex justify-between pt-5 items-center">
         <h2 className="text-4xl text-white font-sans italic font-bold pl-12  ">
           <NavLink className="hover:text-white" to="/" exact>
@@ -55,7 +54,7 @@ const Navbar = (props) => {
           </li>
         </ul>
       </div>
-    </div>
+    </nav>
   );
 };
 
