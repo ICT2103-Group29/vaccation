@@ -152,7 +152,7 @@ function Home() {
         <h2 className="font-bold text-5xl mt-20 text-center text-blue-900">
           Global COVID-19 Vaccination Rate
         </h2>
-        <div class="rounded shadow-md h-auto text-center p-4 m-12 bg-white">
+        <div class="rounded shadow-md h-auto text-center p-4 bg-white">
           <TableData columns={tableColumns} data={data.vaccRate} />
         </div>
       </div>
