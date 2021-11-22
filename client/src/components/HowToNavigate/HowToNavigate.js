@@ -110,7 +110,7 @@ function HowToNavigate() {
             <h1 class="text-2xl text-center text-black">
               <b>
                 <h1 class="text-white">
-                  <b>Step 3 : Book Flight</b>{" "}
+                  <b>Step 3 - Book Flight</b>{" "}
                 </h1>
               </b>
             </h1>
@@ -143,7 +143,7 @@ function HowToNavigate() {
             <h1 class="text-2xl text-center text-black">
               <b>
                 <h1 class="text-white">
-                  <b>Step 4 : Check Booking</b>{" "}
+                  <b>Step 4 - Check Booking</b>{" "}
                 </h1>
               </b>
             </h1>
