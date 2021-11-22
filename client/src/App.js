@@ -15,52 +15,53 @@ import HowToNavigate from "./components/HowToNavigate/HowToNavigate";
 import TravelRestrictionsFull from "./components/TravelRestrictions/TravelRestrictionsFull";*/
 import TravelRestrictions from "./components/Restrictions/TravelRestrictions";
 
-
-
 function App() {
   return (
-    <div class="h-full bg-gray-100 ">
+    <div class="h-full bg-gray-100">
       <Router>
         <Navbar />
-        <Switch>
-          <Route exact key="home" path="/" exact component={Home} />
+        <div className="px-6">
+          <Switch>
+            <Route exact key="home" path="/" exact component={Home} />
 
-          <Route
-            exact
-            key="booking"
-            path="/booking"
-            exact
-            component={SearchFlights}
-          />
-          <Route
-            exact
-            key="results"
-            path="/results"
-            exact
-            component={Results}
-          />
-          <Route
-            exact
-            key="passengerDetails"
-            path="/passengerDetails"
-            exact
-            component={PassengerDetails}
-          />
-          <Route
-            exact
-            key="payment"
-            path="/payment"
-            exact
-            component={Payment}
-          />
+            <Route
+              exact
+              key="booking"
+              path="/booking"
+              exact
+              component={SearchFlights}
+            />
+            <Route
+              exact
+              key="results"
+              path="/results"
+              exact
+              component={Results}
+            />
+            <Route
+              exact
+              key="passengerDetails"
+              path="/passengerDetails"
+              exact
+              component={PassengerDetails}
+            />
+            <Route
+              exact
+              key="payment"
+              path="/payment"
+              exact
+              component={Payment}
+            />
 
-          <Route exact path="/PCRClinics" component={PCRClinics} />
-          <Route exact path="/HowToNavigate" component={HowToNavigate} />
-          <Route exact path="/TravelRestrictions" component={TravelRestrictions} />
-       
-         
-
-        </Switch>
+            <Route exact path="/PCRClinics" component={PCRClinics} />
+            <Route exact path="/HowToNavigate" component={HowToNavigate} />
+            <Route
+              exact
+              path="/TravelRestrictions"
+              component={TravelRestrictions}
+            />
+          </Switch>
+        </div>
       </Router>
 
       <Footer />
