@@ -2,8 +2,8 @@ import React, { useEffect, useState, Fragment } from "react";
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
-
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, DatePicker } from "antd";
+import moment from "moment";
 
 const PassengerDetails = () => {
   //get form data
@@ -18,12 +18,39 @@ const PassengerDetails = () => {
     dob: "",
   });
 
-  const onFinish = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("test", postData.firstName);
+    let data = {
+      firstName: postData.firstName,
+      lastname: postData.lastname,
+      email: postData.email,
+      passportNo: postData.passportNo,
+      nationality: postData.nationality,
+      placeOfIssue: postData.placeOfIssue,
+      expiry: postData.expiry,
+      dob: postData.dob,
+    };
+    console.log("data", data);
 
-    console.log("Success:", e);
+    setPostData({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      passportNo: data.passportNo,
+      nationality: data.nationality,
+      placeOfIssue: data.placeOfIssue,
+      expiry: data.expiry,
+      dob: data.dob,
+    });
+    console.log(postData);
   };
-  console.log(postData);
+
+  // const onFinish = (e) => {
+  //   e.preventDefault();
+
+  //   console.log("Success:", e);
+  // };
 
   return (
     <div>
@@ -34,41 +61,57 @@ const PassengerDetails = () => {
         <div class="m-auto">
           <h3 class="text-2xl font-bold pl-64">Passenger Detail</h3>
           <LargeCard>
-            <Form layout="vertical" onClick={onFinish}>
+            <Form
+              layout="vertical"
+              nitialValues={{ remember: true }}
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={handleSubmit}
+            >
               <div class="font-bold">
                 <div class=" ">
-                  <Form.Item label="First Name ">
+                  <Form.Item label="First Name "
+                    name="firstName"
+                    rules={[{ required: true, message: 'Please input your first name!' }]}
+
+                  >
                     <Input
                       size="large"
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          firstName: e,
+                          firstName: e.target.value,
                         })
                       }
                       placeholder="Enter First Name"
                     />
                   </Form.Item>
-                  <Form.Item label="Last Name">
+                  <Form.Item label="Last Name"
+                    name="lastName"
+                    rules={[{ required: true, message: 'Please input your last name!' }]}>
                     <Input
                       size="large"
                       placeholder="Enter Last Name"
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          lastName: e,
+                          lastName: e.target.value,
                         })
                       }
                     />
                   </Form.Item>
-                  <Form.Item label="Email">
+                  <Form.Item label="Email"
+                    name="email"
+                    rules={[{ required: true, type="email", message: 'Please input valid email!' }]}            
+                  >
                     <Input
                       size="large"
                       placeholder="Enter Email"
                       onChange={(e) =>
                         setPostData({
                           ...postData,
-                          email: e,
+                          email: e.target.value,
                         })
                       }
                     />
@@ -76,31 +119,39 @@ const PassengerDetails = () => {
                 </div>
                 <div class="">
                   <div class="flex">
-                    <Form.Item label="Passport Number">
+                    <Form.Item label="Passport Number"
+                    name="passportNo"
+                    rules={[{ required: true, message: 'Please input your passport number!' }]}>
                       <Input
                         size="large"
                         placeholder="Enter Passport Number"
                         onChange={(e) =>
                           setPostData({
                             ...postData,
-                            passportNo: e,
+                            passportNo: e.target.value,
                           })
                         }
                       />
                     </Form.Item>
-                    <Form.Item label="Nationality">
+                    <Form.Item label="Nationality"
+                    name="nationality"
+                    rules={[{ required: true, message: 'Please input your nationality!' }]}>
+                    
                       <Input
                         size="large"
                         placeholder="Enter Nationality"
                         onChange={(e) =>
                           setPostData({
                             ...postData,
-                            nationality: e,
+                            nationality: e.target.value,
                           })
                         }
                       />
                     </Form.Item>
-                    <Form.Item label="Place of Issue">
+                    <Form.Item label="Place of Issue"
+                    name="placeOfIssue"
+                    rules={[{ required: true, message: 'Please input your place of issue' }]}>
+                    
                       <Input
                         size="large"
                         placeholder="Enter Place of Issue"
@@ -115,7 +166,16 @@ const PassengerDetails = () => {
                   </div>
                   <div class="flex ">
                     <Form.Item label="Expiry">
-                      <Input
+                      <DatePicker
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            expiry: moment(e.target).format("YYYY-MM-DD"),
+                          })
+                        }
+                      />
+
+                      {/* <Input
                         size="large"
                         placeholder="Enter Expiry"
                         onChange={(e) =>
@@ -124,10 +184,20 @@ const PassengerDetails = () => {
                             expiry: e,
                           })
                         }
-                      />
+                      /> */}
                     </Form.Item>
-                    <Form.Item label="DOB">
-                      <Input
+                    <Form.Item label="DOB"
+                     name="DOB"
+                    rules={[{ required: true, message: 'Please input your date of birth' }]}>      
+                      <DatePicker
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            dob: moment(e.target).format("YYYY-MM-DD"),
+                          })
+                        }
+                      />
+                      {/* <Input
                         size="large"
                         placeholder="Enter DOB"
                         onChange={(e) =>
@@ -136,13 +206,13 @@ const PassengerDetails = () => {
                             dob: e,
                           })
                         }
-                      />
+                      /> */}
                     </Form.Item>
                   </div>
                 </div>
               </div>
               <Form.Item>
-                <Button type="primary" htmlType="submit" onClick={onFinish}>
+                <Button type="primary" htmlType="submit" onClick={handleSubmit}>
                   Search Flights
                 </Button>
               </Form.Item>

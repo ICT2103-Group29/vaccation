@@ -76,6 +76,7 @@ function SearchFlights(props) {
   //sky scanner api
   const createSkySession = async (e) => {
     //get form data
+    console.log("postData", postData);
 
     let data = {
       originplace: postData.originplace,
@@ -84,6 +85,7 @@ function SearchFlights(props) {
       inbounddate: postData.inbounddate,
       adults: postData.adults,
     };
+    console.log("this is data", data);
 
     const res1 = await createSession(data);
     console.log("res1 status", res1);
