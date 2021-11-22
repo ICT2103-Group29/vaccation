@@ -43,16 +43,25 @@ export const createSession = (postData) => {
 //   return API.post("flights/search", body, config);
 // };
 
-export const booking = (postData) => {
+export const booking = (postData, flights) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  var body = JSON.stringify(postData);
-  console.log("body for createSession", body);
-  return API.post("flights/search", body, config);
+  var flight = JSON.stringify(flights);
+  console.log("flight body", flight);
+
+  var passenger = JSON.stringify(postData);
+  console.log("passenger body", passenger);
+
+  const booking = {
+    flight: flight,
+    payment: {},
+    customers: passenger,
+  };
+  return API.post("bookings", booking, config);
 };
 export const places = (place) => API.get(`flights/places/${place}`);
 
