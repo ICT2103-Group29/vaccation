@@ -14,53 +14,64 @@ import HowToNavigate from "./components/HowToNavigate/HowToNavigate";
 /*import TravelRestrictions from "./components/TravelRestrictions/TravelRestrictions";
 import TravelRestrictionsFull from "./components/TravelRestrictions/TravelRestrictionsFull";*/
 import TravelRestrictions from "./components/Restrictions/TravelRestrictions";
-
-
+import ScrollToTop from "./components/Shared/ScrollToTop";
 
 function App() {
   return (
-    <div class="h-full bg-gray-100 ">
+    <div class="h-full bg-gray-50">
       <Router>
         <Navbar />
-        <Switch>
-          <Route exact key="home" path="/" exact component={Home} />
+        <div className="px-6">
+          <ScrollToTop />
+          <Switch>
+            <Route exact key="home" path="/" exact component={Home} />
 
-          <Route
-            exact
-            key="booking"
-            path="/booking"
-            exact
-            component={SearchFlights}
-          />
-          <Route
-            exact
-            key="results"
-            path="/results"
-            exact
-            component={Results}
-          />
-          <Route
-            exact
-            key="passengerDetails"
-            path="/passengerDetails"
-            exact
-            component={PassengerDetails}
-          />
-          <Route
-            exact
-            key="payment"
-            path="/payment"
-            exact
-            component={Payment}
-          />
-
+<<<<<<< HEAD
           <Route exact path="/PCRClinics" component={PCRClinics} />
           <Route exact path="/HowToNavigate" component={HowToNavigate} />
           <Route exact path="/TravelRestrictions" component={TravelRestrictions} />
 
          
+=======
+            <Route
+              exact
+              key="booking"
+              path="/booking"
+              exact
+              component={SearchFlights}
+            />
+            <Route
+              exact
+              key="results"
+              path="/results"
+              exact
+              component={Results}
+            />
+            <Route
+              exact
+              key="passengerDetails"
+              path="/passengerDetails"
+              exact
+              component={PassengerDetails}
+            />
+            <Route
+              exact
+              key="payment"
+              path="/payment"
+              exact
+              component={Payment}
+            />
+>>>>>>> 9dfcacb1ccfdd487dcc01c5952328f108b939417
 
-        </Switch>
+            <Route exact path="/PCRClinics" component={PCRClinics} />
+            <Route exact path="/HowToNavigate" component={HowToNavigate} />
+            <Route
+              exact
+              path="/TravelRestrictions"
+              component={TravelRestrictions}
+            />
+          </Switch>
+        </div>
       </Router>
 
       <Footer />

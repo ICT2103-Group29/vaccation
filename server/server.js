@@ -23,7 +23,6 @@ const nosqlCountryRoute = require("./routes/nosqlCountry");
 const nosqlBookingRoute = require("./routes/nosqlBooking");
 const nosqlClinicRoute = require("./routes/nosqlClinic");
 
-
 const app = express();
 
 // DB Connection
@@ -83,6 +82,5 @@ app.use("/api/flights", flightRoute);
 app.use("/api/nosql/countries", nosqlCountryRoute);
 app.use("/api/nosql/bookings", nosqlBookingRoute);
 app.use("/api/nosql/clinics", nosqlClinicRoute);
-
 
 app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));

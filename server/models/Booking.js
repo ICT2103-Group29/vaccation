@@ -39,12 +39,13 @@ Booking.createFlightAndBooking = (newFlight, newPayment) => {
 Booking.createCustomer = (bookingId, newCust) => {
   return new Promise((resolve, reject) => {
     let param = [];
+    param.push(bookingId);
     for (const key in newCust) {
       if (newCust.hasOwnProperty(key)) {
         param.push(newCust[key]);
       }
     }
-    param.push(bookingId);
+
     sql.query(query.CREATE_CUSTOMER, [param], (err, res) => {
       if (err) {
         return reject(err);

@@ -58,7 +58,7 @@ exports.getWorldwideVaccPercent = async (req, res) => {
     const vacc = data[1].cnt;
     const total = data[0].cnt;
     res.json({
-      vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
+      vaccPercent: ((vacc / total) * 100).toFixed(2),
     });
   } catch (error) {
     console.error(error);
@@ -78,7 +78,12 @@ exports.getAllRestrictions = async (req, res) => {
 
 exports.searchRestrictions = async (req, res) => {
   try {
-    const data = await Country.searchRestrictions(req.body.search);
+    let data;
+    if (req.body.search === "") {
+      data = await Country.getSome(10);
+    } else {
+      data = await Country.searchRestrictions(req.body.search);
+    }
     res.json(data);
   } catch (error) {
     console.error(error);
@@ -95,7 +100,6 @@ exports.getSome = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
-
 
 /* ============== NoSQL ============== */
 
@@ -155,7 +159,7 @@ exports.nosqlGetWorldwideVaccPercent = async (req, res) => {
     const vacc = data[1];
     const total = data[0];
     res.json({
-      vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
+      vaccPercent: ((vacc / total) * 100).toFixed(2),
     });
   } catch (error) {
     console.error(error);

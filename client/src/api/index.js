@@ -30,5 +30,5 @@ export const searchRestrictions = (search) => {
   return API.post("countries/restrictions/search", { search }, config);
 };
 
-export const getRestrictions = () => API.get("countries/all/restrictions/get/10");
-
+export const getRestrictions = () =>
+  API.get("countries/all/restrictions/get/10");
