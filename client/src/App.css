@@ -41,3 +41,7 @@
   color: white !important;
   background: #1e3b8a !important;
 }
+
+table tr:nth-child(2n) td {
+  background-color: #eff6ff;
+}
