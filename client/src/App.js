@@ -26,13 +26,6 @@ function App() {
           <Switch>
             <Route exact key="home" path="/" exact component={Home} />
 
-<<<<<<< HEAD
-          <Route exact path="/PCRClinics" component={PCRClinics} />
-          <Route exact path="/HowToNavigate" component={HowToNavigate} />
-          <Route exact path="/TravelRestrictions" component={TravelRestrictions} />
-
-         
-=======
             <Route
               exact
               key="booking"
@@ -61,7 +54,6 @@ function App() {
               exact
               component={Payment}
             />
->>>>>>> 9dfcacb1ccfdd487dcc01c5952328f108b939417
 
             <Route exact path="/PCRClinics" component={PCRClinics} />
             <Route exact path="/HowToNavigate" component={HowToNavigate} />
