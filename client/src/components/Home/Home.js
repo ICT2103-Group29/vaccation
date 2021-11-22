@@ -19,6 +19,7 @@ const cardTypes = [
   { id: 1, name: "Book a Flight", link: "/booking" },
   { id: 2, name: "Travel Restrictions", link: "/travelRestrictions" },
   { id: 3, name: "Pre-Departure COVID Test", link: "/PCRClinics" },
+  { id: 3, name: "How To Navigate Vaccation", link: "/HowToNavigate" }
 ];
 
 function Home() {
