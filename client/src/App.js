@@ -57,7 +57,7 @@ function App() {
           <Route exact path="/PCRClinics" component={PCRClinics} />
           <Route exact path="/HowToNavigate" component={HowToNavigate} />
           <Route exact path="/TravelRestrictions" component={TravelRestrictions} />
-       
+
          
 
         </Switch>
