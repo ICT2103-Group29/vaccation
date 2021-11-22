@@ -1,49 +1,57 @@
 import React from "react";
 import "../../assets/css/font.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
-    <div class=" max-screen h-24 mx-auto  bg-blue-800">
-      <div class="flex justify-between pt-5 items-center">
-        <h2 class="text-4xl text-white  font-bold pl-12  ">
-          <Link class="hover:text-white" to="/">
+    <div className="max-screen h-22 mx-auto  bg-blue-800">
+      <div className="flex justify-between pt-5 items-center">
+        <h2 className="text-4xl text-white font-sans italic font-bold pl-12  ">
+          <NavLink className="hover:text-white" to="/" exact>
             Vaccation
-          </Link>
+          </NavLink>
         </h2>
-        <ul class="flex text-xl font-semibold mr-5 mt-4">
-          <li class="mr-5 " key="/">
-            <Link
-              class="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+        <ul className="flex text-xl font-semibold mr-5 mt-3">
+          <li className="mr-5 " key="/">
+            <NavLink
+              exact
+              activeClassName="text-white bg-blue-700 px-3 py-2 rounded-md"
+              className="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
               to="/"
             >
               Home
-            </Link>
+            </NavLink>
           </li>
-          <li class="mr-5" key="/travelRestrictions">
-            <Link
-              class="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+          <li className="mr-5" key="/travelRestrictions">
+            <NavLink
+              exact
+              activeClassName="text-white bg-blue-700 px-3 py-2 rounded-md"
+              className="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
               to="/travelRestrictions"
             >
               Travel Restrictions
-            </Link>
+            </NavLink>
           </li>
-          <li class="mr-5">
-            <Link
-              class="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+          <li className="mr-5">
+            <NavLink
+              exact
+              activeClassName="text-white bg-blue-700 px-3 py-2 rounded-md"
+              className="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
               to="/PCRClinics"
             >
               PCR Clinics
-            </Link>
+            </NavLink>
           </li>
-          <li class="mr-5" key="/booking">
-            <Link
-              class="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+          <li className="mr-5" key="/booking">
+            <NavLink
+              exact
+              activeClassName="text-white bg-blue-700 px-3 py-2 rounded-md"
+              className="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
               to="/booking"
             >
               Booking
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>
