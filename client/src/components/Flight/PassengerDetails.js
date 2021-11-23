@@ -8,57 +8,78 @@ import { booking } from "../../api";
 import moment from "moment";
 
 const PassengerDetails = (props) => {
+  const [numberOfPassengers, setNumberOfPassengers] = useState(0);
+
   //get selected flight
 
   //get passenger form data
+  const flight = props.location.state?.flight;
+  const defaultObject = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    passportNo: "",
+    nationality: "",
+    placeOfIssue: "",
+    expiry: "",
+    dob: "",
+  };
+
   const [postData, setPostData] = useState([]);
-  const [flight, setFlights] = useState([]);
-  const data = props.location.state?.flight;
 
-  // setFlights((array) => [...array, data]);
-  // console.log("flight", flight);
-
-  // console.log(data);
-
-  const makeBooking = async (e, flights) => {
-    e.preventDefault();
-
-    let data = {
-      firstName: postData.firstName,
-      lastname: postData.lastname,
-      email: postData.email,
-      passportNo: postData.passportNo,
-      nationality: postData.nationality,
-      placeOfIssue: postData.placeOfIssue,
-      expiry: postData.expiry,
-      dob: postData.dob,
-    };
-    setPostData((array) => [...array, data]);
-    console.log("postData", postData);
-
-    const res1 = await booking(data, flight);
-    console.log("Status", res1.status);
-    if (res1.status == 200) {
-      console.log("status 200");
-    } else {
-      console.log("error", res1.status);
-    }
-  };
   useEffect(() => {
-    setFlights(data);
-  }, []);
+    setNumberOfPassengers(flight.Passengers);
+  }, [flight]);
 
-  var createPassengerArray = (n) => {
-    var elements = [];
-    var i;
-    for (i = 0; i < n; i++) {
-      elements.push(i);
+  useEffect(() => {
+    const defaultArr = [];
+    for (let i = 0; i < flight.Passengers; i++) {
+      defaultArr.push(defaultObject);
     }
-    return elements;
+    setPostData(defaultArr);
+  }, [numberOfPassengers]);
+
+  const makeBooking = async (e, index) => {
+    e.preventDefault();
+    console.log(postData);
+    // let data = {
+    //   firstName: postData.firstName,
+    //   lastname: postData.lastname,
+    //   email: postData.email,
+    //   passportNo: postData.passportNo,
+    //   nationality: postData.nationality,
+    //   placeOfIssue: postData.placeOfIssue,
+    //   expiry: postData.expiry,
+    //   dob: postData.dob,
+    // };
+
+    // setPostData((array) => [...array, data]);
+
+    // const res1 = await booking(data, flight);
+    // console.log("Status", res1.status);
+    // if (res1.status === 200) {
+    //   console.log("status 200");
+    // } else {
+    //   console.log("error", res1.status);
+    // }
   };
 
-  var passengerArray = createPassengerArray(flight.Passengers);
-  console.log("this is passenger array", passengerArray);
+  const handleChange = (e, name, value, index) => {
+    console.log(value);
+    // 1. Make a shallow copy of the items
+    setPostData((array) => {
+      let items = [...array];
+      // 2. Make a shallow copy of the item you want to mutate
+      let item = { ...items[index] };
+      // 3. Replace the property you're intested in
+      item[name] = value;
+      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+      items[index] = item;
+      // 5. Set the state to our new copy
+      return items;
+    });
+  };
+
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
@@ -66,10 +87,10 @@ const PassengerDetails = (props) => {
       </h1>
       <Fragment>
         <div class="m-auto">
-          {passengerArray.map((passenger) => (
+          {postData.map((passenger, index) => (
             <LargeCard>
               <h3 class="text-lg font-bold text-center">
-                Passenger {passenger + 1} Detail
+                Passenger {index + 1} Detail
               </h3>
 
               <Form
@@ -93,12 +114,12 @@ const PassengerDetails = (props) => {
                       ]}
                     >
                       <Input
+                        id={index.toString()}
                         size="large"
+                        key={index}
+                        name="firstName"
                         onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            firstName: e.target.value,
-                          })
+                          handleChange(e, "firstName", e.target.value, index)
                         }
                         placeholder="Enter First Name"
                       />
@@ -116,11 +137,9 @@ const PassengerDetails = (props) => {
                       <Input
                         size="large"
                         placeholder="Enter Last Name"
+                        name="lastName"
                         onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            lastName: e.target.value,
-                          })
+                          handleChange(e, "lastName", e.target.value, index)
                         }
                       />
                     </Form.Item>
@@ -137,12 +156,10 @@ const PassengerDetails = (props) => {
                     >
                       <Input
                         size="large"
+                        name="email"
                         placeholder="Enter Email"
                         onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            email: e.target.value,
-                          })
+                          handleChange(e, "email", e.target.value, index)
                         }
                       />
                     </Form.Item>
@@ -160,12 +177,10 @@ const PassengerDetails = (props) => {
                     >
                       <Input
                         size="large"
+                        name="passportNo"
                         placeholder="Enter Passport Number"
                         onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            passportNo: e.target.value,
-                          })
+                          handleChange(e, "passportNo", e.target.value, index)
                         }
                       />
                     </Form.Item>
@@ -181,12 +196,10 @@ const PassengerDetails = (props) => {
                     >
                       <Input
                         size="large"
+                        name="nationality"
                         placeholder="Enter Nationality"
                         onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            nationality: e.target.value,
-                          })
+                          handleChange(e, "nationality", e.target.value, index)
                         }
                       />
                     </Form.Item>
@@ -202,12 +215,10 @@ const PassengerDetails = (props) => {
                     >
                       <Input
                         size="large"
+                        name="placeOfIssue"
                         placeholder="Enter Place of Issue"
                         onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            placeOfIssue: e.target.value,
-                          })
+                          handleChange(e, "placeOfIssue", e.target.value, index)
                         }
                       />
                     </Form.Item>
@@ -224,11 +235,14 @@ const PassengerDetails = (props) => {
                       ]}
                     >
                       <DatePicker
+                        name="expiry"
                         onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            expiry: moment(e.target).format("YYYY-MM-DD"),
-                          })
+                          handleChange(
+                            e,
+                            "expiry",
+                            moment(e?.target).format("YYYY-MM-DD"),
+                            index
+                          )
                         }
                       />
                     </Form.Item>
@@ -243,12 +257,21 @@ const PassengerDetails = (props) => {
                       ]}
                     >
                       <DatePicker
+                        name="DOB"
                         onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            dob: moment(e.target).format("YYYY-MM-DD"),
-                          })
+                          handleChange(
+                            e,
+                            "dob",
+                            moment(e?.target).format("YYYY-MM-DD"),
+                            index
+                          )
                         }
+                        // onChange={(e) =>
+                        //   setPostData({
+                        //     ...postData,
+                        //     dob: moment(e.target).format("YYYY-MM-DD"),
+                        //   })
+                        // }
                       />
                     </Form.Item>
                   </div>
@@ -258,11 +281,7 @@ const PassengerDetails = (props) => {
           ))}
 
           <div class="p-14 text-center">
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={(e) => makeBooking(e, flight)}
-            >
+            <Button type="primary" htmlType="submit" onClick={makeBooking}>
               Search Flights
             </Button>
           </div>
