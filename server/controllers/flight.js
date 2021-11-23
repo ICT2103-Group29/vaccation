@@ -84,7 +84,6 @@ exports.search = async (req, res) => {
     };
     const result = await axios(options);
     const data = getCleanedData(result.data, req.body.adults);
-    console.log(data)
     res.json(data);
   } catch (error) {
     console.error(error);

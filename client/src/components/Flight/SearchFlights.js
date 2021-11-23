@@ -12,6 +12,7 @@ import { getCountries, createSession, places } from "../../api";
 import moment from "moment";
 
 function SearchFlights(props) {
+  const history = useHistory();
   //get country data
   const [data, setData] = useState({
     //can be any variable name
@@ -74,10 +75,7 @@ function SearchFlights(props) {
   });
 
   //sky scanner api
-  const createSkySession = async (e) => {
-    //get form data
-    console.log("postData", postData);
-
+  const createSkySession = async () => {
     let data = {
       originplace: postData.originplace,
       destinationplace: postData.destinationplace,
@@ -87,15 +85,11 @@ function SearchFlights(props) {
     };
 
     const res1 = await createSession(data);
-    console.log("res1 status", res1);
-    if (res1.status == 200) {
-      console.log("status 200");
+    if (res1.status === 200) {
     } else {
       console.log("error", res1.status);
     }
-    console.log("res1", res1);
     let flightData = res1.data;
-    console.log("flightData", flightData);
     setPostData({
       originplace: data.originplace,
       destinationplace: data.destinationplace,
@@ -103,9 +97,9 @@ function SearchFlights(props) {
       inbounddate: data.inbounddate,
       adults: data.adults,
     });
-    console.log("postData", postData);
-    props.history.push({
-      path: e.target.pathname,
+
+    history.push({
+      pathname: "/results",
       state: {
         flight: flightData,
       },
@@ -115,7 +109,7 @@ function SearchFlights(props) {
   useEffect(() => {
     getCountriesInfo();
     findPlaces();
-    createSkySession();
+    // createSkySession();
   }, []);
 
   const links = [
@@ -151,7 +145,7 @@ function SearchFlights(props) {
           initialValues={{
             remember: true,
           }}
-          onFinish={createSkySession}
+          // onFinish={createSkySession}
         >
           <div class="font-bold ">
             <div class=" ">
@@ -375,7 +369,7 @@ function SearchFlights(props) {
                 htmlType="submit"
                 onClick={createSkySession}
               >
-                <Link to="/results">Search Flights</Link>
+                Search Flights
               </Button>
             </Form.Item>
           </div>
