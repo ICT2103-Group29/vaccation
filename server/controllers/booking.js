@@ -108,9 +108,9 @@ exports.nosqlCreate = async (req, res) => {
         },
       });
     }
-    const result = await Booking.nosqlCreate(booking);
+    const bookingId = await Booking.nosqlCreate(booking);
     res.status(200).json({
-      message: `Booking successful. Booking ID is ${result.insertedId}.`,
+      message: `Booking successful. Booking ID is ${bookingId}.`,
     });
   } catch (error) {
     console.error(error);

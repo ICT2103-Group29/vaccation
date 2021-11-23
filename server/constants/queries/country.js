@@ -31,7 +31,6 @@ JOIN country_restriction CR
 ON C.iso = CR.iso
 WHERE C.iso LIKE ? OR C.country_name LIKE ?`;
 
-/*const SELECT_SOME_RESTRICTIONS = "SELECT * FROM country_restriction LIMIT ?";*/
 const SELECT_SOME_RESTRICTIONS = `SELECT C.iso, C.country_name, CR.restrictions, CR.procedures 
 FROM country C 
 JOIN country_restriction CR 
@@ -48,5 +47,5 @@ module.exports = Object.freeze({
   COUNT_COUNTRIES_AND_VACC,
   SELECT_ALL_COUNTRY_RESTRICTIONS,
   SEARCH_COUNTRY_RESTRICTIONS,
-  SELECT_SOME_RESTRICTIONS
+  SELECT_SOME_RESTRICTIONS,
 });

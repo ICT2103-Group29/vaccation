@@ -28,8 +28,9 @@ const generateBookingId = () => {
 
 Booking.createFlightAndBooking = (newFlight, newPayment) => {
   return new Promise((resolve, reject) => {
-    let param = [];
     const bookingId = generateBookingId();
+
+    let param = [];
     param.push(bookingId);
     for (const key in newFlight) {
       if (newFlight.hasOwnProperty(key)) {
@@ -88,7 +89,8 @@ Booking.nosqlCreate = async (booking) => {
   const collection = (await mongo).collection("booking");
   const bookingId = generateBookingId();
   booking.booking_id = bookingId;
-  return collection.insertOne(booking);
+  await collection.insertOne(booking);
+  return bookingId;
 };
 
 Booking.nosqlGetDetails = async (bookingId) => {
