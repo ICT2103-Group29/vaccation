@@ -14,8 +14,6 @@ const PassengerDetails = (props) => {
   const [postData, setPostData] = useState([]);
   const [flight, setFlights] = useState([]);
   const data = props.location.state?.flight;
-  var passengerNo = flight.Passengers;
-  console.log(passengerNo);
 
   // setFlights((array) => [...array, data]);
   // console.log("flight", flight);
@@ -24,8 +22,7 @@ const PassengerDetails = (props) => {
 
   const makeBooking = async (e, flights) => {
     e.preventDefault();
-    console.log("flights", flights);
-    console.log("test", postData.firstName);
+
     let data = {
       firstName: postData.firstName,
       lastname: postData.lastname,
@@ -36,6 +33,7 @@ const PassengerDetails = (props) => {
       expiry: postData.expiry,
       dob: postData.dob,
     };
+    console.log(data);
 
     setPostData((array) => [...array, data]);
     console.log("postData", postData);
@@ -54,14 +52,16 @@ const PassengerDetails = (props) => {
 
   var createPassengerArray = (n) => {
     var elements = [];
+    console.log(elements);
     var i;
     for (i = 0; i < n; i++) {
-      elements.push(<li>{i}</li>);
+      elements.push(i);
     }
     return elements;
   };
 
   var passengerArray = createPassengerArray(flight.Passengers);
+  console.log("this is passenger array", passengerArray);
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
@@ -78,7 +78,7 @@ const PassengerDetails = (props) => {
                 initialValues={{
                   remember: true,
                 }}
-                onFinish={makeBooking}
+                key={passenger}
               >
                 <div class="font-bold">
                   <div class=" ">
@@ -231,17 +231,6 @@ const PassengerDetails = (props) => {
                           })
                         }
                       />
-
-                      {/* <Input
-                        size="large"
-                        placeholder="Enter Expiry"
-                        onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            expiry: e,
-                          })
-                        }
-                      /> */}
                     </Form.Item>
                     <Form.Item
                       label="DOB"
@@ -261,31 +250,22 @@ const PassengerDetails = (props) => {
                           })
                         }
                       />
-                      {/* <Input
-                        size="large"
-                        placeholder="Enter DOB"
-                        onChange={(e) =>
-                          setPostData({
-                            ...postData,
-                            dob: e,
-                          })
-                        }
-                      /> */}
                     </Form.Item>
                   </div>
                 </div>
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    onClick={(e) => makeBooking(e, flight)}
-                  >
-                    Search Flights
-                  </Button>
-                </Form.Item>
               </Form>
             </LargeCard>
           ))}
+
+          <div class="p-14 text-center">
+            <Button
+              type="primary"
+              htmlType="submit"
+              onClick={(e) => makeBooking(e, flight)}
+            >
+              Search Flights
+            </Button>
+          </div>
         </div>
       </Fragment>
     </div>
