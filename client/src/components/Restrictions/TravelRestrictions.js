@@ -1,3 +1,21 @@
+// import React, { useEffect, useState, Fragment } from "react";
+// import "../../assets/css/font.css";
+
+// function travelRestrictions() {
+//     return (
+//         <div>
+//           <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
+//            Travel Restrictions
+//           </h1>
+//         </div>
+        
+//           );
+
+
+// }
+
+// export default travelRestrictions;
+
 import React, { useState, useEffect } from "react";
 import "../../assets/css/font.css";
 
@@ -6,23 +24,23 @@ import { Button } from "antd";
 import "../../assets/css/button.css";
 
 import { Form, Select, DatePicker } from "antd";
-import PCRCard from "./PCRCard";
-import { getPCRClinics, searchPCRClinic } from "../../api";
+import RestrictionsCard from "./RestrictionsCard";
+import { getRestrictions, searchRestrictions } from "../../api";
 
-function PCRClinics() {
-  const [clinics, setClinics] = useState([]);
+function TravelRestrictions() {
+  const [restrictions, setRestriction] = useState([]);
   const [search, setSearch] = useState("");
 
   const retrieveData = async () => {
-    const result = await getPCRClinics();
-    setClinics(result.data);
+    const result = await getRestrictions();
+    setRestriction(result.data);
   };
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const result = await searchPCRClinic(search);
+    const result = await searchRestrictions(search);
     if (result.data.length > 0) {
-      setClinics(result.data);
+      setRestriction(result.data);
     }
   };
 
@@ -32,8 +50,9 @@ function PCRClinics() {
 
   return (
     <div class>
-      <h1 class=" text-5xl text-center pt-20 text-blue-900 pb-10">
-        <b>Looking for a clinic near you for your PCR testing?</b>
+      {/* <h1 class=" text-5xl text-center pt-20 text-blue-900 pb-10"> */}
+      <h1 class=" text-5xl text-center pt-20 text-purple-900 pb-10">
+        <b>Travel Restrictions</b>
       </h1>
 
       <link
@@ -116,9 +135,10 @@ function PCRClinics() {
       </div> */}
 
       <div class="flex flex-col pb-20">
-        <div class="container mx-auto  my-4 px-4 py-4 bg-blue-800">
-          {clinics.map((clinic) => (
-            <PCRCard data={clinic} />
+        {/* <div class="container mx-auto  my-4 px-4 py-4 bg-blue-800"> */}
+        <div class="container mx-auto  my-4 px-4 py-4 bg-purple-800">
+          {restrictions.map((restriction) => (
+            <RestrictionsCard data={restriction} />
           ))}
         </div>
       </div>
@@ -126,4 +146,4 @@ function PCRClinics() {
   );
 }
 
-export default PCRClinics;
+export default TravelRestrictions;

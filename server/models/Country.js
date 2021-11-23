@@ -7,6 +7,8 @@ const mongo = connectMongoDB();
 const Country = (country) => {
   this.iso = country.iso;
   this.countryName = country.country_name;
+  this.restrictions = country.restrictions;
+  this.procedures = country.procedures;
 };
 
 /* ============== SQL ============== */
@@ -84,6 +86,43 @@ Country.getOpenWithRestrictions = () => {
 Country.getWorldVacc = () => {
   return new Promise((resolve, reject) => {
     sql.query(query.COUNT_COUNTRIES_AND_VACC, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+};
+
+Country.getAllRestrictions = () => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_ALL_COUNTRY_RESTRICTIONS, (err, res) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(res);
+    });
+  });
+};
+
+Country.searchRestrictions = (search) => {
+  return new Promise((resolve, reject) => {
+    sql.query(
+        query.SEARCH_COUNTRY_RESTRICTIONS,
+        [`%${search}%`, `%${search}%`],
+        (err, res) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(res);
+        }
+    );
+  });
+};
+
+Country.getSome = (number) => {
+  return new Promise((resolve, reject) => {
+    sql.query(query.SELECT_SOME_RESTRICTIONS, parseInt(number), (err, res) => {
       if (err) {
         return reject(err);
       }

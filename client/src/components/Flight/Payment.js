@@ -12,7 +12,7 @@ function onChange(date, dateString) {
   console.log(date, dateString);
 }
 
-const stripePromise = loadStripe("API KEY");
+const stripePromise = loadStripe("pk_test_D4uxNaSHMXHtez9zf7ffdAM5");
 
 const onFinish = (e) => {
   console.log("Success:", e);

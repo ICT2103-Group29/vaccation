@@ -58,8 +58,43 @@ exports.getWorldwideVaccPercent = async (req, res) => {
     const vacc = data[1].cnt;
     const total = data[0].cnt;
     res.json({
-      vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
+      vaccPercent: ((vacc / total) * 100).toFixed(2),
     });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.getAllRestrictions = async (req, res) => {
+  try {
+    const data = await Country.getAllRestrictions();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.searchRestrictions = async (req, res) => {
+  try {
+    let data;
+    if (req.body.search === "") {
+      data = await Country.getSome(10);
+    } else {
+      data = await Country.searchRestrictions(req.body.search);
+    }
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.getSome = async (req, res) => {
+  try {
+    const data = await Country.getSome(req.params.number);
+    res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
@@ -111,7 +146,7 @@ exports.nosqlGetRestrictions = async (req, res) => {
 exports.nosqlGetOpenWithRestrictions = async (req, res) => {
   try {
     const data = await Country.nosqlGetOpenWithRestrictions();
-    res.json(data);
+    res.json({ open: data });
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
@@ -124,7 +159,7 @@ exports.nosqlGetWorldwideVaccPercent = async (req, res) => {
     const vacc = data[1];
     const total = data[0];
     res.json({
-      vaccPercent: ((vacc / total) * 100).toFixed(2) + "%",
+      vaccPercent: ((vacc / total) * 100).toFixed(2),
     });
   } catch (error) {
     console.error(error);

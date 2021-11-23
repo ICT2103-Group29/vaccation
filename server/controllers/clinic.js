@@ -34,7 +34,12 @@ exports.findOne = async (req, res) => {
 
 exports.search = async (req, res) => {
   try {
-    const data = await PcrClinic.search(req.body.search);
+    let data;
+    if (req.body.search === "") {
+      data = await PcrClinic.getSome(10);
+    } else {
+      data = await PcrClinic.search(req.body.search);
+    }
     res.json(data);
   } catch (error) {
     console.error(error);
@@ -76,7 +81,12 @@ exports.nosqlFindOne = async (req, res) => {
 
 exports.nosqlSearch = async (req, res) => {
   try {
-    const data = await PcrClinic.nosqlSearch(req.body.search);
+    let data;
+    if (req.body.search === "") {
+      data = await PcrClinic.nosqlGetSome(10);
+    } else {
+      data = await PcrClinic.nosqlSearch(req.body.search);
+    }
     res.json(data);
   } catch (error) {
     console.error(error);

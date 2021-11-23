@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, createElement } from "react";
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
@@ -14,18 +14,14 @@ const PassengerDetails = (props) => {
   const [postData, setPostData] = useState([]);
   const [flight, setFlights] = useState([]);
   const data = props.location.state?.flight;
+  var passengerNo = flight.Passengers;
+  console.log(passengerNo);
 
-  console.log(data);
+  // setFlights((array) => [...array, data]);
+  // console.log("flight", flight);
 
-  // const retrieveFlight = (e, flights) => {
-  //   e.preventDefault();
+  // console.log(data);
 
-  //   props.history.push({
-  //     pathname: e.target.pathname,
-  //     state: { flight: flights },
-  //   });
-  //   console.log("flights", flights);
-  // };
   const makeBooking = async (e, flights) => {
     e.preventDefault();
     console.log("flights", flights);
@@ -51,57 +47,21 @@ const PassengerDetails = (props) => {
     } else {
       console.log("error", res1.status);
     }
-
-    // props.history.push({
-    //   pathname: e.target.pathname,
-    //   state: { flight: flights },
-    // });
   };
   useEffect(() => {
-    // setFlights(data);
+    setFlights(data);
   }, []);
 
-  // //sky scanner api
-  // const createSkySession = async (e) => {
-  //   //get form data
-  //   console.log("postData", postData);
+  var createPassengerArray = (n) => {
+    var elements = [];
+    var i;
+    for (i = 0; i < n; i++) {
+      elements.push(<li>{i}</li>);
+    }
+    return elements;
+  };
 
-  //   let data = {
-  //     originplace: postData.originplace,
-  //     destinationplace: postData.destinationplace,
-  //     outbounddate: postData.outbounddate,
-  //     inbounddate: postData.inbounddate,
-  //     adults: postData.adults,
-  //   };
-  //   console.log("this is data", data);
-
-  //   const res1 = await createSession(data);
-  //   console.log("res1 status", res1);
-  //   if (res1.status == 200) {
-  //     console.log("status 200");
-  //   } else {
-  //     console.log("error", res1.status);
-  //   }
-  //   console.log("res1", res1);
-  //   let flightData = res1.data;
-  //   console.log("flightData", flightData);
-  //   setPostData({
-  //     originplace: data.originplace,
-  //     destinationplace: data.destinationplace,
-  //     outbounddate: data.outbounddate,
-  //     inbounddate: data.inbounddate,
-  //     adults: data.adults,
-  //   });
-  //   console.log("postData", postData);
-  //   props.history.push({
-  //     path: e.target.pathname,
-  //     state: {
-  //       flight: flightData,
-  //     },
-  //   });
-  // };
-  const test = ["Bruce", "Clark", "Diana"];
-
+  var passengerArray = createPassengerArray(flight.Passengers);
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
@@ -110,7 +70,7 @@ const PassengerDetails = (props) => {
       <Fragment>
         <div class="m-auto">
           <h3 class="text-2xl font-bold pl-64 text-center">Passenger Detail</h3>
-          {test.map((flight) => (
+          {passengerArray.map((passenger) => (
             <LargeCard>
               <Form
                 layout="vertical"

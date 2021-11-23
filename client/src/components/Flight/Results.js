@@ -129,7 +129,9 @@ const Results = (props) => {
                 </div>
 
                 <div class="pt-16 ml-24">
-                  <h3 class="font-bold text-2xl ">${flight.Price}</h3>
+                  <h3 class="font-bold text-2xl ">
+                    ${flight.Price * flight.Passengers}
+                  </h3>
                   <Button
                     type="primary"
                     onClick={(e) => handleViewClick(e, flight)}
