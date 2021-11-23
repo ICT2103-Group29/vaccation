@@ -86,13 +86,14 @@ Booking.getDetails = (bookingId) => {
 
 Booking.nosqlCreate = async (booking) => {
   const collection = (await mongo).collection("booking");
+  const bookingId = generateBookingId();
+  booking.booking_id = bookingId;
   return collection.insertOne(booking);
 };
 
 Booking.nosqlGetDetails = async (bookingId) => {
   const collection = (await mongo).collection("booking");
-  const id = ObjectId(bookingId);
-  return collection.findOne({ _id: id });
+  return collection.findOne({ booking_id: bookingId });
 };
 
 module.exports = Booking;
