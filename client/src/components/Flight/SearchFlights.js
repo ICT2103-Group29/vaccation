@@ -1,6 +1,6 @@
 // export default SearchFlights;
 import React, { useEffect, useState, Fragment } from "react";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
@@ -158,7 +158,7 @@ function SearchFlights(props) {
               {!data.loading && (
                 <Fragment>
                   <Form.Item
-                    label="Where From "
+                    label="Origin Country"
                     name="originplace"
                     rules={[
                       {
@@ -193,7 +193,7 @@ function SearchFlights(props) {
                   {!place.loading && (
                     <Fragment>
                       <Form.Item
-                        label="Place From "
+                        label="Origin City "
                         name="placeorigin"
                         rules={[
                           {
@@ -228,7 +228,7 @@ function SearchFlights(props) {
                         </Select>
                       </Form.Item>
                       <Form.Item
-                        label="Where To"
+                        label="Destination Country"
                         name="destinationplace"
                         rules={[
                           {
@@ -261,7 +261,7 @@ function SearchFlights(props) {
                         </Select>
                       </Form.Item>
                       <Form.Item
-                        label="Place to"
+                        label="Destination City"
                         name="placedestination"
                         rules={[
                           {
@@ -390,6 +390,6 @@ function SearchFlights(props) {
       </div>
     </div>
   );
-};
+}
 
 export default SearchFlights;
