@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
@@ -18,6 +18,9 @@ const onFinish = (e) => {
   console.log("Success:", e);
 };
 const PassengerDetails = () => {
+  const location = useLocation();
+  const data = location.state.data;
+  console.log("data", data);
   return (
     <div>
       <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
