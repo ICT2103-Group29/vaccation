@@ -56,11 +56,21 @@ export const booking = (postData, flights) => {
   var passenger = JSON.stringify(postData);
   console.log("passenger body", passenger);
 
+ 
+
   const booking = {
     flight: flight,
-    payment: {},
+
+    payment: {
+      amount: "$100",
+      paymentStatus: "Visa",
+      expireMonth: 11,
+      expireYear: "2021",
+    },
     customers: passenger,
   };
+  console.log("passenger body", booking.payment);
+
   return API.post("bookings", booking, config);
 };
 export const places = (place) => API.get(`flights/places/${place}`);

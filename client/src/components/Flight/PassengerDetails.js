@@ -41,10 +41,8 @@ const PassengerDetails = (props) => {
       dob: postData.dob,
     };
 
-    setPostData((prevArray) => [...prevArray, data]);
+    setPostData((array) => [...array, data]);
     console.log("postData", postData);
-
-    // setPostData([data]);
 
     const res1 = await booking(data, flight);
     console.log("Status", res1.status);
@@ -60,7 +58,7 @@ const PassengerDetails = (props) => {
     // });
   };
   useEffect(() => {
-    setFlights(data);
+    // setFlights(data);
   }, []);
 
   // //sky scanner api
@@ -102,6 +100,7 @@ const PassengerDetails = (props) => {
   //     },
   //   });
   // };
+  const test = ["Bruce", "Clark", "Diana"];
 
   return (
     <div>
@@ -110,169 +109,170 @@ const PassengerDetails = (props) => {
       </h1>
       <Fragment>
         <div class="m-auto">
-          <h3 class="text-2xl font-bold pl-64">Passenger Detail</h3>
-          <LargeCard>
-            <Form
-              layout="vertical"
-              nitialValues={{ remember: true }}
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={makeBooking}
-            >
-              <div class="font-bold">
-                <div class=" ">
-                  <Form.Item
-                    label="First Name "
-                    name="firstName"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your first name!",
-                      },
-                    ]}
-                  >
-                    <Input
-                      size="large"
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          firstName: e.target.value,
-                        })
-                      }
-                      placeholder="Enter First Name"
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Last Name"
-                    name="lastName"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your last name!",
-                      },
-                    ]}
-                  >
-                    <Input
-                      size="large"
-                      placeholder="Enter Last Name"
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          lastName: e.target.value,
-                        })
-                      }
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Email"
-                    name="email"
-                    rules={[
-                      {
-                        required: true,
-                        type: "email",
-                        message: "Please input valid email!",
-                      },
-                    ]}
-                  >
-                    <Input
-                      size="large"
-                      placeholder="Enter Email"
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          email: e.target.value,
-                        })
-                      }
-                    />
-                  </Form.Item>
-                </div>
-                <div class="">
-                  <Form.Item
-                    label="Passport Number"
-                    name="passportNo"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your passport number!",
-                      },
-                    ]}
-                  >
-                    <Input
-                      size="large"
-                      placeholder="Enter Passport Number"
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          passportNo: e.target.value,
-                        })
-                      }
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Nationality"
-                    name="nationality"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your nationality!",
-                      },
-                    ]}
-                  >
-                    <Input
-                      size="large"
-                      placeholder="Enter Nationality"
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          nationality: e.target.value,
-                        })
-                      }
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    label="Place of Issue"
-                    name="placeOfIssue"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your place of issue",
-                      },
-                    ]}
-                  >
-                    <Input
-                      size="large"
-                      placeholder="Enter Place of Issue"
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          placeOfIssue: e.target.value,
-                        })
-                      }
-                    />
-                  </Form.Item>
-                </div>
-                <div class="flex justify-evenly">
-                  <Form.Item
-                    label="Expiry"
-                    name="expiry"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your expiry date!",
-                      },
-                    ]}
-                  >
-                    <DatePicker
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          expiry: moment(e.target).format("YYYY-MM-DD"),
-                        })
-                      }
-                    />
+          <h3 class="text-2xl font-bold pl-64 text-center">Passenger Detail</h3>
+          {test.map((flight) => (
+            <LargeCard>
+              <Form
+                layout="vertical"
+                nitialValues={{ remember: true }}
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={makeBooking}
+              >
+                <div class="font-bold">
+                  <div class=" ">
+                    <Form.Item
+                      label="First Name "
+                      name="firstName"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your first name!",
+                        },
+                      ]}
+                    >
+                      <Input
+                        size="large"
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            firstName: e.target.value,
+                          })
+                        }
+                        placeholder="Enter First Name"
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      label="Last Name"
+                      name="lastName"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your last name!",
+                        },
+                      ]}
+                    >
+                      <Input
+                        size="large"
+                        placeholder="Enter Last Name"
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            lastName: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      label="Email"
+                      name="email"
+                      rules={[
+                        {
+                          required: true,
+                          type: "email",
+                          message: "Please input valid email!",
+                        },
+                      ]}
+                    >
+                      <Input
+                        size="large"
+                        placeholder="Enter Email"
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            email: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </div>
+                  <div class="">
+                    <Form.Item
+                      label="Passport Number"
+                      name="passportNo"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your passport number!",
+                        },
+                      ]}
+                    >
+                      <Input
+                        size="large"
+                        placeholder="Enter Passport Number"
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            passportNo: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      label="Nationality"
+                      name="nationality"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your nationality!",
+                        },
+                      ]}
+                    >
+                      <Input
+                        size="large"
+                        placeholder="Enter Nationality"
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            nationality: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      label="Place of Issue"
+                      name="placeOfIssue"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your place of issue",
+                        },
+                      ]}
+                    >
+                      <Input
+                        size="large"
+                        placeholder="Enter Place of Issue"
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            placeOfIssue: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Item>
+                  </div>
+                  <div class="flex justify-evenly">
+                    <Form.Item
+                      label="Expiry"
+                      name="expiry"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your expiry date!",
+                        },
+                      ]}
+                    >
+                      <DatePicker
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            expiry: moment(e.target).format("YYYY-MM-DD"),
+                          })
+                        }
+                      />
 
-                    {/* <Input
+                      {/* <Input
                         size="large"
                         placeholder="Enter Expiry"
                         onChange={(e) =>
@@ -282,26 +282,26 @@ const PassengerDetails = (props) => {
                           })
                         }
                       /> */}
-                  </Form.Item>
-                  <Form.Item
-                    label="DOB"
-                    name="DOB"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your date of birth",
-                      },
-                    ]}
-                  >
-                    <DatePicker
-                      onChange={(e) =>
-                        setPostData({
-                          ...postData,
-                          dob: moment(e.target).format("YYYY-MM-DD"),
-                        })
-                      }
-                    />
-                    {/* <Input
+                    </Form.Item>
+                    <Form.Item
+                      label="DOB"
+                      name="DOB"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your date of birth",
+                        },
+                      ]}
+                    >
+                      <DatePicker
+                        onChange={(e) =>
+                          setPostData({
+                            ...postData,
+                            dob: moment(e.target).format("YYYY-MM-DD"),
+                          })
+                        }
+                      />
+                      {/* <Input
                         size="large"
                         placeholder="Enter DOB"
                         onChange={(e) =>
@@ -311,20 +311,21 @@ const PassengerDetails = (props) => {
                           })
                         }
                       /> */}
-                  </Form.Item>
+                    </Form.Item>
+                  </div>
                 </div>
-              </div>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  onClick={(e) => makeBooking(e, flight)}
-                >
-                  Search Flights
-                </Button>
-              </Form.Item>
-            </Form>
-          </LargeCard>
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    onClick={(e) => makeBooking(e, flight)}
+                  >
+                    Search Flights
+                  </Button>
+                </Form.Item>
+              </Form>
+            </LargeCard>
+          ))}
         </div>
       </Fragment>
     </div>
