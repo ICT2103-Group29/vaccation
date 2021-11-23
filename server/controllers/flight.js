@@ -27,7 +27,7 @@ const createSession = async (search) => {
 /**
  * Packages the data into a format that is easier to consume.
  */
-const getCleanedData = (data) => {
+const getCleanedData = (data, passengers) => {
   const cleanedData = [];
   const itineries = data.Itineraries;
   const legs = data.Legs;
@@ -65,6 +65,7 @@ const getCleanedData = (data) => {
 
     cleanedData.push({
       Price: price,
+      Passengers: passengers,
       Outbound: outbound,
       Inbound: inbound,
     });
@@ -82,7 +83,8 @@ exports.search = async (req, res) => {
       url: `${location}?apikey=prtl6749387986743898559646983194`,
     };
     const result = await axios(options);
-    res.json(getCleanedData(result.data));
+    const data = getCleanedData(result.data, req.body.adults);
+    res.json(data);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
