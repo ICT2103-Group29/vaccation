@@ -33,8 +33,6 @@ const PassengerDetails = (props) => {
       expiry: postData.expiry,
       dob: postData.dob,
     };
-    console.log(data);
-
     setPostData((array) => [...array, data]);
     console.log("postData", postData);
 
@@ -52,7 +50,6 @@ const PassengerDetails = (props) => {
 
   var createPassengerArray = (n) => {
     var elements = [];
-    console.log(elements);
     var i;
     for (i = 0; i < n; i++) {
       elements.push(i);
@@ -69,9 +66,12 @@ const PassengerDetails = (props) => {
       </h1>
       <Fragment>
         <div class="m-auto">
-          <h3 class="text-2xl font-bold pl-64 text-center">Passenger Detail</h3>
           {passengerArray.map((passenger) => (
             <LargeCard>
+              <h3 class="text-lg font-bold text-center">
+                Passenger {passenger + 1} Detail
+              </h3>
+
               <Form
                 layout="vertical"
                 nitialValues={{ remember: true }}
@@ -81,7 +81,7 @@ const PassengerDetails = (props) => {
                 key={passenger}
               >
                 <div class="font-bold">
-                  <div class=" ">
+                  <div class=" mt-12">
                     <Form.Item
                       label="First Name "
                       name="firstName"
