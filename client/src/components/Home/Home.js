@@ -157,10 +157,8 @@ function Home() {
           <TableData columns={tableColumns} data={data.vaccRate} />
         </div>
       </div>
-      <div className="pb-48">
-        <div className="flex  items-center m-6  ">
-          <HowToNavigate />
-        </div>
+      <div className="flex items-center m-6 ">
+        <HowToNavigate />
       </div>
     </div>
   );
