@@ -3,7 +3,7 @@ USE vaccationdb;
 DELIMITER $$
 CREATE PROCEDURE Create_Customer
 (
-	IN bookingId INT,
+    IN bookingId CHAR(24),
     
     IN mobileNumber INT,
     IN firstName VARCHAR(255),

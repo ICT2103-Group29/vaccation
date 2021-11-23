@@ -11,7 +11,7 @@ exports.create = async (req, res) => {
     const payment = new Payment(req.body.payment);
 
     const result = await Booking.createFlightAndBooking(flight, payment);
-    const bookingId = result[0][0].bookingId;
+    const bookingId = result;
 
     req.body.customers.forEach(async (item) => {
       const cust = new Customer(item);
@@ -41,6 +41,7 @@ exports.getBookingDetails = async (req, res) => {
         cleanedData.booking = {
           bookingId: item.booking_id,
           bookingDate: item.booking_date,
+          price: item.amount,
         };
       }
 
