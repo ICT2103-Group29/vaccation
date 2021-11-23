@@ -45,7 +45,7 @@ const Results = (props) => {
       </h1>
       <h3 class="text-2xl font-extrabold text-center">Results From Booking</h3>
       {flights.length > 0 && (
-        <div class=" mt-26 m-auto w-5/12">
+        <div class="  m-auto w-3/6">
           {flights.map((flight) => (
             <SmallCard>
               <div class="flex">
@@ -128,7 +128,7 @@ const Results = (props) => {
                   </div>
                 </div>
 
-                <div class="pt-16 ml-24">
+                <div class="m-auto">
                   <h3 class="font-bold text-2xl ">
                     ${flight.Price * flight.Passengers}
                   </h3>
