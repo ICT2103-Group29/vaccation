@@ -15,6 +15,7 @@ import HowToNavigate from "./components/HowToNavigate/HowToNavigate";
 import TravelRestrictionsFull from "./components/TravelRestrictions/TravelRestrictionsFull";*/
 import TravelRestrictions from "./components/Restrictions/TravelRestrictions";
 import ScrollToTop from "./components/Shared/ScrollToTop";
+import CheckBooking from "./components/Booking/CheckBooking";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
               path="/TravelRestrictions"
               component={TravelRestrictions}
             />
+            <Route exact path="/checkBooking" component={CheckBooking} />
           </Switch>
         </div>
       </Router>

@@ -11,9 +11,7 @@ import { Link } from "react-router-dom";
 function HowToNavigate() {
   return (
     <div>
-      <h1 class=" text-4xl text-center pt-10 text-blue-900">
-        <b>How to Navigate</b>
-      </h1>
+      <h2 class=" text-4xl font-bold text-center pt-10 ">How to Navigate</h2>
       <div class=" grid grid-cols-4 gap-10 pb-20 px-10 mt-20">
         <div class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-500 rounded p-4 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
           <Link to="travelRestrictions">
@@ -35,19 +33,13 @@ function HowToNavigate() {
                 </svg>
               </div>
             </div>
-            <h1 class="text-2xl text-center text-black">
-              <b>
-                <h1 class="text-white">
-                  <b>Step 1 - Restrictions</b>{" "}
-                </h1>
-              </b>
-            </h1>
-            <h2 class="text-center text-gray-100 text-sm">
-              <b>
-                Check the travel restrictions according to the country you would
-                like to visit and abide by the restrictions{" "}
-              </b>
-            </h2>
+            <h3 class="text-2xl text-center text-white font-bold">
+              Step 1 - Restrictions
+            </h3>
+            <p class="text-center text-white text-sm font-medium">
+              Vaxx-citing times are here! You can now travel between Singapore
+              and the VTL countries.
+            </p>
           </Link>
         </div>
 
@@ -71,19 +63,12 @@ function HowToNavigate() {
                 </svg>
               </div>
             </div>
-            <h1 class="text-2xl text-center ">
-              <b>
-                <h1 class="text-white">
-                  <b>Step 2 - Testing</b>{" "}
-                </h1>
-              </b>
-            </h1>
-            <h2 class="text-center text-gray-100 text-sm">
-              <b>
-                You can find your nearest PCR Clinic to conduct your swab test
-                if required.{" "}
-              </b>
-            </h2>
+            <h3 class="text-2xl text-center text-white font-bold">
+              Step 2 - PCR Testing
+            </h3>
+            <p class="text-center text-white text-sm font-medium">
+              Find out the pre-departure COVID-19 test locations!
+            </p>
           </Link>
         </div>
 
@@ -107,16 +92,12 @@ function HowToNavigate() {
                 </svg>
               </div>
             </div>
-            <h1 class="text-2xl text-center text-black">
-              <b>
-                <h1 class="text-white">
-                  <b>Step 3 - Book Flight</b>{" "}
-                </h1>
-              </b>
-            </h1>
-            <h2 class="text-center text-gray-100 text-sm">
-              <b>Book your flight with Vaccation.</b>
-            </h2>
+            <h3 class="text-2xl text-center text-white font-bold">
+              Step 3 - Book Flight
+            </h3>
+            <p class="text-center text-white text-sm font-medium">
+              Ready to depart? Book your flight with Vaccation!
+            </p>
           </Link>
         </div>
 
@@ -140,16 +121,14 @@ function HowToNavigate() {
                 </svg>
               </div>
             </div>
-            <h1 class="text-2xl text-center text-black">
-              <b>
-                <h1 class="text-white">
-                  <b>Step 4 - Check Booking</b>{" "}
-                </h1>
-              </b>
-            </h1>
-            <h2 class="text-center text-gray-100 text-sm">
-              <b>You may also check your previous bookings with us.</b>
-            </h2>
+            <h3 class="text-2xl text-center text-white font-bold">
+              Step 4 - Check Bookings
+            </h3>
+            <p class="text-center text-white text-sm font-medium">
+              Unsure what time to depart? Don't worry, Vaccation got you
+              covered. <br />
+              Check your booking details here.
+            </p>
           </Link>
         </div>
       </div>
