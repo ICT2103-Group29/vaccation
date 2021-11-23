@@ -32,3 +32,6 @@ export const searchRestrictions = (search) => {
 
 export const getRestrictions = () =>
   API.get("countries/all/restrictions/get/10");
+
+export const getBookingDetails = (bookingId) =>
+  API.get(`bookings/${bookingId}`);

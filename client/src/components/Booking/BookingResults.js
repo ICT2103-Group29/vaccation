@@ -1,7 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const BookingResults = () => {
+const BookingResults = ({ data }) => {
+  const { booking, flight, customers } = data;
+
+  const getFormattedDate = (date) => {
+    const newDate = new Date(date);
+    const day = newDate.getDate();
+    const month = newDate.toLocaleString("default", { month: "long" });
+    const year = newDate.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+  };
+
+  const getFormattedTime = (date) => {
+    const newDate = new Date(date);
+    const hours = ("0" + newDate.getHours()).slice(-2);
+    const minutes = ("0" + newDate.getMinutes()).slice(-2);
+    return `${hours}:${minutes}H`;
+  };
+
   return (
     <div className="rounded-lg shadow-md h-auto text-center p-10 m-12 bg-white">
       <table className="w-full">
@@ -29,7 +46,7 @@ const BookingResults = () => {
                 <span>Destination</span>
               </div>
             </th>
-            <th className="uppercase">Ticket Type</th>
+            <th className="uppercase">Airline</th>
             <th className="uppercase">Quantity</th>
             <th className="uppercase">Price (SGD)</th>
           </tr>
@@ -37,12 +54,12 @@ const BookingResults = () => {
 
         <tbody>
           <tr>
-            <td>
-              <Link to="#" className="text-blue-500 font-semibold">
-                VACCATION-1234-4321
-              </Link>
+            <td className="text-blue-500 font-semibold">{booking.bookingId}</td>
+            <td className="font-semibold">
+              {`${getFormattedDate(booking.bookingDate)} ${getFormattedTime(
+                booking.bookingDate
+              )}`}
             </td>
-            <td className="font-semibold">November 20, 2021 00:53</td>
             <td className="py-6">
               <div className="grid grid-cols-2">
                 <div className="font-bold">
@@ -50,12 +67,14 @@ const BookingResults = () => {
                 </div>
                 <div>
                   <p className="my-0 uppercase text-md font-bold">
-                    Singapore (SG)
+                    {flight.departureAirport}
                   </p>
                   <p className="my-0 text-sm text-gray-600 font-semibold">
-                    November 30, 2021
+                    {getFormattedDate(flight.departureTime)}
                   </p>
-                  <p className="my-0 uppercase text-xs">21:00 (SGT)</p>
+                  <p className="my-0 uppercase text-xs">
+                    {getFormattedTime(flight.departureTime)}
+                  </p>
                 </div>
               </div>
               <div className="grid grid-cols-2 mt-4">
@@ -63,60 +82,25 @@ const BookingResults = () => {
                   <span>TO</span>
                 </div>
                 <div>
-                  <p className="my-0 uppercase text-md font-bold">Italy (IT)</p>
-                  <p className="my-0 text-sm text-gray-600 font-semibold">
-                    November 30, 2021
+                  <p className="my-0 uppercase text-md font-bold">
+                    {flight.arrivalAirport}
                   </p>
-                  <p className="my-0 text-xs">07:00 (CET)</p>
+                  <p className="my-0 text-sm text-gray-600 font-semibold">
+                    {getFormattedDate(flight.arrivalTime)}
+                  </p>
+                  <p className="my-0 text-xs">
+                    {getFormattedTime(flight.arrivalTime)}
+                  </p>
                 </div>
               </div>
             </td>
             <td className="uppercase font-semibold text-purple-500">
-              One way ticket
+              {flight.airline}
             </td>
-            <td className="text-lg font-semibold">2</td>
-            <td className="text-lg font-semibold">2609.10</td>
-          </tr>
-          <tr>
-            <td>
-              <Link to="#" className="text-blue-500 font-semibold">
-                VACCATION-1234-4321
-              </Link>
+            <td className="text-lg font-semibold">{customers.length}</td>
+            <td className="text-lg font-semibold">
+              {booking.price.toFixed(2)}
             </td>
-            <td className="font-semibold">November 20, 2021 00:53</td>
-            <td className="py-6">
-              <div className="grid grid-cols-2">
-                <div className="font-bold">
-                  <span>FROM</span>
-                </div>
-                <div>
-                  <p className="my-0 uppercase text-md font-bold">
-                    Singapore (SG)
-                  </p>
-                  <p className="my-0 text-sm text-gray-600 font-semibold">
-                    November 30, 2021
-                  </p>
-                  <p className="my-0 uppercase text-xs">21:00 (SGT)</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 mt-4">
-                <div className="font-bold">
-                  <span>TO</span>
-                </div>
-                <div>
-                  <p className="my-0 uppercase text-md font-bold">Italy (IT)</p>
-                  <p className="my-0 text-sm text-gray-600 font-semibold">
-                    November 30, 2021
-                  </p>
-                  <p className="my-0 text-xs">07:00 (CET)</p>
-                </div>
-              </div>
-            </td>
-            <td className="uppercase font-semibold text-yellow-500">
-              Two way ticket
-            </td>
-            <td className="text-lg font-semibold">2</td>
-            <td className="text-lg font-semibold">2609.10</td>
           </tr>
         </tbody>
       </table>

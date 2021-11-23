@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+import { getBookingDetails } from "../../api";
 import BookingResults from "./BookingResults";
 
 const CheckBooking = () => {
   const [search, setSearch] = React.useState("");
-  const handleSearch = (e) => {
+  const [results, setResults] = React.useState();
+
+  const handleSearch = async (e) => {
     e.preventDefault();
+    if (search === "") {
+      setResults(null);
+      return;
+    }
+    const res = await getBookingDetails(search);
+    if (res.status === 200) setResults(res.data);
   };
 
   return (
@@ -13,14 +22,14 @@ const CheckBooking = () => {
         <b>Check Your Booking</b>
       </h1>
       <p className="text-3xl text-center text-bold text-gray-800">
-        Enter Your Email Address
+        Enter Your Booking ID
       </p>
       <div class="flex justify-center items-center">
         <div class="relative flex-wrap items-stretch mb-15  m-5 px-20 w-2/3 ">
           <form onSubmit={handleSearch} class="flex">
             <input
               type="text"
-              placeholder="Email Address"
+              placeholder="VACCATION-xxxx-xxxx-xxxx"
               onChange={(e) => setSearch(e.target.value)}
               class="
                     px-3
@@ -48,7 +57,7 @@ const CheckBooking = () => {
           </form>
         </div>
       </div>
-      <BookingResults />
+      {results && <BookingResults data={results} />}
     </div>
   );
 };

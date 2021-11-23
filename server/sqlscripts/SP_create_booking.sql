@@ -3,6 +3,7 @@ USE vaccationdb;
 DELIMITER $$
 CREATE PROCEDURE Create_Booking
 (
+	IN bookingId CHAR(24),
 	IN airline VARCHAR(255),
     IN arrivalTime DATETIME,
     IN departureTime DATETIME,
@@ -31,15 +32,13 @@ INSERT INTO flight (airline, arrival_time, departure_time, departure_airport,
     destinationAirport, flightDuration, flightNumber, origin, destination);
 	SET @flightId := LAST_INSERT_ID();
 -- booking
-INSERT INTO booking (booking_date, flight_id)
-	VALUES (SYSDATE(), @flightId);
-    SET @bookingId = LAST_INSERT_ID();
+INSERT INTO booking (booking_id, booking_date, flight_id)
+	VALUES (bookingId, SYSDATE(), @flightId);
 -- payment
 INSERT INTO payment (amount, payment_status, payment_method,
 						expire_month, expire_year, booking_id)
 		VALUES (amount, paymentStatus, paymentMethod, expireMonth,
-        expireYear, @bookingId);
-SELECT @bookingId as bookingId;
+        expireYear, bookingId);
 COMMIT;
 END $$
 DELIMITER ;

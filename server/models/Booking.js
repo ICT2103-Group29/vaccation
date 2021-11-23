@@ -10,11 +10,27 @@ class Booking {
   }
 }
 
+/**
+ * Generate random booking id
+ */
+const generateBookingId = () => {
+  const random = Math.floor(1000 + Math.random() * 9000);
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  const hour = ("0" + today.getHours()).slice(-2);
+  const minute = ("0" + today.getMinutes()).slice(-2);
+  const time = `${hour}${minute}`;
+  return `VACCATION-${day}${month}-${time}-${random}`;
+};
+
 /* ============== SQL ============== */
 
 Booking.createFlightAndBooking = (newFlight, newPayment) => {
   return new Promise((resolve, reject) => {
     let param = [];
+    const bookingId = generateBookingId();
+    param.push(bookingId);
     for (const key in newFlight) {
       if (newFlight.hasOwnProperty(key)) {
         param.push(newFlight[key]);
@@ -31,7 +47,7 @@ Booking.createFlightAndBooking = (newFlight, newPayment) => {
       if (err) {
         return reject(err);
       }
-      return resolve(res);
+      return resolve(bookingId);
     });
   });
 };
