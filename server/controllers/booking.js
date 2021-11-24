@@ -18,9 +18,7 @@ exports.create = async (req, res) => {
       await Booking.createCustomer(bookingId, cust);
     });
 
-    res
-      .status(200)
-      .json({ message: `Booking successful. Booking ID is ${bookingId}.` });
+    res.status(200).json({ bookingId });
   } catch (error) {
     console.error(error);
     return res.status(500).send("Server error");
