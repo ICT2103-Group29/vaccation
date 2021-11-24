@@ -118,9 +118,9 @@ function Home() {
   return (
     <div id="home">
       <div className="m-24 ">
-        <h2 className="font-bold text-4xl mt-20 text-center">
+        <h1 className="font-bold text-4xl mt-20 text-center">
           Numbers at a Glance
-        </h2>
+        </h1>
         <div className="flex justify-center items-center m-6 ">
           {!data.loading && (
             <Fragment>
@@ -150,9 +150,9 @@ function Home() {
             </Fragment>
           )}
         </div>
-        <h2 className="font-bold text-4xl mt-20 text-center">
+        <h1 className="font-bold text-4xl mt-20 text-center">
           Global COVID-19 Vaccination Rate
-        </h2>
+        </h1>
         <div class="rounded shadow-md h-auto text-center p-4 bg-white">
           <TableData columns={tableColumns} data={data.vaccRate} />
         </div>

@@ -139,8 +139,8 @@ function SearchFlights(props) {
   }
 
   return (
-    <div>
-      <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
+    <div class="pb-24">
+      <h1 class="text-4xl font-bold text-center  mt-20">
         Plan Ahead and Book with Confidence
       </h1>
 
@@ -151,7 +151,6 @@ function SearchFlights(props) {
           initialValues={{
             remember: true,
           }}
-          // onFinish={createSkySession}
         >
           <div class="font-bold ">
             <div class=" ">
@@ -323,11 +322,6 @@ function SearchFlights(props) {
                 </Fragment>
               )}
             </div>
-            {/* {!place.loading && (
-              <Fragment>
-                
-              </Fragment>
-            )} */}
 
             <div class="">
               <Form.Item
@@ -371,25 +365,20 @@ function SearchFlights(props) {
                 />
               </Form.Item>
             </div>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                onClick={createSkySession}
-              >
-                Search Flights
-              </Button>
-            </Form.Item>
+            <div class="text-center p-12">
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={createSkySession}
+                >
+                  Search Flights
+                </Button>
+              </Form.Item>
+            </div>
           </div>
         </Form>
       </LargeCard>
-      <div class="flex  mt-32 m-auto w-11/12 ">
-        {links.map((link) => (
-          <CardGradient>
-            <Link to={link.to}>{link.name}</Link>
-          </CardGradient>
-        ))}
-      </div>
     </div>
   );
 }

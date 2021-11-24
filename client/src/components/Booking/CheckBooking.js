@@ -18,12 +18,12 @@ const CheckBooking = () => {
 
   return (
     <div className="my-40">
-      <h1 className="text-4xl text-center pt-10 text-blue-900">
-        <b>Check Your Booking</b>
+      <h1 class="text-4xl font-bold mt-20 text-center">
+        Check Your Booking Details
       </h1>
-      <p className="text-3xl text-center text-bold text-gray-800">
-        Enter Your Booking ID
-      </p>
+      <h3 class="text-2xl font-bold text-center text-blue-800">
+        Enter your Booking ID
+      </h3>
       <div class="flex justify-center items-center">
         <div class="relative flex-wrap items-stretch mb-15  m-5 px-20 w-2/3 ">
           <form onSubmit={handleSearch} class="flex">
