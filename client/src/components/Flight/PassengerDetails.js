@@ -69,6 +69,7 @@ const PassengerDetails = (props) => {
     // 1. Make a shallow copy of the items
     setPostData((array) => {
       let items = [...array];
+      console.log("items", items);
       // 2. Make a shallow copy of the item you want to mutate
       let item = { ...items[index] };
       // 3. Replace the property you're intested in
