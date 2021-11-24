@@ -4,10 +4,11 @@ import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
 import { Form, Input, Button, DatePicker } from "antd";
 import { booking } from "../../api";
-
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 
 const PassengerDetails = (props) => {
+  const history = useHistory();
   const [numberOfPassengers, setNumberOfPassengers] = useState(0);
 
   //get selected flight
@@ -18,10 +19,10 @@ const PassengerDetails = (props) => {
     firstName: "",
     lastName: "",
     email: "",
-    passportNo: "",
+    passportNumber: "",
     nationality: "",
     placeOfIssue: "",
-    expiry: "",
+    expiryDate: "",
     dob: "",
   };
 
@@ -39,33 +40,19 @@ const PassengerDetails = (props) => {
     setPostData(defaultArr);
   }, [numberOfPassengers]);
 
-  const makeBooking = async (e, index) => {
+  const makeBooking = async (e) => {
     e.preventDefault();
-    console.log(postData);
-    // let data = {
-    //   firstName: postData.firstName,
-    //   lastname: postData.lastname,
-    //   email: postData.email,
-    //   passportNo: postData.passportNo,
-    //   nationality: postData.nationality,
-    //   placeOfIssue: postData.placeOfIssue,
-    //   expiry: postData.expiry,
-    //   dob: postData.dob,
-    // };
 
-    // setPostData((array) => [...array, data]);
+    const data = {
+      flight: flight,
+      customers: postData,
+    };
 
-    // const res1 = await booking(data, flight);
-    // console.log("Status", res1.status);
-    // if (res1.status === 200) {
-    //   console.log("status 200");
-    // } else {
-    //   console.log("error", res1.status);
-    // }
+    history.push("/payment", { data });
   };
 
-  const handleChange = (e, name, value, index) => {
-    console.log(value);
+  const handleChange = (e, index) => {
+    const { name, value } = e.target;
     // 1. Make a shallow copy of the items
     setPostData((array) => {
       let items = [...array];
@@ -74,6 +61,21 @@ const PassengerDetails = (props) => {
       let item = { ...items[index] };
       // 3. Replace the property you're intested in
       item[name] = value;
+      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+      items[index] = item;
+      // 5. Set the state to our new copy
+      return items;
+    });
+  };
+
+  const handleDateChange = (e, name, index) => {
+    // 1. Make a shallow copy of the items
+    setPostData((array) => {
+      let items = [...array];
+      // 2. Make a shallow copy of the item you want to mutate
+      let item = { ...items[index] };
+      // 3. Replace the property you're intested in
+      item[name] = moment(e).format("YYYY-MM-DD");
       // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
       items[index] = item;
       // 5. Set the state to our new copy
@@ -119,9 +121,7 @@ const PassengerDetails = (props) => {
                         size="large"
                         key={index}
                         name="firstName"
-                        onChange={(e) =>
-                          handleChange(e, "firstName", e.target.value, index)
-                        }
+                        onChange={(e) => handleChange(e, index)}
                         placeholder="Enter First Name"
                       />
                     </Form.Item>
@@ -139,9 +139,7 @@ const PassengerDetails = (props) => {
                         size="large"
                         placeholder="Enter Last Name"
                         name="lastName"
-                        onChange={(e) =>
-                          handleChange(e, "lastName", e.target.value, index)
-                        }
+                        onChange={(e) => handleChange(e, index)}
                       />
                     </Form.Item>
                     <Form.Item
@@ -159,16 +157,31 @@ const PassengerDetails = (props) => {
                         size="large"
                         name="email"
                         placeholder="Enter Email"
-                        onChange={(e) =>
-                          handleChange(e, "email", e.target.value, index)
-                        }
+                        onChange={(e) => handleChange(e, index)}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      label="Mobile Number"
+                      name="mobileNumber"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input the mobile number!",
+                        },
+                      ]}
+                    >
+                      <Input
+                        size="large"
+                        name="mobileNumber"
+                        placeholder="Enter Mobile Number"
+                        onChange={(e) => handleChange(e, index)}
                       />
                     </Form.Item>
                   </div>
                   <div class="">
                     <Form.Item
                       label="Passport Number"
-                      name="passportNo"
+                      name="passportNumber"
                       rules={[
                         {
                           required: true,
@@ -178,11 +191,9 @@ const PassengerDetails = (props) => {
                     >
                       <Input
                         size="large"
-                        name="passportNo"
+                        name="passportNumber"
                         placeholder="Enter Passport Number"
-                        onChange={(e) =>
-                          handleChange(e, "passportNo", e.target.value, index)
-                        }
+                        onChange={(e) => handleChange(e, index)}
                       />
                     </Form.Item>
                     <Form.Item
@@ -199,9 +210,7 @@ const PassengerDetails = (props) => {
                         size="large"
                         name="nationality"
                         placeholder="Enter Nationality"
-                        onChange={(e) =>
-                          handleChange(e, "nationality", e.target.value, index)
-                        }
+                        onChange={(e) => handleChange(e, index)}
                       />
                     </Form.Item>
                     <Form.Item
@@ -218,16 +227,14 @@ const PassengerDetails = (props) => {
                         size="large"
                         name="placeOfIssue"
                         placeholder="Enter Place of Issue"
-                        onChange={(e) =>
-                          handleChange(e, "placeOfIssue", e.target.value, index)
-                        }
+                        onChange={(e) => handleChange(e, index)}
                       />
                     </Form.Item>
                   </div>
                   <div class="flex justify-evenly">
                     <Form.Item
                       label="Expiry"
-                      name="expiry"
+                      name="expiryDate"
                       rules={[
                         {
                           required: true,
@@ -236,14 +243,9 @@ const PassengerDetails = (props) => {
                       ]}
                     >
                       <DatePicker
-                        name="expiry"
+                        name="expiryDate"
                         onChange={(e) =>
-                          handleChange(
-                            e,
-                            "expiry",
-                            moment(e?.target).format("YYYY-MM-DD"),
-                            index
-                          )
+                          handleDateChange(e, "expiryDate", index)
                         }
                       />
                     </Form.Item>
@@ -258,15 +260,8 @@ const PassengerDetails = (props) => {
                       ]}
                     >
                       <DatePicker
-                        name="DOB"
-                        onChange={(e) =>
-                          handleChange(
-                            e,
-                            "dob",
-                            moment(e?.target).format("YYYY-MM-DD"),
-                            index
-                          )
-                        }
+                        name="dob"
+                        onChange={(e) => handleDateChange(e, "dob", index)}
                         // onChange={(e) =>
                         //   setPostData({
                         //     ...postData,

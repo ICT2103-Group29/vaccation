@@ -13,6 +13,9 @@ import moment from "moment";
 
 function SearchFlights(props) {
   const history = useHistory();
+  const [originCountry, setOriginCountry] = useState("");
+  const [destinationCountry, setDestinationCountry] = useState("");
+
   //get country data
   const [data, setData] = useState({
     //can be any variable name
@@ -77,12 +80,15 @@ function SearchFlights(props) {
   //sky scanner api
   const createSkySession = async () => {
     let data = {
+      originCountry: originCountry,
+      destinationCountry: destinationCountry,
       originplace: postData.originplace,
       destinationplace: postData.destinationplace,
       outbounddate: postData.outbounddate,
       inbounddate: postData.inbounddate,
       adults: postData.adults,
     };
+    console.log(data);
 
     const res1 = await createSession(data);
     if (res1.status === 200) {
@@ -165,6 +171,7 @@ function SearchFlights(props) {
                       showSearch
                       optionFilterProp="children"
                       onChange={(e) => {
+                        setOriginCountry(e);
                         setPlace({ ...place, originplace: e });
                         findPlaces(e, "placeorigin");
                       }}
@@ -199,12 +206,12 @@ function SearchFlights(props) {
                         <Select
                           showSearch
                           optionFilterProp="children"
-                          onChange={(e) =>
+                          onChange={(e) => {
                             setPostData({
                               ...postData,
                               originplace: e,
-                            })
-                          }
+                            });
+                          }}
                           filterOption={(input, option) =>
                             option.children
                               .toLowerCase()
@@ -235,6 +242,7 @@ function SearchFlights(props) {
                           showSearch
                           optionFilterProp="children"
                           onChange={(e) => {
+                            setDestinationCountry(e);
                             setPlace({ ...place, destinationplace: e });
                             findPlaces(e, "placedestination");
                           }}
