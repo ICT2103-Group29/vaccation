@@ -50,8 +50,7 @@ function TravelRestrictions() {
 
   return (
     <div class>
-      {/* <h1 class=" text-5xl text-center pt-20 text-blue-900 pb-10"> */}
-      <h1 class=" text-5xl text-center pt-20 text-purple-900 pb-10">
+      <h1 class=" text-5xl text-center pt-20 text-blue-900 pb-10">
         <b>Travel Restrictions</b>
       </h1>
 
@@ -135,8 +134,7 @@ function TravelRestrictions() {
       </div> */}
 
       <div class="flex flex-col pb-20">
-        {/* <div class="container mx-auto  my-4 px-4 py-4 bg-blue-800"> */}
-        <div class="container mx-auto  my-4 px-4 py-4 bg-purple-800">
+        <div class="container mx-auto  my-4 px-4 py-4 bg-blue-800">
           {restrictions.map((restriction) => (
             <RestrictionsCard data={restriction} />
           ))}
