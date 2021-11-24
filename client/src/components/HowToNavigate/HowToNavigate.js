@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 function HowToNavigate() {
   return (
     <div>
-      <h1 class=" text-5xl text-center pt-10 text-blue-900">
+      <h1 class=" text-4xl text-center pt-10 text-blue-900">
         <b>How to Navigate</b>
       </h1>
       <div class=" grid grid-cols-4 gap-10 pb-20 px-10 mt-20">
@@ -110,7 +110,7 @@ function HowToNavigate() {
             <h1 class="text-2xl text-center text-black">
               <b>
                 <h1 class="text-white">
-                  <b>Step 3 : Book Flight</b>{" "}
+                  <b>Step 3 - Book Flight</b>{" "}
                 </h1>
               </b>
             </h1>
@@ -143,7 +143,7 @@ function HowToNavigate() {
             <h1 class="text-2xl text-center text-black">
               <b>
                 <h1 class="text-white">
-                  <b>Step 4 : Check Booking</b>{" "}
+                  <b>Step 4 - Check Booking</b>{" "}
                 </h1>
               </b>
             </h1>
