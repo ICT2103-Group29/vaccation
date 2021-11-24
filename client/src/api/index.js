@@ -43,33 +43,14 @@ export const createSession = (postData) => {
 //   return API.post("flights/search", body, config);
 // };
 
-export const booking = (postData, flights) => {
+export const booking = (data) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  var flight = JSON.stringify(flights);
-  console.log("flight body", flight);
-
-  var passenger = JSON.stringify(postData);
-  console.log("passenger body", passenger);
-
- 
-
-  const booking = {
-    flight: flight,
-
-    payment: {
-      amount: "$100",
-      paymentStatus: "Visa",
-      expireMonth: 11,
-      expireYear: "2021",
-    },
-    customers: passenger,
-  };
-  console.log("passenger body", booking.payment);
+  var booking = JSON.stringify(data);
 
   return API.post("bookings", booking, config);
 };

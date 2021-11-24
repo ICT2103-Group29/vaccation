@@ -3,7 +3,6 @@ import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
 import { Form, Input, Button, DatePicker } from "antd";
-import { booking } from "../../api";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
 
@@ -82,6 +81,10 @@ const PassengerDetails = (props) => {
       return items;
     });
   };
+  function disabledDate(current) {
+    // Can not select days before today and today
+    return current && current < moment().endOf("day");
+  }
 
   return (
     <div>
@@ -241,6 +244,7 @@ const PassengerDetails = (props) => {
                           message: "Please input your expiry date!",
                         },
                       ]}
+                      disabledDate={disabledDate}
                     >
                       <DatePicker
                         name="expiryDate"
@@ -262,12 +266,6 @@ const PassengerDetails = (props) => {
                       <DatePicker
                         name="dob"
                         onChange={(e) => handleDateChange(e, "dob", index)}
-                        // onChange={(e) =>
-                        //   setPostData({
-                        //     ...postData,
-                        //     dob: moment(e.target).format("YYYY-MM-DD"),
-                        //   })
-                        // }
                       />
                     </Form.Item>
                   </div>
@@ -278,7 +276,7 @@ const PassengerDetails = (props) => {
 
           <div class="p-14 text-center">
             <Button type="primary" htmlType="submit" onClick={makeBooking}>
-              Search Flights
+              Next
             </Button>
           </div>
         </div>
