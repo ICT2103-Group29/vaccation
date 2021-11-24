@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 
 import "../../assets/css/font.css";
@@ -20,7 +20,7 @@ function onChange(date, dateString) {
 
 const PassengerDetails = () => {
   const history = useHistory();
-
+  const [data, setData] = useState();
   const [paymentData, setPaymentData] = useState({
     cardName: "",
     ccNumber: "",
@@ -31,14 +31,26 @@ const PassengerDetails = () => {
   console.log(paymentData);
 
   const location = useLocation();
-  const data = location.state.data;
-  console.log("data customers", data.customers);
-  console.log("data flight", data.flight);
 
   const makeBooking = async (e) => {
     console.log("data", data);
+
+    const { flight } = data;
+    const flightObj = {
+      airline: flight.Outbound.Carrier.Name,
+      arrivalTime: flight.Outbound.Departure,
+      departureTime: flight.Outbound.Arrival,
+      departureAirport: flight.Outbound.Destination.Name,
+      destinationAirport: flight.Outbound.Origin.Name,
+      flightDuration: flight.Outbound.Duration,
+      flightNumber: flight.Outbound.FlightNumber,
+      origin: flight.OriginCountry,
+      destination: flight.DestinationCountry,
+    };
+
+    console.log("flightobj", flightObj);
     const bookingData = {
-      flight: data.flight,
+      flight: flightObj,
       customers: data.customers,
       payment: paymentData,
     };
@@ -49,7 +61,6 @@ const PassengerDetails = () => {
     } else {
       console.log("error", res1.status);
     }
-    console.log(res1.bookingId);
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -70,9 +81,15 @@ const PassengerDetails = () => {
     setIsModalVisible(false);
   };
 
+  useEffect(() => {
+    const state = location.state?.data;
+    console.log(location.state);
+    setData(state);
+  }, []);
+
   return (
     <div>
-      <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
+      <h1 class="text-4xl font-bold text-center mt-20">
         Plan Ahead and Book with Confidence
       </h1>
       <div class="m-auto">
@@ -205,7 +222,7 @@ const PassengerDetails = () => {
               <h3 class="text-xl font-bold text-blue-800">
                 Total to be Paid Now
               </h3>
-              <h3 class="text-4xl font-extrabold ">{data.flight.Price}</h3>
+              <h3 class="text-4xl font-extrabold ">{data?.flight.Price}</h3>
             </div>
             <div class="text-center mt-20 flex justify-evenly ">
               <Link to="/passengers">

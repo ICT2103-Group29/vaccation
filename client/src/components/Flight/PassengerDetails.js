@@ -88,7 +88,7 @@ const PassengerDetails = (props) => {
 
   return (
     <div>
-      <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
+      <h1 class="text-4xl font-bold text-center  mt-20">
         Plan Ahead and Book with Confidence
       </h1>
       <Fragment>

@@ -1,21 +1,3 @@
-// import React, { useEffect, useState, Fragment } from "react";
-// import "../../assets/css/font.css";
-
-// function travelRestrictions() {
-//     return (
-//         <div>
-//           <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
-//            Travel Restrictions
-//           </h1>
-//         </div>
-        
-//           );
-
-
-// }
-
-// export default travelRestrictions;
-
 import React, { useState, useEffect } from "react";
 import "../../assets/css/font.css";
 
@@ -50,15 +32,8 @@ function TravelRestrictions() {
 
   return (
     <div class>
-      {/* <h1 class=" text-5xl text-center pt-20 text-blue-900 pb-10"> */}
-      <h1 class=" text-5xl text-center pt-20 text-purple-900 pb-10">
-        <b>Travel Restrictions</b>
-      </h1>
+      <h1 class="text-4xl font-bold text-center  mt-20">Travel Restrictions</h1>
 
-      <link
-        rel="stylesheet"
-        href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
-      />
       <div class="flex justify-center items-center">
         <div class="relative flex-wrap items-stretch mb-15  m-5 px-20 w-2/3 ">
           <form onSubmit={handleSearch} class="flex">
@@ -135,8 +110,7 @@ function TravelRestrictions() {
       </div> */}
 
       <div class="flex flex-col pb-20">
-        {/* <div class="container mx-auto  my-4 px-4 py-4 bg-blue-800"> */}
-        <div class="container mx-auto  my-4 px-4 py-4 bg-purple-800">
+        <div class="container mx-auto  my-4 px-4 py-4 bg-blue-800">
           {restrictions.map((restriction) => (
             <RestrictionsCard data={restriction} />
           ))}

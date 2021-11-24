@@ -9,20 +9,7 @@ import moment from "moment";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { getCountries, createSession, places } from "../../api";
 const Results = (props) => {
-  // console.log("flights", flights);
-
   const [flights, setFlights] = useState([]);
-  const [selectedFlight, setSelectedFlight] = useState({
-    inboundAirport: "",
-    outboundAirport: "",
-    carrierName: "",
-    inboundDate: "",
-    inboundTime: "",
-    outboundDate: "",
-    outboundTime: "",
-  });
-  // console.log("flightselected", selectedFlight);
-
   const handleViewClick = (e, flights) => {
     e.preventDefault();
 
@@ -35,12 +22,14 @@ const Results = (props) => {
 
   useEffect(() => {
     const data = props.location.state?.flight;
+    console.log("data", data);
+
     setFlights(data);
   }, []);
 
   return (
     <div>
-      <h1 class="text-4xl font-bold text-blue-800 mt-20 text-center">
+      <h1 class="text-4xl font-bold mt-20 text-center">
         Plan Ahead and Book with Confidence
       </h1>
       <h3 class="text-2xl font-extrabold text-center">Results From Booking</h3>
@@ -121,6 +110,8 @@ const Results = (props) => {
                             <h3 name="outboundTime">
                               {moment(flight.Inbound.Arrival).format("LT")}
                             </h3>
+                            <h3>{flight.Outbound.Duration}</h3>
+                            <h3>{flight.Outbound.FlightNumber}</h3>
                           </div>
                         </div>
                       </div>
