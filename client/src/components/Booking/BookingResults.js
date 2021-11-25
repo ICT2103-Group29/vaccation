@@ -23,7 +23,7 @@ const BookingResults = ({ data }) => {
     <div className="rounded-lg shadow-md h-auto text-center p-10 m-12 bg-white">
       <table className="w-full">
         <thead>
-          <tr className="border-b text-md text-blue-900">
+          <tr className="border-b text-md text-blue-800">
             <th className="uppercase">Booking ID</th>
             <th className="uppercase">Booking Date</th>
             <th className="uppercase">
@@ -54,7 +54,7 @@ const BookingResults = ({ data }) => {
 
         <tbody>
           <tr>
-            <td className="text-blue-500 font-semibold">{booking.bookingId}</td>
+            <td className=" font-semibold">{booking.bookingId}</td>
             <td className="font-semibold">
               {`${getFormattedDate(booking.bookingDate)} ${getFormattedTime(
                 booking.bookingDate
@@ -69,15 +69,15 @@ const BookingResults = ({ data }) => {
                   <p className="my-0 uppercase text-md font-bold">
                     {flight.departureAirport}
                   </p>
-                  <p className="my-0 text-sm text-gray-600 font-semibold">
+                  <p className="my-0 text-sm text-blue-800 font-semibold">
                     {getFormattedDate(flight.departureTime)}
                   </p>
-                  <p className="my-0 uppercase text-xs">
+                  <p className="my-0 uppercase font-semibold text-xs">
                     {getFormattedTime(flight.departureTime)}
                   </p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 mt-4">
+              <div className="grid grid-cols-2 mt-">
                 <div className="font-bold">
                   <span>TO</span>
                 </div>
@@ -85,16 +85,16 @@ const BookingResults = ({ data }) => {
                   <p className="my-0 uppercase text-md font-bold">
                     {flight.arrivalAirport}
                   </p>
-                  <p className="my-0 text-sm text-gray-600 font-semibold">
+                  <p className="my-0 text-sm text-blue-800 font-semibold">
                     {getFormattedDate(flight.arrivalTime)}
                   </p>
-                  <p className="my-0 text-xs">
+                  <p className="my-0 text-xs  font-semibold">
                     {getFormattedTime(flight.arrivalTime)}
                   </p>
                 </div>
               </div>
             </td>
-            <td className="uppercase font-semibold text-purple-500">
+            <td className="uppercase font-semibold text-blue-800">
               {flight.airline}
             </td>
             <td className="text-lg font-semibold">{customers.length}</td>

@@ -37,27 +37,6 @@ function TravelRestrictions() {
       <div class="flex justify-center items-center">
         <div class="relative flex-wrap items-stretch mb-15  m-5 px-20 w-2/3 ">
           <form onSubmit={handleSearch} class="flex">
-            {/* <span
-              class="
-                  z-10
-                  h-full
-                  leading-snug
-                  font-normal
-                  absolute
-                  text-center text-gray-400
-                  absolute
-                  bg-transparent
-                  rounded
-                  text-base
-                  items-center
-                  justify-center
-                  w-8
-                  pl-3
-                  py-3
-                "
-            >
-              <i class="fas fa-search"></i>
-            </span> */}
             <input
               type="text"
               placeholder="Search"
@@ -80,7 +59,7 @@ function TravelRestrictions() {
             />
             <button
               type="submit"
-              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 w-36 h-14 rounded ml-1 text-xl"
+              class="bg-blue-800 hover:bg-blue-600 text-white font-bold py-2 px-4 w-36 h-14 rounded ml-1 text-xl"
             >
               <i class="fas fa-search"></i>
               <span class="text-lg ml-2">Search</span>
