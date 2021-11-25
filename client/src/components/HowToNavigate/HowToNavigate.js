@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import "../../assets/css/font.css";
-
-import LargeCard from "../Shared/LargeCard";
-import { Button } from "antd";
 import "../../assets/css/button.css";
-
-import { Form, Select, DatePicker } from "antd";
 import { Link } from "react-router-dom";
 
 function HowToNavigate() {

@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/font.css";
-
-import LargeCard from "../Shared/LargeCard";
-import { Button } from "antd";
 import "../../assets/css/button.css";
-
-import { Form, Select, DatePicker } from "antd";
 import PCRCard from "./PCRCard";
 import { getPCRClinics, searchPCRClinic } from "../../api";
 
@@ -73,26 +68,6 @@ function PCRClinics() {
         </div>
       </div>
       <div class="relative"></div>
-
-      {/* <div class="p-2 flex flex-row justify-center ">
-        <div class="m-5">
-          <button
-            type="button"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-52 h-14 rounded-full text-xl"
-          >
-            Filter option 1
-          </button>
-        </div>
-        <div class="m-5 ">
-          <button
-            type="button"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-52 h-14 rounded-full text-xl"
-          >
-            Filter option 2
-          </button>
-        </div>
-      </div> */}
-
       <div class="flex flex-col pb-20">
         <div class="container mx-auto  my-4 px-4 py-4 bg-blue-800">
           {clinics.map((clinic) => (

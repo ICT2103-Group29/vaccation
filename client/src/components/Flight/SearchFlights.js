@@ -1,11 +1,8 @@
-// export default SearchFlights;
 import React, { useEffect, useState, Fragment } from "react";
-import { Link, useHistory } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
-import CardGradient from "../Shared/CardGradient";
 import { Button, InputNumber, Form, Select, DatePicker } from "antd";
 import "../../assets/css/button.css";
 import { getCountries, createSession, places } from "../../api";

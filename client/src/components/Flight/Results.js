@@ -1,13 +1,11 @@
-import React, { createContext, useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-
+import React, {useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../../assets/css/font.css";
 import "../../assets/css/button.css";
-import { Button, Pagination } from "antd";
+import { Button } from "antd";
 import SmallCard from "../Shared/SmallCard";
 import moment from "moment";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { getCountries, createSession, places } from "../../api";
 const Results = (props) => {
   const [flights, setFlights] = useState([]);
   const handleViewClick = (e, flights) => {

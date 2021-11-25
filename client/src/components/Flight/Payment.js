@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
-
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
 import moment from "moment";
-
 import { booking } from "../../api";
-
 import { Form, Input, Button, DatePicker, Modal } from "antd";
-
-function onChange(date, dateString) {
-  console.log(date, dateString);
-}
-
-// const stripePromise = loadStripe("pk_test_D4uxNaSHMXHtez9zf7ffdAM5");
 
 const PassengerDetails = () => {
   const history = useHistory();
@@ -74,7 +63,7 @@ const PassengerDetails = () => {
     setIsModalVisible(false);
 
     history.push({
-      pathname: "/",
+      pathname: "/checkingBooking",
     });
   };
 
@@ -210,7 +199,6 @@ const PassengerDetails = () => {
               <Link to="/passengers">
                 <Button type="default">Back</Button>
               </Link>
-              <Link></Link>
               <Button type="primary" htmlType="submit" onClick={showModal}>
                 Submit
               </Button>

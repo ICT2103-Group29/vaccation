@@ -52,6 +52,16 @@ const Navbar = (props) => {
               Booking
             </NavLink>
           </li>
+          <li className="mr-5" key="/booking">
+            <NavLink
+              exact
+              activeClassName="text-white bg-blue-700 px-3 py-2 rounded-md"
+              className="hover:text-white hover:bg-blue-700 px-3 py-2 rounded-md transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+              to="/checkBooking"
+            >
+              Check Booking
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>

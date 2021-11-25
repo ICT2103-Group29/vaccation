@@ -31,18 +31,6 @@ export const createSession = (postData) => {
   return API.post("flights/search", body, config);
 };
 
-// export const searchFlight = (postData) => {
-//   const config = {
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   };
-//   console.log("country", postData);
-
-//   var body = JSON.stringify(postData);
-//   return API.post("flights/search", body, config);
-// };
-
 export const booking = (data) => {
   const config = {
     headers: {
