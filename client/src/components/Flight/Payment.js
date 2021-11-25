@@ -1,39 +1,117 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useHistory } from "react-router-dom";
 
 import "../../assets/css/font.css";
 import "../../assets/css/searchFlights.css";
 import LargeCard from "../Shared/LargeCard";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
+import moment from "moment";
 
-import { Form, Input, Button, DatePicker } from "antd";
+import { booking } from "../../api";
+
+import { Form, Input, Button, DatePicker, Modal } from "antd";
+
 function onChange(date, dateString) {
   console.log(date, dateString);
 }
 
-const stripePromise = loadStripe("pk_test_D4uxNaSHMXHtez9zf7ffdAM5");
+// const stripePromise = loadStripe("pk_test_D4uxNaSHMXHtez9zf7ffdAM5");
 
-const onFinish = (e) => {
-  console.log("Success:", e);
-};
 const PassengerDetails = () => {
-  return (
-    <div>
-      <h1 class="text-4xl font-bold text-center text-blue-800 mt-20">
-        Plan Ahead and Book with Confidence
-      </h1>
-      <div class="m-auto">
-        <h3 class="text-2xl font-bold pl-48">Payment</h3>
-        <LargeCard>
-          <Elements stripe={stripePromise}>
+  const history = useHistory();
+  const [data, setData] = useState();
+    const [bookingId, setBookingId] = useState("");
+
+    const [paymentData, setPaymentData] = useState({
+      amount: 0,
+      paymentMethod: "Visa",
+      paymentStatus: "Paid",
+      expireMonth: 0,
+      expireYear: 0,
+    });
+    console.log(paymentData);
+
+    const location = useLocation();
+
+    const makeBooking = async (e) => {
+      console.log("data", data);
+
+      const { flight } = data;
+      const flightObj = {
+        airline: flight.Outbound.Carrier.Name,
+        arrivalTime: flight.Outbound.Departure,
+        departureTime: flight.Outbound.Arrival,
+        departureAirport: flight.Outbound.Destination.Name,
+        destinationAirport: flight.Outbound.Origin.Name,
+        flightDuration: flight.Outbound.Duration,
+        flightNumber: flight.Outbound.FlightNumber,
+        origin: flight.OriginCountry,
+        destination: flight.DestinationCountry,
+      };
+
+      setPaymentData({ ...paymentData, amount: data?.flight.Price });
+
+      console.log("flightobj", flightObj);
+      const bookingData = {
+        flight: flightObj,
+        customers: data.customers,
+        payment: paymentData,
+      };
+      console.log("data", bookingData);
+      const res1 = await booking(bookingData);
+      if (res1.status === 200) {
+        console.log("status 200");
+      } else {
+        console.log("error", res1.status);
+      }
+      console.log("bookingId", res1.data.bookingId);
+      setBookingId(res1.data.bookingId);
+    };
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+      setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+      setIsModalVisible(false);
+
+      history.push({
+        pathname: "/",
+      });
+    };
+
+    const handleCancel = () => {
+      setIsModalVisible(false);
+    };
+
+    useEffect(() => {
+      const state = location.state?.data;
+      console.log(location.state);
+      setData(state);
+    }, []);
+
+    useEffect(() => {
+      console.log("Payment", paymentData);
+    }, [paymentData]);
+
+    return (
+      <div>
+        <h1 class="text-4xl font-bold text-center mt-20">
+          Plan Ahead and Book with Confidence
+        </h1>
+        <div class="m-auto">
+          <h3 class="text-2xl font-bold pl-48">Payment</h3>
+          <LargeCard>
             <Form
               layout="vertical"
               initialValues={{ remember: true }}
               initialValues={{
                 remember: true,
               }}
-              onFinish={onFinish}
+              onFinish={makeBooking}
             >
               <div class="font-bold">
                 <div>
@@ -47,10 +125,7 @@ const PassengerDetails = () => {
                       },
                     ]}
                   >
-                    <Input
-                      size="large"
-                      placeholder="Enter Credit Card Number"
-                    />
+                    <Input size="large" placeholder="Enter Credit Card Name" />
                   </Form.Item>
                   <Form.Item
                     label="Credit Card Number"
@@ -69,7 +144,7 @@ const PassengerDetails = () => {
                   </Form.Item>
                 </div>
                 <div class="">
-                  <div class="flex">
+                  <div class="">
                     <Form.Item
                       label="Expiry Month"
                       name="expiryMonth"
@@ -80,7 +155,18 @@ const PassengerDetails = () => {
                         },
                       ]}
                     >
-                      <DatePicker onChange={onChange} picker="month" />
+                      <DatePicker
+                        // onChange={onChange}
+                        picker="month"
+                        onChange={(e) =>
+                          setPaymentData({
+                            ...paymentData,
+                            expireMonth: parseInt(
+                              moment(e?.target).format("MM")
+                            ),
+                          })
+                        }
+                      />
                     </Form.Item>
                     <Form.Item
                       label="Expiry Year"
@@ -92,7 +178,18 @@ const PassengerDetails = () => {
                         },
                       ]}
                     >
-                      <DatePicker onChange={onChange} picker="year" />
+                      <DatePicker
+                        // onChange={onChange}
+                        picker="year"
+                        onChange={(e) =>
+                          setPaymentData({
+                            ...paymentData,
+                            expireYear: parseInt(
+                              moment(e?.target).format("YY")
+                            ),
+                          })
+                        }
+                      />
                     </Form.Item>
                     <Form.Item
                       label="CVV"
@@ -104,31 +201,49 @@ const PassengerDetails = () => {
                         },
                       ]}
                     >
-                      <Input size="large" placeholder="Enter CVV" />
+                      <Input
+                        size="large"
+                        placeholder="Enter CVV"
+                        picker="year"
+                      />
                     </Form.Item>
                   </div>
                 </div>
               </div>
-              <div class=" mt-12 text-right">
+              <div class=" mt-12 ">
                 <h3 class="text-xl font-bold text-blue-800">
-                  Total to be paid now
+                  Total to be Paid Now
                 </h3>
-                <h3 class="text-4xl font-extrabold ">$2609.10</h3>
+                <h3 class="text-4xl font-extrabold ">{data?.flight.Price}</h3>
               </div>
               <div class="text-center mt-20 flex justify-evenly ">
-                <Link to="/booking">
+                <Link to="/passengers">
                   <Button type="default">Back</Button>
                 </Link>
-                <Button type="primary" htmlType="submit">
+                <Link></Link>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onChange={makeBooking}
+                  onClick={showModal}
+                >
                   Submit
                 </Button>
+                <Modal
+                  title="Payment Confirmed!"
+                  visible={isModalVisible}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                >
+                  Your payment is successful! <br />
+                  BookingID: {bookingId}
+                </Modal>
               </div>
             </Form>
-          </Elements>
-        </LargeCard>
+          </LargeCard>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default PassengerDetails;

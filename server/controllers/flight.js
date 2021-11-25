@@ -1,5 +1,6 @@
 const axios = require("axios").default;
 const qs = require("qs");
+const Country = require("../models/country");
 
 /**
  * Create a skyscanner session and
@@ -27,12 +28,19 @@ const createSession = async (search) => {
 /**
  * Packages the data into a format that is easier to consume.
  */
-const getCleanedData = (data, passengers) => {
+const getCleanedData = async (
+  data,
+  passengers,
+  originCountry,
+  destinationCountry
+) => {
   const cleanedData = [];
   const itineries = data.Itineraries;
   const legs = data.Legs;
   const carriers = data.Carriers;
   const places = data.Places;
+  const originISO = (await Country.search(originCountry))[0].iso;
+  const destinationISO = (await Country.search(destinationCountry))[0].iso;
 
   itineries.forEach((itinerary) => {
     const price = itinerary.PricingOptions[0].Price;
@@ -49,6 +57,8 @@ const getCleanedData = (data, passengers) => {
       Carrier: carriers.find(
         (carrier) => carrier.Id === outboundLeg?.Carriers[0]
       ),
+      Duration: outboundLeg?.Duration,
+      FlightNumber: outboundLeg?.FlightNumbers[0].FlightNumber,
     };
 
     const inbound = {
@@ -61,6 +71,8 @@ const getCleanedData = (data, passengers) => {
       Carrier: carriers.find(
         (carrier) => carrier.Id === inboundLeg?.Carriers[0]
       ),
+      Duration: inboundLeg?.Duration,
+      FlightNumber: inboundLeg?.FlightNumbers[0].FlightNumber,
     };
 
     cleanedData.push({
@@ -68,6 +80,8 @@ const getCleanedData = (data, passengers) => {
       Passengers: passengers,
       Outbound: outbound,
       Inbound: inbound,
+      OriginCountry: originISO,
+      DestinationCountry: destinationISO,
     });
   });
 
@@ -83,7 +97,12 @@ exports.search = async (req, res) => {
       url: `${location}?apikey=prtl6749387986743898559646983194`,
     };
     const result = await axios(options);
-    const data = getCleanedData(result.data, req.body.adults);
+    const data = await getCleanedData(
+      result.data,
+      req.body.adults,
+      req.body.originCountry,
+      req.body.destinationCountry
+    );
     res.json(data);
   } catch (error) {
     console.error(error);

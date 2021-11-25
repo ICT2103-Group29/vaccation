@@ -32,8 +32,8 @@ function PCRClinics() {
 
   return (
     <div class>
-      <h1 class=" text-5xl text-center pt-20 text-blue-900 pb-10">
-        <b>Looking for a clinic near you for your PCR testing?</b>
+      <h1 class="text-4xl font-bold text-center  mt-20">
+        Looking for Nearby PCR Clinic?
       </h1>
 
       <link
@@ -86,10 +86,9 @@ function PCRClinics() {
             />
             <button
               type="submit"
-              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 w-36 h-14 rounded ml-1 text-xl"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold  w-36 h-14 rounded ml-1 "
             >
-              <i class="fas fa-search"></i>
-              <span class="text-lg ml-2">Search</span>
+              <span class="text-lg ">Search</span>
             </button>
           </form>
         </div>

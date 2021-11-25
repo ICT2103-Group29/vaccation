@@ -6,7 +6,7 @@ const Navbar = (props) => {
   return (
     <nav className="max-screen h-22 mx-auto bg-blue-800 shadow-lg sticky top-0 z-50">
       <div className="flex justify-between pt-5 items-center">
-        <h2 className="text-4xl text-white font-sans italic font-bold pl-12  ">
+        <h2 className="text-4xl text-white font-sans  font-bold pl-12  ">
           <NavLink className="hover:text-white" to="/" exact>
             Vaccation
           </NavLink>
