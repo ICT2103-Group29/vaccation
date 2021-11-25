@@ -63,7 +63,7 @@ const PassengerDetails = () => {
     setIsModalVisible(false);
 
     history.push({
-      pathname: "/checkingBooking",
+      pathname: "/checkBooking",
     });
   };
 
@@ -96,7 +96,9 @@ const PassengerDetails = () => {
         Plan Ahead and Book with Confidence
       </h1>
       <div class="m-auto">
-        <h3 class="text-2xl font-bold pl-48">Payment</h3>
+        <h3 class="text-2xl font-bold text-center text-blue-800 mt-4">
+          Payment
+        </h3>
         <LargeCard>
           <Form
             layout="vertical"
@@ -189,11 +191,11 @@ const PassengerDetails = () => {
                 </div>
               </div>
             </div>
-            <div class=" mt-12 ">
-              <h3 class="text-xl font-bold text-blue-800">
+            <div class=" mt-12  text-center">
+              <h3 class="text-xl font-bold text-blue-800 ">
                 Total to be Paid Now
               </h3>
-              <h3 class="text-4xl font-extrabold ">{data?.flight.Price}</h3>
+              <h3 class="text-4xl font-extrabold ">${data?.flight.Price}</h3>
             </div>
             <div class="text-center mt-20 flex justify-evenly ">
               <Link to="/passengers">
