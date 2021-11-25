@@ -42,6 +42,6 @@
   background: #2564eb !important;
 }
 
-table tr:nth-child(2n) td {
+.vacc-table tr:nth-child(2n) td {
   background-color: #eff6ff;
 }

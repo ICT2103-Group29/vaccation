@@ -9,7 +9,12 @@ const TableData = ({ columns, data }) => {
   }
   return (
     <div class="m-auto ">
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Table
+        className="vacc-table"
+        columns={columns}
+        dataSource={data}
+        onChange={onChange}
+      />
     </div>
   );
 };
