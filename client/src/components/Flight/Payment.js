@@ -14,13 +14,7 @@ const PassengerDetails = () => {
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
   const [bookingId, setBookingId] = useState("");
 
-  const [paymentData, setPaymentData] = useState({
-    amount: 0,
-    paymentMethod: "Visa",
-    paymentStatus: "Paid",
-    expireMonth: 0,
-    expireYear: 0,
-  });
+  const [paymentData, setPaymentData] = useState({});
 
   const location = useLocation();
 
@@ -38,7 +32,7 @@ const PassengerDetails = () => {
       destination: flight.DestinationCountry,
     };
 
-    setPaymentData({ ...paymentData, amount: data?.flight.Price });
+    setPaymentData({ ...paymentData, amount: flight.Price });
 
     const bookingData = {
       flight: flightObj,
@@ -82,13 +76,15 @@ const PassengerDetails = () => {
 
   useEffect(() => {
     const state = location.state?.data;
-    console.log(location.state);
     setData(state);
+    setPaymentData({
+      amount: state.flight.Price,
+      paymentMethod: "Visa",
+      paymentStatus: "Paid",
+      expireMonth: 0,
+      expireYear: 0,
+    });
   }, []);
-
-  useEffect(() => {
-    console.log("Payment", paymentData);
-  }, [paymentData]);
 
   return (
     <div>
